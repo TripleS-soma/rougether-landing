@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>루게더 — 매일의 루틴으로 함께 크는 집</title>
+  <meta name="description" content="루틴을 지키면 방이 자라요. 친구와 한 집에 모여 매일의 습관을 함께 키우는 루틴 트래커, 루게더." />
+  <meta property="og:title" content="루게더 — 매일의 루틴으로 함께 크는 집" />
+  <meta property="og:description" content="루틴을 지키면 방이 자라요. 친구와 한 집에 모여 매일의 습관을 함께 키우는 루틴 트래커." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://triples-soma.github.io/rougether-landing/" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>" />
+  <style>
+    /* Rougether cozy tokens (src/constants/theme.ts) */
+    :root {
+      --app-shell: #E8DCC8;
+      --screen: #FBF8F3;
+      --surface: #FFFFFF;
+      --surface-muted: #F5F1E8;
+      --border: #E8DCC8;
+      --text: #4A403A;
+      --text-muted: #8B7E74;
+      --primary: #7FA87F;
+      --primary-active: #6D926D;
+      --primary-text: #517751;
+      --primary-soft: #7FA87F22;
+      --warning: #E8A24A;
+      --warning-text: #9D6014;
+      --sky: #C3E0F5;
+      --grass: #B5D89A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      color: var(--text);
+      background: var(--screen);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--screen) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; text-decoration: none; color: var(--text); }
+    .nav a.cta {
+      background: var(--primary); color: #fff; text-decoration: none;
+      padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 700;
+    }
+    .nav a.cta:hover { background: var(--primary-active); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, var(--sky) 0%, var(--screen) 78%, var(--screen) 100%);
+      padding: 88px 0 64px; text-align: center;
+    }
+    .hero h1 { font-size: clamp(28px, 5.4vw, 44px); line-height: 1.35; letter-spacing: -0.5px; }
+    .hero h1 .accent { color: var(--primary-text); }
+    .hero p.lead { margin: 18px auto 0; max-width: 560px; font-size: clamp(15px, 2.4vw, 18px); color: var(--text-muted); }
+    .hero .badges { margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid var(--text); border-radius: 12px;
+      padding: 10px 20px; font-size: 14px; font-weight: 700;
+      color: var(--text); text-decoration: none; background: var(--surface);
+    }
+    .badge .soon { font-size: 11px; font-weight: 600; color: var(--warning-text); background: var(--warning); background: color-mix(in srgb, var(--warning) 20%, transparent); padding: 2px 8px; border-radius: 999px; }
+    .hero .art {
+      margin: 56px auto 0; max-width: 720px; height: 300px;
+      border-radius: 24px 24px 0 0; border: 1px solid var(--border); border-bottom: none;
+      background: linear-gradient(180deg, var(--sky) 0%, var(--sky) 55%, var(--grass) 55%, var(--grass) 62%, var(--app-shell) 62%);
+      display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+    }
+    .hero .art .placeholder {
+      font-size: 15px; color: var(--text-muted); background: var(--surface);
+      border: 1px dashed var(--border); border-bottom: none; border-radius: 16px 16px 0 0;
+      padding: 40px 36px 48px;
+    }
+
+    /* Features */
+    section.features { padding: 72px 0; }
+    section.features h2, section.how h2 { text-align: center; font-size: clamp(22px, 4vw, 30px); margin-bottom: 40px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+      padding: 28px 24px;
+    }
+    .card .emoji {
+      width: 52px; height: 52px; border-radius: 16px; background: var(--primary-soft);
+      display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 16px;
+    }
+    .card h3 { font-size: 17px; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: var(--text-muted); }
+
+    /* How it works */
+    section.how { padding: 24px 0 88px; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; counter-reset: step; }
+    .step { background: var(--surface-muted); border-radius: 20px; padding: 26px 24px; }
+    .step::before {
+      counter-increment: step; content: counter(step);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #fff; font-weight: 800; font-size: 14px; margin-bottom: 14px;
+    }
+    .step h3 { font-size: 16px; margin-bottom: 6px; }
+    .step p { font-size: 14px; color: var(--text-muted); }
+
+    /* Footer */
+    footer { background: var(--app-shell); padding: 40px 0 48px; }
+    .foot { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 13px; }
+    .foot .links { display: flex; gap: 18px; }
+    .foot a { color: var(--text); text-decoration: none; }
+    .foot a:hover { text-decoration: underline; }
+    .foot .copy { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="./">🏡 루게더</a>
+      <a class="cta" href="#download">앱 받기</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>매일의 루틴으로<br /><span class="accent">나만의 방과 집</span>을 함께 키워요</h1>
+      <p class="lead">
+        루틴을 지킬 때마다 코인이 쌓이고, 방이 자라요.
+        친구들과 한 집에 모여 서로의 하루를 응원하는 루틴 트래커, 루게더.
+      </p>
+      <div class="badges" id="download">
+        <a class="badge" href="#" aria-disabled="true">&#63743; App Store <span class="soon">출시 예정</span></a>
+        <a class="badge" href="#" aria-disabled="true">▶ Google Play <span class="soon">출시 예정</span></a>
+      </div>
+      <div class="art" role="img" aria-label="앱 화면 미리보기 자리">
+        <div class="placeholder">앱 스크린샷 자리 — 에셋 확정 후 교체</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <h2>루게더가 하는 일</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="emoji">🐾</div>
+          <h3>가볍게 남기는 매일 루틴</h3>
+          <p>기상, 공부, 운동 — 하루의 루틴을 곰 발바닥 체크 한 번으로 기록해요. 사진 인증으로 진짜 했는지도 남길 수 있어요.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">🛋️</div>
+          <h3>루틴이 방을 키워요</h3>
+          <p>루틴을 지키면 코인이 쌓여요. 뽑기로 얻은 가구와 캐릭터로 나만의 방을 꾸며보세요.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">🏡</div>
+          <h3>함께 크는 집</h3>
+          <p>친구들과 한 집에 모여 살아요. 서로의 방을 구경하고, 응원을 남기고, 집 미션을 같이 깨요.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">🌇</div>
+          <h3>시간이 흐르는 마을</h3>
+          <p>새벽, 낮, 노을, 밤 — 실제 시간과 날씨를 따라 집 위의 하늘이 바뀌어요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="wrap">
+      <h2>이렇게 시작해요</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>루틴 만들기</h3>
+          <p>지키고 싶은 습관을 등록하고 알림을 받아요.</p>
+        </div>
+        <div class="step">
+          <h3>매일 체크</h3>
+          <p>완료할 때마다 코인이 쌓이고 캐릭터가 자라요.</p>
+        </div>
+        <div class="step">
+          <h3>집에서 함께</h3>
+          <p>친구를 초대해 한 집에서 서로의 루틴을 응원해요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="links">
+        <a href="https://triples-soma.github.io/policy/privacy.html">개인정보처리방침</a>
+        <a href="https://triples-soma.github.io/policy/terms.html">이용약관</a>
+        <a href="https://github.com/TripleS-soma">GitHub</a>
+      </div>
+      <div class="copy">© 2026 Rougether · TripleS</div>
+    </div>
+  </footer>
+</body>
+</html>
