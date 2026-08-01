@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>루게더 친구 초대</title>
+  <meta name="description" content="친구가 루게더에 초대했어요. 초대코드로 가입하면 둘 다 코인을 받아요." />
+  <meta property="og:title" content="루게더에 초대받았어요 🎁" />
+  <meta property="og:description" content="친구가 루게더에 초대했어요. 초대코드로 가입하면 둘 다 코인을 받아요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://triples-soma.github.io/rougether-landing/invite.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>" />
+  <style>
+    /* Rougether cozy tokens (src/constants/theme.ts) */
+    :root {
+      --app-shell: #E8DCC8;
+      --screen: #FBF8F3;
+      --surface: #FFFFFF;
+      --surface-muted: #F5F1E8;
+      --border: #E8DCC8;
+      --text: #4A403A;
+      --text-muted: #8B7E74;
+      --primary: #7FA87F;
+      --primary-active: #6D926D;
+      --primary-text: #517751;
+      --warning: #E8A24A;
+      --warning-text: #9D6014;
+      --sky: #C3E0F5;
+      --grass: #B5D89A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--sky) 0%, var(--screen) 62%);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%; max-width: 420px; text-align: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 24px; padding: 40px 28px 32px;
+      box-shadow: 0 10px 30px rgba(74, 64, 58, 0.08);
+    }
+    .emoji { font-size: 56px; }
+    h1 { margin-top: 14px; font-size: 22px; line-height: 1.4; }
+    p.lead { margin-top: 8px; color: var(--text-muted); font-size: 15px; }
+    .code-box {
+      margin: 22px auto 0; padding: 14px 18px;
+      border: 1.5px dashed var(--border); border-radius: 14px;
+      background: var(--surface-muted);
+      font-size: 24px; font-weight: 800; letter-spacing: 4px;
+    }
+    .code-hint { margin-top: 8px; font-size: 12px; color: var(--text-muted); }
+    .btn {
+      display: block; margin-top: 20px; padding: 14px 20px;
+      border: 0; border-radius: 999px; width: 100%;
+      background: var(--primary); color: #fff;
+      font-size: 16px; font-weight: 700; text-decoration: none; cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover { background: var(--primary-active); }
+    .btn.ghost {
+      background: var(--surface); color: var(--text);
+      border: 1.5px solid var(--border); font-weight: 600;
+    }
+    .install {
+      margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--text-muted);
+    }
+    .install .soon {
+      display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 600;
+      color: var(--warning-text); background: color-mix(in srgb, var(--warning) 20%, transparent);
+      padding: 1px 8px; border-radius: 999px;
+    }
+    .home-link { display: inline-block; margin-top: 14px; font-size: 13px; color: var(--primary-text); }
+    .no-code { display: none; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="emoji">🎁</div>
+    <h1>루게더에 초대받았어요!</h1>
+    <p class="lead">초대코드를 쓰면 나도 친구도 코인을 받아요.</p>
+
+    <div id="with-code">
+      <div class="code-box" id="code">········</div>
+      <div class="code-hint">앱이 안 열리면 이 코드를 복사해 설정 → 친구 초대에서 입력하세요.</div>
+      <a class="btn" id="open-app" href="#">앱에서 초대 받기</a>
+      <button class="btn ghost" id="copy-code" type="button">초대코드 복사</button>
+    </div>
+    <div id="no-code" class="no-code">
+      <p class="lead">초대코드가 링크에 없어요. 친구에게 링크를 다시 받아주세요.</p>
+    </div>
+
+    <div class="install">
+      아직 루게더가 없다면 —
+      <span>App Store<span class="soon">준비 중</span></span> ·
+      <span>Google Play<span class="soon">준비 중</span></span>
+      <br />
+      <a class="home-link" href="./index.html">루게더가 뭔가요? →</a>
+    </div>
+  </main>
+
+  <script>
+    // ?code=XXXX → rougether://invite?code=XXXX 딥링크로 앱 열기. 미설치면
+    // 아무 일도 일어나지 않으므로 코드·설치 안내가 그대로 남는다.
+    (function () {
+      var code = new URLSearchParams(location.search).get('code');
+      code = code ? code.trim().toUpperCase() : '';
+      if (!code) {
+        document.getElementById('with-code').style.display = 'none';
+        document.getElementById('no-code').style.display = 'block';
+        return;
+      }
+      var deepLink = 'rougether://invite?code=' + encodeURIComponent(code);
+      document.getElementById('code').textContent = code;
+      var openBtn = document.getElementById('open-app');
+      openBtn.setAttribute('href', deepLink);
+      document.getElementById('copy-code').addEventListener('click', function () {
+        var btn = this;
+        navigator.clipboard.writeText(code).then(function () {
+          btn.textContent = '복사됐어요 ✓';
+          setTimeout(function () { btn.textContent = '초대코드 복사'; }, 1500);
+        });
+      });
+      // 모바일에서 열렸으면 한 번 자동 시도 — 실패해도 페이지가 그대로 안내한다.
+      if (/android|iphone|ipad/i.test(navigator.userAgent)) {
+        setTimeout(function () { location.href = deepLink; }, 400);
+      }
+    })();
+  </script>
+</body>
+</html>
