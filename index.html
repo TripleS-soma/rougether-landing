@@ -9,8 +9,12 @@
   <meta property="og:description" content="내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더. 루틴을 지키면 방이 자라요." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://triples-soma.github.io/rougether-landing/" />
-  <meta property="og:image" content="https://triples-soma.github.io/rougether-landing/assets/icon.png" />
+  <meta property="og:image" content="https://triples-soma.github.io/rougether-landing/assets/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="628" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="./assets/favicon.png" />
+  <script>document.documentElement.className += ' js';</script>
   <link rel="apple-touch-icon" href="./assets/icon.png" />
   <style>
     /* Rougether cozy tokens (src/constants/theme.ts) */
@@ -144,6 +148,38 @@
     section.closing p { margin: 12px auto 0; max-width: 480px; font-size: 15px; color: var(--text-muted); }
     section.closing .badges { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+    /* 모션 — 스크롤 리빌 + 히어로 플로팅 (roubit.me 참고). JS 실패·축소 모션
+       설정에서는 전부 즉시 노출된다. */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(22px); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes bob {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .hero h1 { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .05s forwards; }
+      .hero p.lead { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .18s forwards; }
+      .hero .badges { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .32s forwards; }
+      .hero .phone {
+        opacity: 0;
+        /* 등장(rise) 뒤 목업이 잔잔히 떠다닌다 — bob이 나중에 선언돼 transform을 이어받는다. */
+        animation:
+          rise .8s cubic-bezier(.22, .9, .3, 1) .25s forwards,
+          bob 5.5s ease-in-out 1.6s infinite;
+      }
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity .7s ease, transform .7s cubic-bezier(.22, .9, .3, 1);
+      }
+      .js .tour-row .text.reveal { transition-delay: .12s; }
+      .js .reveal.in { opacity: 1; transform: none; }
+      .badge { transition: transform .25s ease; }
+      .badge:hover { transform: translateY(-2px); }
+    }
+
     /* Footer */
     footer { background: var(--app-shell); padding: 40px 0 48px; }
     .foot { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; font-size: 13px; }
@@ -195,10 +231,10 @@
   <section class="tour" id="tour">
     <div class="wrap">
       <div class="tour-row">
-        <div class="phone">
+        <div class="phone reveal">
           <img src="./assets/onboarding/routines.png" alt="루틴 목록 화면 — 곰 발바닥 체크로 완료" loading="lazy" />
         </div>
-        <div class="text">
+        <div class="text reveal">
           <span class="num">1</span>
           <h2>오늘의 루틴을<br />곰 체크로 완료해요</h2>
           <p>카테고리로 모아 보고, 알림·사진 인증까지</p>
@@ -206,10 +242,10 @@
       </div>
 
       <div class="tour-row">
-        <div class="phone">
+        <div class="phone reveal">
           <img src="./assets/onboarding/decor.png" alt="방 꾸미기 화면 — 가구를 자유롭게 배치" loading="lazy" />
         </div>
-        <div class="text">
+        <div class="text reveal">
           <span class="num">2</span>
           <h2>모은 보상으로<br />내 방을 꾸며요</h2>
           <p>가구·벽지·바닥을 원하는 자리에 자유 배치</p>
@@ -217,10 +253,10 @@
       </div>
 
       <div class="tour-row">
-        <div class="phone">
+        <div class="phone reveal">
           <img src="./assets/onboarding/house.png" alt="집 화면 — 친구들의 방이 모인 집" loading="lazy" />
         </div>
-        <div class="text">
+        <div class="text reveal">
           <span class="num">3</span>
           <h2>친구들과 한 집에서<br />함께 자라요</h2>
           <p>방 구경 · 응원 보내기 · 공동 미션으로 집 레벨 업</p>
@@ -228,10 +264,10 @@
       </div>
 
       <div class="tour-row">
-        <div class="phone">
+        <div class="phone reveal">
           <img src="./assets/onboarding/calendar.png" alt="달력 화면 — 지난 루틴 완료 기록" loading="lazy" />
         </div>
-        <div class="text">
+        <div class="text reveal">
           <span class="num">4</span>
           <h2>기록은 달력으로,<br />보상은 뽑기로</h2>
           <p>지난 완료를 돌아보고 캐릭터·가구를 모아요</p>
@@ -241,7 +277,7 @@
   </section>
 
   <section class="closing">
-    <div class="wrap">
+    <div class="wrap reveal">
       <h2>루게더에 오신 걸 환영해요</h2>
       <p>매일의 루틴이 포근한 방이 되는 곳 — 친구들과 함께 시작해보세요.</p>
       <div class="badges">
@@ -261,5 +297,16 @@
       <div class="copy">© 2026 Rougether · TripleS</div>
     </div>
   </footer>
+  <script>
+    // 스크롤 리빌 — 뷰포트 진입 시 1회 노출. reduced-motion에선 CSS가 무효라 no-op.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
 </body>
 </html>
