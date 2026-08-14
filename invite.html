@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
   <title>루게더 친구 초대</title>
   <meta name="description" content="친구가 루게더에 초대했어요. 초대코드로 가입하면 둘 다 코인을 받아요." />
   <meta property="og:title" content="루게더에 초대받았어요 🎁" />
@@ -15,6 +16,14 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="./assets/favicon.png" />
   <link rel="apple-touch-icon" href="./assets/icon.png" />
+  <!-- GA4 — 페이지뷰·유입 채널·아웃바운드 클릭은 향상된 측정이 자동 수집. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B36GQQB4R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3B36GQQB4R');
+  </script>
   <style>
     /* Rougether cozy tokens (src/constants/theme.ts) */
     :root {
@@ -103,7 +112,7 @@
 
     <div class="install">
       아직 루게더가 없다면 —
-      <a class="store-link" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener" data-goatcounter-click="appstore-invite">App Store에서 받기</a> ·
+      <a class="store-link" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener" data-cta="invite">App Store에서 받기</a> ·
       <span>Google Play<span class="soon">준비 중</span></span>
       <br />
       <a class="home-link" href="./index.html">루게더가 뭔가요? →</a>
@@ -138,7 +147,11 @@
       }
     })();
   </script>
-  <!-- GoatCounter — 페이지뷰 + 스토어 링크 탭(data-goatcounter-click). -->
-  <script data-goatcounter="https://rougether.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script>
+    // 목표 행동 계측 — App Store 링크 탭을 위치별로 GA4 이벤트로 보낸다.
+    document.querySelectorAll('[data-cta]').forEach(function (el) {
+      el.addEventListener('click', function () { gtag('event', 'appstore_tap', { placement: el.dataset.cta }); });
+    });
+  </script>
 </body>
 </html>
