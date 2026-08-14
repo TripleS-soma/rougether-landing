@@ -107,13 +107,17 @@
     .hero h1 .accent { color: var(--primary-text); }
     .hero p.lead { margin-top: 18px; max-width: 480px; font-size: clamp(15px, 2.4vw, 18px); color: var(--text-muted); }
     .hero .badges { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+    /* 스토어 배지 — 토스(toss.im)풍 다크 필 버튼: 로고 + 흰 텍스트.
+       다크 톤은 테마 onPrimary(#2D2623) 계열로 코지 팔레트에 맞춘다. */
     .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      border: 1.5px solid var(--text); border-radius: 12px;
-      padding: 10px 20px; font-size: 14px; font-weight: 700;
-      color: var(--text); text-decoration: none; background: var(--surface);
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 0; border-radius: 14px;
+      padding: 13px 24px; font-size: 16px; font-weight: 700;
+      color: #fff; text-decoration: none; background: #2D2623;
     }
-    .badge .soon { font-size: 11px; font-weight: 600; color: var(--warning-text); background: color-mix(in srgb, var(--warning) 20%, transparent); padding: 2px 8px; border-radius: 999px; }
+    a.badge:hover { background: #463C35; }
+    .badge svg { display: block; flex-shrink: 0; }
+    .badge .soon { font-size: 11px; font-weight: 600; color: #F5D9A8; background: rgba(255, 255, 255, .13); padding: 2px 8px; border-radius: 999px; }
     .hero .phone { flex: 0 0 auto; margin: 0 auto; }
     @media (max-width: 760px) {
       .hero { text-align: center; padding-top: 56px; }
@@ -206,7 +210,6 @@
       </a>
       <nav class="links" aria-label="섹션 이동">
         <a href="#tour">둘러보기</a>
-        <a href="#download">다운로드</a>
         <a href="https://github.com/TripleS-soma">GitHub</a>
       </nav>
       <a class="cta" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener">앱 받기</a>
@@ -223,8 +226,8 @@
           루틴을 지킬 때마다 방이 자라요.
         </p>
         <div class="badges" id="download">
-          <a class="badge" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener">&#63743; App Store</a>
-          <a class="badge" href="#" aria-disabled="true">▶ Google Play <span class="soon">출시 예정</span></a>
+          <a class="badge" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener"><svg width="17" height="20" viewBox="0 0 24 28" aria-hidden="true"><path fill="#fff" d="M19.7 14.9c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.6-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.3-1.1-2.2 0-4.2 1.3-5.3 3.2-2.3 3.9-.6 9.7 1.6 12.9 1.1 1.6 2.4 3.3 4.1 3.3 1.6-.1 2.3-1.1 4.2-1.1 2 0 2.5 1.1 4.3 1 1.8 0 2.9-1.6 4-3.2 1.2-1.8 1.8-3.6 1.8-3.7-.1 0-3.5-1.4-3.6-4.9zM16.5 4.3c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.5-1.4 4 1.5.1 2.9-.8 3.9-1.9z"/></svg> App Store</a>
+          <span class="badge" aria-disabled="true"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00A0FF" d="M4 1.8 14.7 12 4 22.2c-.4-.3-.6-.8-.6-1.3V3.1c0-.5.2-1 .6-1.3z"/><path fill="#00D866" d="M4 1.8c.4-.3 1-.4 1.5-.1l11.8 6.7-2.6 3.6z"/><path fill="#FFBC00" d="m17.3 8.4 3.7 2.1c1 .6 1 2.4 0 3l-3.7 2.1-2.6-3.6z"/><path fill="#F4364C" d="M5.5 22.3c-.5.3-1.1.2-1.5-.1L14.7 12l2.6 3.6z"/></svg> Google Play <span class="soon">출시 예정</span></span>
         </div>
       </div>
       <div class="phone">
@@ -286,8 +289,8 @@
       <h2>루게더에 오신 걸 환영해요</h2>
       <p>매일의 루틴이 포근한 방이 되는 곳 — 친구들과 함께 시작해보세요.</p>
       <div class="badges">
-        <a class="badge" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener">&#63743; App Store</a>
-        <a class="badge" href="#" aria-disabled="true">▶ Google Play <span class="soon">출시 예정</span></a>
+        <a class="badge" href="https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720" target="_blank" rel="noopener"><svg width="17" height="20" viewBox="0 0 24 28" aria-hidden="true"><path fill="#fff" d="M19.7 14.9c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.6-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.3-1.1-2.2 0-4.2 1.3-5.3 3.2-2.3 3.9-.6 9.7 1.6 12.9 1.1 1.6 2.4 3.3 4.1 3.3 1.6-.1 2.3-1.1 4.2-1.1 2 0 2.5 1.1 4.3 1 1.8 0 2.9-1.6 4-3.2 1.2-1.8 1.8-3.6 1.8-3.7-.1 0-3.5-1.4-3.6-4.9zM16.5 4.3c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.5-1.4 4 1.5.1 2.9-.8 3.9-1.9z"/></svg> App Store</a>
+        <span class="badge" aria-disabled="true"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00A0FF" d="M4 1.8 14.7 12 4 22.2c-.4-.3-.6-.8-.6-1.3V3.1c0-.5.2-1 .6-1.3z"/><path fill="#00D866" d="M4 1.8c.4-.3 1-.4 1.5-.1l11.8 6.7-2.6 3.6z"/><path fill="#FFBC00" d="m17.3 8.4 3.7 2.1c1 .6 1 2.4 0 3l-3.7 2.1-2.6-3.6z"/><path fill="#F4364C" d="M5.5 22.3c-.5.3-1.1.2-1.5-.1L14.7 12l2.6 3.6z"/></svg> Google Play <span class="soon">출시 예정</span></span>
       </div>
     </div>
   </section>
