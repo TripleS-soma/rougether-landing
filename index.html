@@ -199,10 +199,10 @@
       gap: 12px; padding: 16px 0; font-weight: 700; font-size: 15px;
     }
     .faq summary::-webkit-details-marker { display: none; }
+    /* 토글 표시는 텍스트 "+" 대신 SVG 배경 — 글리프 베이스라인 어긋남 없이 정중앙. */
     .faq summary::after {
-      content: "+"; flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--primary-soft); color: var(--primary-text); font-weight: 800;
+      content: ""; flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--primary-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1.4v7.2M1.4 5h7.2' stroke='%23517751' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") center / 10px 10px no-repeat;
       transition: transform .25s ease;
     }
     .faq details[open] summary::after { transform: rotate(45deg); }
