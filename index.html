@@ -79,7 +79,11 @@
       --grass: #B5D89A;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    /* 스크롤 스냅 — 한 번에 훅 지나가지 않고 섹션(투어는 장 단위)마다 멈춘다.
+       mandatory 대신 proximity: 뷰포트보다 큰 섹션·FAQ 펼침에서도 갇히지 않게. */
+    html { scroll-behavior: smooth; scroll-snap-type: y proximity; scroll-padding-top: 64px; }
+    .hero, .tour-row, .faq, .closing { scroll-snap-align: start; }
+    footer { scroll-snap-align: end; }
     /* 앵커 스크롤 시 스티키 헤더에 목적지가 가리지 않게. */
     #tour, #download, #faq { scroll-margin-top: 84px; }
     body {
