@@ -1,0 +1,16 @@
+---
+// 튜토리얼 좌우 교차 슬라이드 한 장 — 제목은 <br> 줄바꿈이 있어 슬롯으로 받는다.
+interface Props { img: string; alt: string; num: number; desc: string }
+const { img, alt, num, desc } = Astro.props;
+---
+
+<div class="tour-row">
+  <div class="phone reveal">
+    <img src={img} alt={alt} loading="lazy" />
+  </div>
+  <div class="text reveal">
+    <span class="num">{num}</span>
+    <h2><slot /></h2>
+    <p>{desc}</p>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+---
+// FAQ 아코디언 — 문구는 rougether-spec 근거. FAQPage JSON-LD(index.astro)와 내용이 일치해야 한다.
+export const FAQ_ITEMS = [
+  {
+    q: '루게더는 어떤 앱인가요?',
+    a: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱이에요. 루틴을 지킬 때마다 보상을 받아 내 방을 꾸미고, 친구들과 모인 집을 함께 키워요.',
+  },
+  {
+    q: '무료인가요?',
+    a: '네, 무료로 시작할 수 있어요. 루틴을 지키면 받는 코인으로 방을 꾸밀 수 있어요.',
+  },
+  {
+    q: '안드로이드 버전은 언제 나오나요?',
+    a: 'Google Play 출시를 준비하고 있어요. 소식은 인스타그램에서 가장 먼저 알려드려요.',
+    html: 'Google Play 출시를 준비하고 있어요. 소식은 <a href="https://www.instagram.com/rou.gether/" target="_blank" rel="noopener">인스타그램</a>에서 가장 먼저 알려드려요.',
+  },
+  {
+    q: '친구랑 어떻게 같이 쓰나요?',
+    a: '집을 만들고 초대코드를 공유하면 친구가 같은 집에 들어올 수 있어요. 방 구경, 응원 보내기, 공동 미션으로 집이 함께 자라요. 집은 여러 개에 참여할 수 있어요.',
+  },
+  {
+    q: '루틴을 지키면 뭐가 생기나요?',
+    a: '완료할 때마다 코인과 스트릭이 쌓이고, 모은 보상으로 방을 꾸미거나 뽑기에서 캐릭터·가구를 얻을 수 있어요.',
+  },
+  {
+    q: '문의나 버그 제보는 어디로 하나요?',
+    a: '앱의 설정 → 버그 제보 기능을 쓰거나, triples.rougether@gmail.com으로 보내주세요.',
+    html: '앱의 설정 → 버그 제보 기능을 쓰거나, <a href="mailto:triples.rougether@gmail.com">triples.rougether@gmail.com</a>으로 보내주세요.',
+  },
+];
+---
+
+<section class="faq" id="faq">
+  <div class="wrap reveal">
+    <h2>자주 묻는 질문</h2>
+    <div class="list">
+      {FAQ_ITEMS.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          {item.html ? <p set:html={item.html} /> : <p>{item.a}</p>}
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

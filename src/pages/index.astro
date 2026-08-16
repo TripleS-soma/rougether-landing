@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import StoreBadges from '../components/StoreBadges.astro';
+import TourRow from '../components/TourRow.astro';
+import Faq, { FAQ_ITEMS } from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/landing.css';
+
+const TITLE = '루게더 — 내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱';
+const DESC = '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더. 루틴을 지키면 방이 자라요.';
+
+const appLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: '루게더',
+  alternateName: 'Rougether',
+  description: DESC,
+  url: 'https://rougether.com/',
+  image: 'https://rougether.com/assets/og-cover.jpg',
+  operatingSystem: 'iOS',
+  applicationCategory: 'LifestyleApplication',
+  installUrl: 'https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720',
+  sameAs: ['https://www.instagram.com/rou.gether/'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+  author: { '@type': 'Organization', name: 'TripleS', url: 'https://github.com/TripleS-soma' },
+};
+
+// FAQ 구조화 데이터는 화면의 FAQ_ITEMS에서 그대로 생성 — 내용 불일치가 구조적으로 불가능하다.
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<Base title={TITLE} description={DESC} path="/" canonical>
+  <Fragment slot="head">
+    <meta name="naver-site-verification" content="8e47021569ff94eaf80482a41245d3082f676959" />
+    <script is:inline>document.documentElement.className += ' js';</script>
+    <script type="application/ld+json" set:html={JSON.stringify(appLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+
+  <Header />
+
+  <!-- 온보딩 인트로 5장(#412) 기반 — 카피·캡처는 앱과 동일 -->
+  <section class="hero">
+    <div class="wrap cols">
+      <div class="copy">
+        <h1>루틴이 공간이 되고,<br /><span class="accent">함께 자라는 집</span></h1>
+        <p class="lead">
+          내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더.
+          루틴을 지킬 때마다 방이 자라요.
+        </p>
+        <div class="badges" id="download">
+          <StoreBadges placement="hero" />
+        </div>
+      </div>
+      <div class="phone">
+        <img src="/assets/onboarding/my-room.png" alt="루게더 내 방 화면 — 캐릭터가 있는 포근한 방" />
+      </div>
+    </div>
+  </section>
+
+  <section class="tour" id="tour">
+    <div class="wrap">
+      <TourRow img="/assets/onboarding/routines.png" alt="루틴 목록 화면 — 곰 발바닥 체크로 완료" num={1} desc="카테고리로 모아 보고, 알림으로 잊지 않게">
+        오늘의 루틴을<br />곰 체크로 완료해요
+      </TourRow>
+      <TourRow img="/assets/onboarding/decor.png" alt="방 꾸미기 화면 — 가구를 자유롭게 배치" num={2} desc="가구·벽지·바닥을 원하는 자리에 자유 배치">
+        모은 보상으로<br />내 방을 꾸며요
+      </TourRow>
+      <TourRow img="/assets/onboarding/house.png" alt="집 화면 — 친구들의 방이 모인 집" num={3} desc="방 구경 · 응원 보내기 · 공동 미션으로 집 레벨 업">
+        친구들과 한 집에서<br />함께 자라요
+      </TourRow>
+      <TourRow img="/assets/onboarding/calendar.png" alt="달력 화면 — 지난 루틴 완료 기록" num={4} desc="지난 완료를 돌아보고 캐릭터·가구를 모아요">
+        기록은 달력으로,<br />보상은 뽑기로
+      </TourRow>
+    </div>
+  </section>
+
+  <Faq />
+
+  <section class="closing">
+    <div class="wrap reveal">
+      <h2>루게더에 오신 걸 환영해요</h2>
+      <p>루틴이 공간이 되고, 함께 자라는 집 — 친구들과 함께 시작해보세요.</p>
+      <div class="badges">
+        <StoreBadges placement="closing" />
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script is:inline>
+    // 스크롤 리빌 — 뷰포트 진입 시 1회 노출. reduced-motion에선 CSS가 무효라 no-op.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</Base>

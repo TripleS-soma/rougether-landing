@@ -2,8 +2,12 @@
 
 루게더(Rougether) 랜딩페이지 — https://rougether.com
 
-- 정적 HTML(index · invite · join · privacy · terms). `main` 푸시가 곧 배포(GitHub Pages).
-- 색상은 앱의 cozy 테마 토큰(`rougether-mobile` `src/constants/theme.ts`)을 CSS 변수로 옮긴 것 — 토큰이 바뀌면 `:root` 블록을 함께 갱신.
+- **Astro** 정적 생성(SSG). `main` 푸시 → GitHub Actions 빌드 → GitHub Pages 배포.
+- `npm install` 후 `npm run dev`(개발) / `npm run build`(빌드) / `npm run preview`(빌드 확인).
+- 구조: `src/pages/`(index·invite·join — 기존 `.html` URL 유지: `build.format: 'file'`), `src/components/`(Header·Footer·StoreBadges·TourRow·Faq·InviteCard), `src/layouts/Base.astro`(메타·파비콘·GA 공통), `public/`(assets·robots·sitemap·CNAME·privacy/terms는 원본 그대로).
+- FAQ 문구와 FAQPage JSON-LD는 `Faq.astro`의 `FAQ_ITEMS` 한 곳에서 생성된다 — 문구 수정은 거기서만.
+- 색상은 앱의 cozy 테마 토큰(`rougether-mobile` `src/constants/theme.ts`)을 CSS 변수로 옮긴 것 — 토큰이 바뀌면 `src/styles/landing.css`·`InviteCard.astro`의 `:root` 블록을 함께 갱신.
+- 앱이 공유하는 딥링크 경로(`/invite.html?code=`, `/join.html?code=`)는 절대 바꾸지 말 것.
 
 ## 계측 (GA4)
 

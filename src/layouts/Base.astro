@@ -1,0 +1,56 @@
+---
+// 모든 페이지가 공유하는 문서 골격 — 메타·파비콘·GA. 페이지별 태그는 head 슬롯으로.
+interface Props {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  path: string; // 예: "/", "/invite.html"
+  noindex?: boolean;
+  canonical?: boolean;
+}
+const { title, description, ogTitle = title, path, noindex = false, canonical = false } = Astro.props;
+const url = new URL(path, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {noindex && <meta name="robots" content="noindex" />}
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={url} />
+  <meta property="og:image" content="https://rougether.com/assets/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="628" />
+  <meta name="twitter:card" content="summary_large_image" />
+  {canonical && <link rel="canonical" href={url} />}
+  <!-- 구글 검색결과 로고용 고해상도 파비콘 — 48px 배수의 정사각형이어야 인식된다. -->
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/icon.png" />
+  <!-- GA4 — 페이지뷰·유입 채널·아웃바운드 클릭은 향상된 측정이 자동 수집. -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3B36GQQB4R"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3B36GQQB4R');
+  </script>
+  <slot name="head" />
+</head>
+<body>
+  <slot />
+  <script is:inline>
+    // 목표 행동 계측 — App Store 링크 탭을 위치(placement)별로 구분해 GA4 이벤트로 보낸다.
+    document.querySelectorAll('[data-cta]').forEach(function (el) {
+      el.addEventListener('click', function () { gtag('event', 'appstore_tap', { placement: el.dataset.cta }); });
+    });
+  </script>
+</body>
+</html>
