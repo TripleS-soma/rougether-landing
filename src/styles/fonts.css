@@ -1,0 +1,24 @@
+/* 나눔스퀘어라운드 — 앱 기본 폰트(DEFAULT_FONT_ID: 'nanum')와 랜딩의 얼굴을 통일.
+   앱 레포 TTF에서 서브셋한 woff2 셀프 호스팅 (라틴 + 한글 전체 음절, ~135KB/웨이트).
+   font-display: swap — 로딩 전에는 시스템 폰트로 즉시 표시. */
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('/fonts/NanumSquareRoundR.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('/fonts/NanumSquareRoundB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('/fonts/NanumSquareRoundEB.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
