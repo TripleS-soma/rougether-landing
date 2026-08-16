@@ -76,7 +76,10 @@ header {
 /* Hero — 슬라이드 1 (내 방) */
 .hero {
   background: linear-gradient(180deg, var(--sky) 0%, var(--screen) 78%, var(--screen) 100%);
-  padding: 72px 0 64px;
+  /* 스티키 헤더(64px)를 뺀 풀뷰포트 한 장 — 콘텐츠는 수직 중앙. */
+  min-height: calc(100svh - 64px);
+  display: flex; align-items: center;
+  padding: 48px 0;
 }
 .hero .cols {
   display: flex; align-items: center; justify-content: space-between;
@@ -98,12 +101,18 @@ header {
 a.badge:hover { background: #463C35; }
 .badge svg { display: block; flex-shrink: 0; }
 .badge .soon { font-size: 11px; font-weight: 600; color: #F5D9A8; background: rgba(255, 255, 255, .13); padding: 2px 8px; border-radius: 999px; }
+.hero .facts {
+  margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px 0;
+  font-size: 13px; color: var(--text-muted);
+}
+.hero .facts span + span::before { content: "·"; margin: 0 10px; }
 .hero .phone { flex: 0 0 auto; margin: 0 auto; }
 @media (max-width: 760px) {
-  .hero { text-align: center; padding-top: 56px; }
+  .hero { text-align: center; }
   .hero .copy { flex-basis: 100%; }
   .hero p.lead { margin-left: auto; margin-right: auto; }
   .hero .badges { justify-content: center; }
+  .hero .facts { justify-content: center; }
 }
 
 /* 튜토리얼 슬라이드 2~5 — 이미지·텍스트 좌우 교차 섹션 */
@@ -154,11 +163,11 @@ section.faq { padding: 24px 0 64px; }
 /* Closing CTA */
 section.closing {
   background: var(--surface-muted);
-  padding: 64px 0 72px; text-align: center;
+  padding: 104px 0 112px; text-align: center;
 }
-section.closing h2 { font-size: clamp(22px, 4vw, 30px); line-height: 1.4; }
-section.closing p { margin: 12px auto 0; max-width: 480px; font-size: 15px; color: var(--text-muted); }
-section.closing .badges { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+section.closing h2 { font-size: clamp(26px, 4.6vw, 36px); line-height: 1.35; letter-spacing: -0.4px; }
+section.closing p { margin: 14px auto 0; max-width: 480px; font-size: clamp(15px, 2.2vw, 17px); color: var(--text-muted); }
+section.closing .badges { margin-top: 34px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
 /* 모션 — 스크롤 리빌 + 히어로 플로팅 (roubit.me 참고). JS 실패·축소 모션
    설정에서는 전부 즉시 노출된다. */
@@ -174,6 +183,7 @@ section.closing .badges { margin-top: 28px; display: flex; gap: 12px; justify-co
   .hero h1 { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .05s forwards; }
   .hero p.lead { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .18s forwards; }
   .hero .badges { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .32s forwards; }
+  .hero .facts { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .42s forwards; }
   .hero .phone {
     opacity: 0;
     /* 등장(rise) 뒤 목업이 잔잔히 떠다닌다 — bob이 나중에 선언돼 transform을 이어받는다. */
