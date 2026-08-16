@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import InviteCard from '../components/InviteCard.astro';
+---
+
+<Base
+  title="루게더 집에 초대받았어요"
+  description="친구가 루게더 집에 초대했어요. 함께 루틴을 지키며 방과 집을 키워보세요."
+  ogTitle="루게더 집에 초대받았어요 🏡"
+  path="/join.html"
+  noindex
+>
+  <InviteCard
+    heading="루게더 집에 초대받았어요!"
+    lead="함께 루틴을 지키며 방과 집을 키워요."
+    hint="앱이 안 열리면 이 초대코드를 복사해 집 탐색에서 입력하세요."
+    scheme="join"
+    placement="join"
+    visual="mark"
+  />
+</Base>

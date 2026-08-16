@@ -1,0 +1,210 @@
+/* Rougether cozy tokens (src/constants/theme.ts) */
+:root {
+  --app-shell: #E8DCC8;
+  --screen: #FBF8F3;
+  --surface: #FFFFFF;
+  --surface-muted: #F5F1E8;
+  --border: #E8DCC8;
+  --text: #4A403A;
+  --text-muted: #8B7E74;
+  --primary: #7FA87F;
+  --primary-active: #6D926D;
+  --primary-text: #517751;
+  --primary-soft: #7FA87F22;
+  --warning: #E8A24A;
+  --warning-text: #9D6014;
+  --sky: #C3E0F5;
+  --grass: #B5D89A;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+/* 스크롤 스냅 — 한 번에 훅 지나가지 않고 섹션(투어는 장 단위)마다 멈춘다.
+   mandatory 대신 proximity: 뷰포트보다 큰 섹션·FAQ 펼침에서도 갇히지 않게. */
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; scroll-padding-top: 64px; }
+.hero, .tour-row, .faq, .closing { scroll-snap-align: start; }
+footer { scroll-snap-align: end; }
+/* 앵커 스크롤 시 스티키 헤더에 목적지가 가리지 않게. */
+#tour, #download, #faq { scroll-margin-top: 84px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  color: var(--text);
+  background: var(--screen);
+  line-height: 1.7;
+}
+img { display: block; max-width: 100%; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+header {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--screen) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+.brand img { width: 32px; height: 32px; border-radius: 8px; }
+.brand .name { font-weight: 800; font-size: 17px; line-height: 1.2; }
+.nav .links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nav .links a {
+  color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600;
+  padding: 7px 12px; border-radius: 999px;
+}
+.nav .links a:hover { background: var(--surface-muted); color: var(--primary-text); }
+.nav a.cta {
+  flex-shrink: 0;
+  background: var(--primary); color: #fff; text-decoration: none;
+  padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 700;
+}
+.nav a.cta:hover { background: var(--primary-active); }
+@media (max-width: 640px) {
+  .nav .links { display: none; }
+}
+
+/* 앱 실기기 캡처(1080×2192 → 560px)를 담는 폰 프레임 — onboarding-screen
+   captureFrame(radius lg, 은은한 그림자)과 같은 인상. */
+.phone {
+  width: min(280px, 72vw);
+  aspect-ratio: 1080 / 2192;
+  border-radius: 28px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 12px 32px rgba(74, 64, 58, 0.16);
+}
+.phone img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Hero — 슬라이드 1 (내 방) */
+.hero {
+  background: linear-gradient(180deg, var(--sky) 0%, var(--screen) 78%, var(--screen) 100%);
+  padding: 72px 0 64px;
+}
+.hero .cols {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 48px; flex-wrap: wrap;
+}
+.hero .copy { flex: 1 1 380px; min-width: 0; }
+.hero h1 { font-size: clamp(28px, 5.4vw, 44px); line-height: 1.35; letter-spacing: -0.5px; }
+.hero h1 .accent { color: var(--primary-text); }
+.hero p.lead { margin-top: 18px; max-width: 480px; font-size: clamp(15px, 2.4vw, 18px); color: var(--text-muted); }
+.hero .badges { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+/* 스토어 배지 — 토스(toss.im)풍 다크 필 버튼: 로고 + 흰 텍스트.
+   다크 톤은 테마 onPrimary(#2D2623) 계열로 코지 팔레트에 맞춘다. */
+.badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 0; border-radius: 14px;
+  padding: 13px 24px; font-size: 16px; font-weight: 700;
+  color: #fff; text-decoration: none; background: #2D2623;
+}
+a.badge:hover { background: #463C35; }
+.badge svg { display: block; flex-shrink: 0; }
+.badge .soon { font-size: 11px; font-weight: 600; color: #F5D9A8; background: rgba(255, 255, 255, .13); padding: 2px 8px; border-radius: 999px; }
+.hero .phone { flex: 0 0 auto; margin: 0 auto; }
+@media (max-width: 760px) {
+  .hero { text-align: center; padding-top: 56px; }
+  .hero .copy { flex-basis: 100%; }
+  .hero p.lead { margin-left: auto; margin-right: auto; }
+  .hero .badges { justify-content: center; }
+}
+
+/* 튜토리얼 슬라이드 2~5 — 이미지·텍스트 좌우 교차 섹션 */
+section.tour { padding: 48px 0 40px; }
+.tour-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(32px, 7vw, 80px); flex-wrap: wrap;
+  padding: 40px 0;
+}
+.tour-row:nth-child(even) { flex-direction: row-reverse; }
+.tour-row .text { flex: 1 1 320px; max-width: 420px; }
+.tour-row .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary-soft); color: var(--primary-text);
+  font-weight: 800; font-size: 15px; margin-bottom: 16px;
+}
+.tour-row h2 { font-size: clamp(22px, 3.6vw, 30px); line-height: 1.4; letter-spacing: -0.3px; }
+.tour-row p { margin-top: 12px; font-size: clamp(14px, 2.2vw, 16px); color: var(--text-muted); }
+@media (max-width: 760px) {
+  .tour-row, .tour-row:nth-child(even) { flex-direction: column; }
+  .tour-row .text { text-align: center; max-width: 480px; }
+}
+
+/* FAQ — 코지 카드 아코디언 */
+section.faq { padding: 24px 0 64px; }
+.faq h2 { text-align: center; font-size: clamp(22px, 3.6vw, 30px); letter-spacing: -0.3px; }
+.faq .list { margin: 28px auto 0; max-width: 640px; display: flex; flex-direction: column; gap: 12px; }
+.faq details {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  padding: 0 20px; overflow: hidden;
+}
+.faq summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 16px 0; font-weight: 700; font-size: 15px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+/* 토글 표시는 텍스트 "+" 대신 SVG 배경 — 글리프 베이스라인 어긋남 없이 정중앙. */
+.faq summary::after {
+  content: ""; flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--primary-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M5 1.4v7.2M1.4 5h7.2' stroke='%23517751' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") center / 10px 10px no-repeat;
+  transition: transform .25s ease;
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 0 16px; font-size: 14px; color: var(--text-muted); }
+.faq details a { color: var(--primary-text); }
+
+/* Closing CTA */
+section.closing {
+  background: var(--surface-muted);
+  padding: 64px 0 72px; text-align: center;
+}
+section.closing h2 { font-size: clamp(22px, 4vw, 30px); line-height: 1.4; }
+section.closing p { margin: 12px auto 0; max-width: 480px; font-size: 15px; color: var(--text-muted); }
+section.closing .badges { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* 모션 — 스크롤 리빌 + 히어로 플로팅 (roubit.me 참고). JS 실패·축소 모션
+   설정에서는 전부 즉시 노출된다. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .hero h1 { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .05s forwards; }
+  .hero p.lead { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .18s forwards; }
+  .hero .badges { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .32s forwards; }
+  .hero .phone {
+    opacity: 0;
+    /* 등장(rise) 뒤 목업이 잔잔히 떠다닌다 — bob이 나중에 선언돼 transform을 이어받는다. */
+    animation:
+      rise .8s cubic-bezier(.22, .9, .3, 1) .25s forwards,
+      bob 5.5s ease-in-out 1.6s infinite;
+  }
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.22, .9, .3, 1);
+  }
+  .js .tour-row .text.reveal { transition-delay: .12s; }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .badge { transition: transform .25s ease; }
+  .badge:hover { transform: translateY(-2px); }
+}
+
+/* Footer — 좌측 정보(링크·카피) / 우측 SNS 아이콘 타일 */
+footer { background: var(--app-shell); padding: 40px 0 48px; }
+.foot { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; font-size: 13px; }
+.foot .info { display: flex; flex-direction: column; gap: 10px; }
+.foot .links { display: flex; gap: 18px; }
+.foot .links a { color: var(--text); text-decoration: none; }
+.foot .links a:hover { text-decoration: underline; }
+.foot .copy { color: var(--text-muted); }
+/* SNS 타일 — 스토어 배지와 같은 다크 톤(onPrimary #2D2623). */
+.foot .sns { display: flex; gap: 10px; }
+.foot .sns a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 14px; background: #2D2623;
+  transition: transform .25s ease, background .2s ease;
+}
+.foot .sns a:hover { background: #463C35; transform: translateY(-2px); }
