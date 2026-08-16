@@ -50,12 +50,6 @@ header {
   padding: 7px 12px; border-radius: 999px;
 }
 .nav .links a:hover { background: var(--surface-muted); color: var(--primary-text); }
-.nav a.cta {
-  flex-shrink: 0;
-  background: var(--primary); color: #fff; text-decoration: none;
-  padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 700;
-}
-.nav a.cta:hover { background: var(--primary-active); }
 @media (max-width: 640px) {
   .nav .links { display: none; }
 }
