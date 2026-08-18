@@ -1,0 +1,110 @@
+---
+// 이스터에그 고양이들 — 항상 떠있는 장식이 아니라 행동에 반응해 잠깐 등장한다.
+// ① 투어 마지막 장 근처에서 우측 하단 빼꼼(세션당 1회) ② 로고 클릭 시 윙크
+// ③ FAQ 6개를 모두 열면 보상(마크업은 Faq.astro의 #faq-reward).
+// 이미지는 애니메이션 webp라 무거워서, 트리거 순간에 data-src → src로 로드한다.
+---
+
+<div class="cat-peek" id="cat-peek" aria-hidden="true">
+  <img data-src="/assets/cats/lying.webp" alt="" width="170" />
+</div>
+<div class="cat-pop" id="cat-pop" aria-hidden="true">
+  <img data-src="/assets/cats/blink.webp" alt="" width="110" />
+</div>
+
+<script is:inline>
+  (function () {
+    function load(box) {
+      var img = box.querySelector('img');
+      if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+    }
+    function track(egg) {
+      if (typeof gtag === 'function') gtag('event', 'easter_egg', { egg: egg });
+    }
+
+    // ① 스크롤 빼꼼 — 투어 마지막 장이 절반쯤 보이면 우측 하단에서 스르륵.
+    var peek = document.getElementById('cat-peek');
+    var rows = document.querySelectorAll('.tour-row');
+    var lastRow = rows[rows.length - 1];
+    if (peek && lastRow && !sessionStorage.getItem('catPeeked')) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          sessionStorage.setItem('catPeeked', '1');
+          load(peek);
+          peek.classList.add('show');
+          track('peek');
+          setTimeout(function () { peek.classList.remove('show'); }, 3600);
+        });
+      }, { threshold: 0.5 });
+      io.observe(lastRow);
+    }
+
+    // ② 로고 클릭 — 리로드 대신 부드럽게 맨 위로 + 헤더 아래에서 윙크 고양이.
+    var brand = document.querySelector('.brand');
+    var pop = document.getElementById('cat-pop');
+    var popBusy = false;
+    if (brand && pop) {
+      brand.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (popBusy) return;
+        popBusy = true;
+        load(pop);
+        pop.classList.add('show');
+        track('logo');
+        setTimeout(function () {
+          pop.classList.remove('show');
+          setTimeout(function () { popBusy = false; }, 600);
+        }, 2400);
+      });
+    }
+
+    // ③ FAQ 완주 보상 — 6개를 (누적으로) 모두 열면 고양이가 인사한다.
+    var reward = document.getElementById('faq-reward');
+    var faqItems = document.querySelectorAll('.faq details');
+    if (reward && faqItems.length) {
+      var opened = new Set();
+      faqItems.forEach(function (d, i) {
+        d.addEventListener('toggle', function () {
+          if (!d.open) return;
+          opened.add(i);
+          if (opened.size === faqItems.length && reward.hidden) {
+            load(reward);
+            reward.hidden = false;
+            track('faq');
+          }
+        });
+      });
+    }
+  })();
+</script>
+
+<style is:global>
+  .cat-peek, .cat-pop { position: fixed; z-index: 5; pointer-events: none; }
+  .cat-peek img, .cat-pop img { display: block; height: auto; }
+
+  /* 우측 하단에서 빼꼼 — 몸통 아래쪽은 화면 밖. */
+  .cat-peek {
+    right: 18px; bottom: 0;
+    transform: translateY(105%);
+    transition: transform .6s cubic-bezier(.34, 1.4, .5, 1);
+  }
+  .cat-peek.show { transform: translateY(38%); }
+
+  /* 헤더 아래 좌측에서 뿅 — 로고 근처. */
+  .cat-pop {
+    left: 20px; top: 70px;
+    transform: translateY(-8px) scale(.6);
+    opacity: 0;
+    transition: transform .35s cubic-bezier(.34, 1.6, .5, 1), opacity .25s ease;
+  }
+  .cat-pop.show { transform: translateY(0) scale(1); opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cat-peek, .cat-pop { transition: opacity .2s ease; transform: none; opacity: 0; }
+    .cat-peek.show, .cat-pop.show { transform: none; opacity: 1; }
+    .cat-peek { bottom: -60px; }
+  }
+</style>
