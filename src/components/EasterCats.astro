@@ -85,13 +85,13 @@
   .cat-peek, .cat-pop { position: fixed; z-index: 5; pointer-events: none; }
   .cat-peek img, .cat-pop img { display: block; height: auto; }
 
-  /* 우측 하단에서 빼꼼 — 몸통 아래쪽은 화면 밖. */
+  /* 우측 하단에서 올라와 바닥에 눕는다 — 얼굴·앞발은 온전히, 아래만 살짝 걸침. */
   .cat-peek {
     right: 18px; bottom: 0;
-    transform: translateY(105%);
+    transform: translateY(110%);
     transition: transform .6s cubic-bezier(.34, 1.4, .5, 1);
   }
-  .cat-peek.show { transform: translateY(38%); }
+  .cat-peek.show { transform: translateY(10%); }
 
   /* 헤더 아래 좌측에서 뿅 — 로고 근처. */
   .cat-pop {
