@@ -153,6 +153,10 @@ section.faq { padding: 24px 0 64px; }
 .faq details[open] summary::after { transform: rotate(45deg); }
 .faq details p { padding: 0 0 16px; font-size: 14px; color: var(--text-muted); }
 .faq details a { color: var(--primary-text); }
+/* FAQ 완주 보상 고양이 */
+.faq-reward { margin-top: 28px; text-align: center; animation: rise .6s cubic-bezier(.22, .9, .3, 1); }
+.faq-reward img { margin: 0 auto; }
+.faq-reward p { margin-top: 4px; font-size: 14px; color: var(--text-muted); }
 
 /* Closing CTA */
 section.closing {
