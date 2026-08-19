@@ -9,7 +9,7 @@
   <img data-src="/assets/cats/lying.webp" alt="" width="170" />
 </div>
 <div class="cat-pop" id="cat-pop" aria-hidden="true">
-  <img data-src="/assets/cats/blink.webp" alt="" width="110" />
+  <img data-src="/assets/cats/blink.webp" alt="" />
 </div>
 
 <script is:inline>
@@ -93,18 +93,21 @@
   }
   .cat-peek.show { transform: translateY(10%); }
 
-  /* 헤더 아래 좌측에서 뿅 — 로고 근처. */
+  /* 로고 클릭 — 화면 정중앙에 겁나 크게 뿅 하고 나타났다 사라진다. */
   .cat-pop {
-    left: 20px; top: 70px;
-    transform: translateY(-8px) scale(.6);
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(0);
     opacity: 0;
-    transition: transform .35s cubic-bezier(.34, 1.6, .5, 1), opacity .25s ease;
+    transition: transform .45s cubic-bezier(.3, 1.6, .45, 1), opacity .2s ease;
   }
-  .cat-pop.show { transform: translateY(0) scale(1); opacity: 1; }
+  .cat-pop img { width: min(65vw, 420px); }
+  .cat-pop.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 
   @media (prefers-reduced-motion: reduce) {
-    .cat-peek, .cat-pop { transition: opacity .2s ease; transform: none; opacity: 0; }
-    .cat-peek.show, .cat-pop.show { transform: none; opacity: 1; }
-    .cat-peek { bottom: -60px; }
+    .cat-peek, .cat-pop { transition: opacity .2s ease; }
+    .cat-peek { transform: none; bottom: -60px; opacity: 0; }
+    .cat-peek.show { transform: none; opacity: 1; }
+    .cat-pop { transform: translate(-50%, -50%); opacity: 0; }
+    .cat-pop.show { transform: translate(-50%, -50%); opacity: 1; }
   }
 </style>
