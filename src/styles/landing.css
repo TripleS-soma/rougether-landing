@@ -105,7 +105,7 @@ a.badge:hover { background: #463C35; }
 /* 스크롤 유도 — 히어로 하단 중앙, 마우스 휠이 굴러 내려간다. */
 .scroll-hint {
   /* rise 애니메이션이 transform을 덮어쓰므로 센터링은 margin:auto로. */
-  position: absolute; left: 0; right: 0; bottom: 20px;
+  position: absolute; left: 0; right: 0; bottom: 52px;
   margin: 0 auto; width: max-content;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
   color: var(--primary); text-decoration: none;
