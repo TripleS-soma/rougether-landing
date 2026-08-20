@@ -8,7 +8,10 @@ import Footer from '../components/Footer.astro';
 import EasterCats from '../components/EasterCats.astro';
 import '../styles/landing.css';
 
-const TITLE = '루게더 — 내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱';
+// 검색 타이틀은 토스처럼 브랜드 단독 — 설명은 meta description이 맡는다.
+// 카톡/SNS 공유 카드(og:title)는 맥락이 필요해 태그라인 버전을 유지.
+const TITLE = '루게더';
+const OG_TITLE = '루게더 — 내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱';
 const DESC = '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더. 루틴을 지키면 방이 자라요.';
 
 const appLd = {
@@ -39,7 +42,7 @@ const faqLd = {
 };
 ---
 
-<Base title={TITLE} description={DESC} path="/" canonical>
+<Base title={TITLE} ogTitle={OG_TITLE} description={DESC} path="/" canonical>
   <Fragment slot="head">
     <meta name="naver-site-verification" content="8e47021569ff94eaf80482a41245d3082f676959" />
     <script is:inline>document.documentElement.className += ' js';</script>
