@@ -73,7 +73,8 @@ header {
   /* 스티키 헤더(64px)를 뺀 풀뷰포트 한 장 — 콘텐츠는 수직 중앙. */
   min-height: calc(100svh - 64px);
   display: flex; align-items: center;
-  padding: 48px 0;
+  padding: 48px 0 72px;
+  position: relative;
 }
 .hero .cols {
   display: flex; align-items: center; justify-content: space-between;
@@ -101,6 +102,18 @@ a.badge:hover { background: #463C35; }
 }
 .hero .facts span + span::before { content: "·"; margin: 0 10px; }
 .hero .phone { flex: 0 0 auto; margin: 0 auto; }
+/* 스크롤 유도 — 히어로 하단 중앙, 마우스 휠이 굴러 내려간다. */
+.scroll-hint {
+  /* rise 애니메이션이 transform을 덮어쓰므로 센터링은 margin:auto로. */
+  position: absolute; left: 0; right: 0; bottom: 20px;
+  margin: 0 auto; width: max-content;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: var(--primary); text-decoration: none;
+}
+.scroll-hint span { font-size: 14px; font-weight: 700; color: var(--text-muted); }
+@media (max-width: 760px) {
+  .scroll-hint { display: none; }
+}
 @media (max-width: 760px) {
   .hero { text-align: center; }
   .hero .copy { flex-basis: 100%; }
@@ -182,6 +195,14 @@ section.closing .badges { margin-top: 34px; display: flex; gap: 12px; justify-co
   .hero p.lead { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .18s forwards; }
   .hero .badges { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .32s forwards; }
   .hero .facts { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .42s forwards; }
+  @keyframes wheel-roll {
+    0% { transform: translateY(0); opacity: 1; }
+    60% { transform: translateY(9px); opacity: 0; }
+    61% { transform: translateY(-4px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .scroll-hint { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .6s forwards; }
+  .scroll-hint .wheel { animation: wheel-roll 1.7s ease-in-out 1.4s infinite; }
   .hero .phone {
     opacity: 0;
     /* 등장(rise) 뒤 목업이 잔잔히 떠다닌다 — bob이 나중에 선언돼 transform을 이어받는다. */
