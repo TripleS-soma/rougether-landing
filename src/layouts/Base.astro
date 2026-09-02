@@ -52,8 +52,12 @@ const url = new URL(path, Astro.site).href;
   <slot />
   <script is:inline>
     // 목표 행동 계측 — App Store 링크 탭을 위치(placement)별로 구분해 GA4 이벤트로 보낸다.
+    // transport_type beacon: 클릭 직후 새 탭으로 전환돼도 전송이 유실되지 않는다
+    // (기본 전송은 페이지가 백그라운드로 가면 드랍되는 사례가 실측됨).
     document.querySelectorAll('[data-cta]').forEach(function (el) {
-      el.addEventListener('click', function () { gtag('event', 'appstore_tap', { placement: el.dataset.cta }); });
+      el.addEventListener('click', function () {
+        gtag('event', 'appstore_tap', { placement: el.dataset.cta, transport_type: 'beacon' });
+      });
     });
   </script>
 </body>
