@@ -19,7 +19,7 @@
       if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
     }
     function track(egg) {
-      if (typeof gtag === 'function') gtag('event', 'easter_egg', { egg: egg });
+      if (typeof gtag === 'function') gtag('event', 'easter_egg', { egg: egg, transport_type: 'beacon' });
     }
 
     // ① 스크롤 빼꼼 — 투어 마지막 장이 절반쯤 보이면 우측 하단에서 스르륵.
