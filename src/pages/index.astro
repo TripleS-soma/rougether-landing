@@ -52,19 +52,19 @@ const faqLd = {
 
   <Header />
 
-  <!-- 온보딩 인트로 5장(#412) 기반 — 카피·캡처는 앱과 동일 -->
+  <!-- 카피·캡처는 App Store 스크린샷(2026-09)과 동일 — 스토어에서 본 앱을 랜딩에서 그대로 만나게 -->
   <section class="hero">
     <div class="wrap cols">
       <div class="copy">
-        <h1>루틴이 공간이 되고,<br /><span class="accent">함께 자라는 집</span></h1>
+        <h1>루틴을 지키면<br /><span class="accent">내 방이 자라요</span></h1>
         <p class="lead">내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더.</p>
         <div class="badges" id="download">
           <StoreBadges placement="hero" />
         </div>
-        <p class="facts"><span>무료로 시작</span><span>초대코드로 친구와 한 집</span><span>체크할 때마다 코인 보상</span></p>
+        <p class="facts"><span>무료로 시작</span><span>초대코드로 친구와 한 집</span><span>체크할 때마다 코인 보상</span><span>주간 회고로 돌아보기</span></p>
       </div>
       <div class="phone">
-        <img src="/assets/onboarding/my-room.png" alt="루게더 내 방 화면 — 캐릭터가 있는 포근한 방" />
+        <img src="/assets/screens/hero-room.jpg" alt="루게더 내 방 화면 — 캐릭터가 쉬고 있는 노란 방과 오늘의 할 일" />
       </div>
     </div>
     <a class="scroll-hint" href="#tour" aria-label="아래로 스크롤해서 더 알아보기">
@@ -78,17 +78,17 @@ const faqLd = {
 
   <section class="tour" id="tour">
     <div class="wrap">
-      <TourRow img="/assets/onboarding/routines.png" alt="루틴 목록 화면 — 곰 발바닥 체크로 완료" num={1} desc="카테고리로 모아 보고, 알림으로 잊지 않게">
-        오늘의 루틴을<br />곰 체크로 완료해요
+      <TourRow img="/assets/screens/tour-routines.jpg" alt="오늘의 할 일 화면 — 모닝·건강·성장 카테고리와 곰 체크" num={1} desc="모닝·건강·성장처럼 카테고리로 묶고, 알림 시간까지 딱 정해요">
+        매일의 할 일을<br /><span class="accent">가볍게 체크</span>
       </TourRow>
-      <TourRow img="/assets/onboarding/decor.png" alt="방 꾸미기 화면 — 가구를 자유롭게 배치" num={2} desc="가구·벽지·바닥을 원하는 자리에 자유 배치">
-        모은 보상으로<br />내 방을 꾸며요
+      <TourRow img="/assets/screens/tour-decor.jpg" alt="방 꾸미기 화면 — 가구·소품·벽지·바닥 탭과 적용하기" num={2} desc="체크로 모은 코인으로 가구·소품·벽지·바닥을 골라 내 방을 꾸며요">
+        가구부터 벽지까지<br /><span class="accent">내 취향대로</span>
       </TourRow>
-      <TourRow img="/assets/onboarding/house.png" alt="집 화면 — 친구들의 방이 모인 집" num={3} desc="방 구경 · 응원 보내기 · 공동 미션으로 집 레벨 업">
-        친구들과 한 집에서<br />함께 자라요
+      <TourRow img="/assets/screens/tour-house.jpg" alt="집 화면 — 친구 넷의 방이 모인 구름 위의 집, 집 레벨과 구성원" num={3} desc="초대코드로 모인 친구들의 방이 한 집에 — 함께 지킨 루틴이 집 레벨을 올려요">
+        친구들과 한 집에서<br /><span class="accent">함께 쌓는 루틴</span>
       </TourRow>
-      <TourRow img="/assets/onboarding/calendar.png" alt="달력 화면 — 지난 루틴 완료 기록" num={4} desc="지난 완료를 돌아보고 캐릭터·가구를 모아요">
-        기록은 달력으로,<br />보상은 뽑기로
+      <TourRow img="/assets/screens/tour-calendar.jpg" alt="달력 화면 — 완료한 날에 점이 찍힌 9월 달력과 그날의 할 일" num={4} desc="지킨 날마다 달력에 점이 찍히고, 주간 회고로 한 주를 돌아봐요">
+        차곡차곡 쌓인 하루<br /><span class="accent">달력에서 한눈에</span>
       </TourRow>
     </div>
   </section>
@@ -98,7 +98,7 @@ const faqLd = {
   <section class="closing">
     <div class="wrap reveal">
       <h2>루게더에 오신 걸 환영해요</h2>
-      <p>루틴이 공간이 되고, 함께 자라는 집 — 친구들과 함께 시작해보세요.</p>
+      <p>루틴을 지키면 내 방이 자라요 — 친구들과 한 집에서 함께 시작해보세요.</p>
       <div class="badges">
         <StoreBadges placement="closing" />
       </div>
