@@ -7,6 +7,7 @@ import Faq, { FAQ_ITEMS } from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 import EasterCats from '../components/EasterCats.astro';
 import '../styles/landing.css';
+import { SITE, APP_STORE, INSTAGRAM, GITHUB } from '../lib/links';
 
 // 검색 타이틀은 토스처럼 브랜드 단독 — 설명은 meta description이 맡는다.
 // 카톡/SNS 공유 카드(og:title)는 맥락이 필요해 태그라인 버전을 유지.
@@ -20,14 +21,14 @@ const appLd = {
   name: '루게더',
   alternateName: 'Rougether',
   description: DESC,
-  url: 'https://rougether.com/',
-  image: 'https://rougether.com/assets/og-cover.jpg',
+  url: `${SITE}/`,
+  image: `${SITE}/assets/og-cover.jpg`,
   operatingSystem: 'iOS',
   applicationCategory: 'LifestyleApplication',
-  installUrl: 'https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720',
-  sameAs: ['https://www.instagram.com/rou.gether/'],
+  installUrl: APP_STORE,
+  sameAs: [INSTAGRAM],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
-  author: { '@type': 'Organization', name: 'TripleS', url: 'https://github.com/TripleS-soma' },
+  author: { '@type': 'Organization', name: 'TripleS', url: GITHUB },
 };
 
 // FAQ 구조화 데이터는 화면의 FAQ_ITEMS에서 그대로 생성 — 내용 불일치가 구조적으로 불가능하다.

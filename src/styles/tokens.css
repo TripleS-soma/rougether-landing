@@ -1,0 +1,23 @@
+/* Rougether cozy 디자인 토큰 — 앱의 src/constants/theme.ts를 CSS 변수로 옮긴 것.
+   앱 토큰이 바뀌면 이 파일만 갱신한다 (전 페이지 공통, Base.astro에서 로드). */
+:root {
+  --app-shell: #E8DCC8;
+  --screen: #FBF8F3;
+  --surface: #FFFFFF;
+  --surface-muted: #F5F1E8;
+  --border: #E8DCC8;
+  --text: #4A403A;
+  --text-muted: #8B7E74;
+  --primary: #7FA87F;
+  --primary-active: #6D926D;
+  --primary-text: #517751;
+  --primary-soft: #7FA87F22;
+  --warning: #E8A24A;
+  --warning-text: #9D6014;
+  --sky: #C3E0F5;
+  --grass: #B5D89A;
+  /* App Store 스크린샷 배경 톤 — 크림 → 세이지 → 피치 */
+  --store-cream: #F7F1E6;
+  --store-sage: #E1E8D2;
+  --store-peach: #F5E2C6;
+}

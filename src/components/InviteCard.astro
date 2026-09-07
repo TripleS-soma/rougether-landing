@@ -9,7 +9,7 @@ interface Props {
   visual: 'emoji' | 'mark';
 }
 const { heading, lead, hint, scheme, placement, visual } = Astro.props;
-const APP_STORE = 'https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720';
+import { APP_STORE } from '../lib/links';
 ---
 
 <main class="card">
@@ -70,23 +70,6 @@ const APP_STORE = 'https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6
 </script>
 
 <style is:global>
-  /* Rougether cozy tokens (src/constants/theme.ts) */
-  :root {
-    --app-shell: #E8DCC8;
-    --screen: #FBF8F3;
-    --surface: #FFFFFF;
-    --surface-muted: #F5F1E8;
-    --border: #E8DCC8;
-    --text: #4A403A;
-    --text-muted: #8B7E74;
-    --primary: #7FA87F;
-    --primary-active: #6D926D;
-    --primary-text: #517751;
-    --warning: #E8A24A;
-    --warning-text: #9D6014;
-    --sky: #C3E0F5;
-    --grass: #B5D89A;
-  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'NanumSquareRound', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;

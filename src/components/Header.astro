@@ -1,3 +1,7 @@
+---
+import { INSTAGRAM, GITHUB } from '../lib/links';
+---
+
 <header>
   <div class="wrap nav">
     <a class="brand" href="./">
@@ -7,8 +11,8 @@
     <nav class="links" aria-label="섹션 이동">
       <a href="#tour">둘러보기</a>
       <a href="#faq">FAQ</a>
-      <a href="https://github.com/TripleS-soma">GitHub</a>
-      <a href="https://www.instagram.com/rou.gether/" target="_blank" rel="noopener">Instagram</a>
+      <a href={GITHUB}>GitHub</a>
+      <a href={INSTAGRAM} target="_blank" rel="noopener">Instagram</a>
     </nav>
   </div>
 </header>

@@ -2,7 +2,7 @@
 // 스토어 배지 쌍 — App Store 실링크(placement별 계측) + Google Play 출시 예정.
 interface Props { placement: 'hero' | 'closing' }
 const { placement } = Astro.props;
-const APP_STORE = 'https://apps.apple.com/kr/app/%EB%A3%A8%EA%B2%8C%EB%8D%94/id6793513720';
+import { APP_STORE } from '../lib/links';
 ---
 
 <a class="badge" href={APP_STORE} target="_blank" rel="noopener" data-cta={placement}><svg width="17" height="20" viewBox="0 0 24 28" aria-hidden="true"><path fill="#fff" d="M19.7 14.9c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.6-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.3-1.1-2.2 0-4.2 1.3-5.3 3.2-2.3 3.9-.6 9.7 1.6 12.9 1.1 1.6 2.4 3.3 4.1 3.3 1.6-.1 2.3-1.1 4.2-1.1 2 0 2.5 1.1 4.3 1 1.8 0 2.9-1.6 4-3.2 1.2-1.8 1.8-3.6 1.8-3.7-.1 0-3.5-1.4-3.6-4.9zM16.5 4.3c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.5-1.4 4 1.5.1 2.9-.8 3.9-1.9z"/></svg> App Store</a>
