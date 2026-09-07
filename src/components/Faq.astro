@@ -1,4 +1,5 @@
 ---
+import { INSTAGRAM, CONTACT_EMAIL } from '../lib/links';
 // FAQ 아코디언 — 문구는 rougether-spec 근거. FAQPage JSON-LD(index.astro)와 내용이 일치해야 한다.
 export const FAQ_ITEMS = [
   {
@@ -12,7 +13,7 @@ export const FAQ_ITEMS = [
   {
     q: '안드로이드 버전은 언제 나오나요?',
     a: 'Google Play 출시를 준비하고 있어요. 소식은 인스타그램에서 가장 먼저 알려드려요.',
-    html: 'Google Play 출시를 준비하고 있어요. 소식은 <a href="https://www.instagram.com/rou.gether/" target="_blank" rel="noopener">인스타그램</a>에서 가장 먼저 알려드려요.',
+    html: `Google Play 출시를 준비하고 있어요. 소식은 <a href="${INSTAGRAM}" target="_blank" rel="noopener">인스타그램</a>에서 가장 먼저 알려드려요.`,
   },
   {
     q: '친구랑 어떻게 같이 쓰나요?',
@@ -24,8 +25,8 @@ export const FAQ_ITEMS = [
   },
   {
     q: '문의나 버그 제보는 어디로 하나요?',
-    a: '앱의 설정 → 버그 제보 기능을 쓰거나, triples.rougether@gmail.com으로 보내주세요.',
-    html: '앱의 설정 → 버그 제보 기능을 쓰거나, <a href="mailto:triples.rougether@gmail.com">triples.rougether@gmail.com</a>으로 보내주세요.',
+    a: `앱의 설정 → 버그 제보 기능을 쓰거나, ${CONTACT_EMAIL}으로 보내주세요.`,
+    html: `앱의 설정 → 버그 제보 기능을 쓰거나, <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>으로 보내주세요.`,
   },
 ];
 ---

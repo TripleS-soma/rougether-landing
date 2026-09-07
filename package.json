@@ -6,9 +6,17 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "npm run check && npm run build && node scripts/smoke.mjs",
+    "screens": "node scripts/screens.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "sharp": "^0.35.4",
+    "typescript": "^5.9.3"
   }
 }

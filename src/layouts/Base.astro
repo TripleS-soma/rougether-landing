@@ -1,6 +1,8 @@
 ---
 // 모든 페이지가 공유하는 문서 골격 — 메타·파비콘·폰트·GA. 페이지별 태그는 head 슬롯으로.
+import '../styles/tokens.css';
 import '../styles/fonts.css';
+import { GA_ID } from '../lib/links';
 
 interface Props {
   title: string;
@@ -39,12 +41,12 @@ const url = new URL(path, Astro.site).href;
   <link rel="preload" href="/fonts/NanumSquareRoundR.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/NanumSquareRoundEB.woff2" as="font" type="font/woff2" crossorigin />
   <!-- GA4 — 페이지뷰·유입 채널·아웃바운드 클릭은 향상된 측정이 자동 수집. -->
-  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3B36GQQB4R"></script>
-  <script is:inline>
+  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+  <script is:inline define:vars={{ GA_ID }}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-3B36GQQB4R');
+    gtag('config', GA_ID);
   </script>
   <slot name="head" />
 </head>

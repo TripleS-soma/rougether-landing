@@ -4,9 +4,12 @@
 
 - **Astro** 정적 생성(SSG). `main` 푸시 → GitHub Actions 빌드 → GitHub Pages 배포.
 - `npm install` 후 `npm run dev`(개발) / `npm run build`(빌드) / `npm run preview`(빌드 확인).
+- **`npm test`** = `astro check`(타입) + 빌드 + `scripts/smoke.mjs`(GA 태그·JSON-LD·딥링크·noindex·사이트맵 검사). PR마다 CI(`ci.yml`)에서 자동 실행.
+- 외부 링크·GA ID는 `src/lib/links.ts` 한 곳, 색상 토큰은 `src/styles/tokens.css` 한 곳에서만 관리.
+- **앱 스크린샷 교체**: `npm run screens -- raw <캡처.png> <이름>`(실기기 캡처, 상태바 제거) / `npm run screens -- store <합성본.png> <이름>`(App Store 합성본, 베젤 안쪽 자동 크롭) → `public/assets/screens/<이름>.jpg`.
 - 구조: `src/pages/`(index·invite·join — 기존 `.html` URL 유지: `build.format: 'file'`), `src/components/`(Header·Footer·StoreBadges·TourRow·Faq·InviteCard), `src/layouts/Base.astro`(메타·파비콘·GA 공통), `public/`(assets·robots·sitemap·CNAME·privacy/terms는 원본 그대로).
 - FAQ 문구와 FAQPage JSON-LD는 `Faq.astro`의 `FAQ_ITEMS` 한 곳에서 생성된다 — 문구 수정은 거기서만.
-- 색상은 앱의 cozy 테마 토큰(`rougether-mobile` `src/constants/theme.ts`)을 CSS 변수로 옮긴 것 — 토큰이 바뀌면 `src/styles/landing.css`·`InviteCard.astro`의 `:root` 블록을 함께 갱신.
+- 색상은 앱의 cozy 테마 토큰(`rougether-mobile` `src/constants/theme.ts`)을 CSS 변수로 옮긴 것 — 토큰이 바뀌면 `src/styles/tokens.css`만 갱신.
 - 앱이 공유하는 딥링크 경로(`/invite.html?code=`, `/join.html?code=`)는 절대 바꾸지 말 것.
 
 ## 계측 (GA4)
