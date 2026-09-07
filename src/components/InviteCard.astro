@@ -9,7 +9,7 @@ interface Props {
   visual: 'emoji' | 'mark';
 }
 const { heading, lead, hint, scheme, placement, visual } = Astro.props;
-import { APP_STORE } from '../lib/links';
+import { APP_STORE, PLAY_STORE } from '../lib/links';
 ---
 
 <main class="card">
@@ -33,8 +33,8 @@ import { APP_STORE } from '../lib/links';
 
   <div class="install">
     아직 루게더가 없다면 —
-    <a class="store-link" href={APP_STORE} target="_blank" rel="noopener" data-cta={placement}>App Store에서 받기</a> ·
-    <span>Google Play<span class="soon">준비 중</span></span>
+    <a class="store-link" href={APP_STORE} target="_blank" rel="noopener" data-cta={placement}>App Store</a> ·
+    <a class="store-link" href={PLAY_STORE} target="_blank" rel="noopener" data-cta={`${placement}-play`}>Google Play</a>
     <br />
     <a class="home-link" href="/">루게더가 뭔가요? →</a>
   </div>
