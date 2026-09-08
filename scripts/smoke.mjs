@@ -22,6 +22,8 @@ check(lds.some((d) => d['@type'] === 'MobileApplication'), 'JSON-LD MobileApplic
 const faq = lds.find((d) => d['@type'] === 'FAQPage');
 check(faq && faq.mainEntity.length === (index.match(/<details>/g) || []).length, 'FAQPage 항목 수 = 화면 FAQ 수');
 check(index.includes('data-cta="hero"') && index.includes('data-cta="closing"'), '스토어 배지 계측 placement');
+check(index.includes('data-web-cta="hero"') && index.includes('data-web-cta="section"') && index.includes("'webapp_open'"), '웹앱 진입 계측 (webapp_open)');
+check(index.includes('href="https://app.rougether.com"'), '웹앱 링크');
 check(!index.includes('rel="stylesheet"'), 'CSS 인라인 (외부 스타일시트 없음)');
 
 for (const p of ['invite.html', 'join.html']) {

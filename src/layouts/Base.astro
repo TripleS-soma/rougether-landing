@@ -61,6 +61,12 @@ const url = new URL(path, Astro.site).href;
         gtag('event', 'appstore_tap', { placement: el.dataset.cta, transport_type: 'beacon' });
       });
     });
+    // 웹앱 진입(app.rougether.com) — App Store 탭과 별도 이벤트로 센다(목표 지표 오염 방지).
+    document.querySelectorAll('[data-web-cta]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        gtag('event', 'webapp_open', { placement: el.dataset.webCta, transport_type: 'beacon' });
+      });
+    });
   </script>
 </body>
 </html>

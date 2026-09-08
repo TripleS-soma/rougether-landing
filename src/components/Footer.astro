@@ -1,5 +1,5 @@
 ---
-import { INSTAGRAM, GITHUB } from '../lib/links';
+import { INSTAGRAM, GITHUB, WEB_APP } from '../lib/links';
 ---
 
 <footer>
@@ -9,6 +9,8 @@ import { INSTAGRAM, GITHUB } from '../lib/links';
         <a href="/privacy.html">개인정보처리방침</a>
         <a href="/terms.html">이용약관</a>
         <a href={GITHUB}>GitHub</a>
+        <!-- 데스크톱 이용자용 웹앱 진입. 아웃바운드 클릭은 GA 향상된 측정이 자동 수집. -->
+        <a href={WEB_APP}>웹에서 열기</a>
       </div>
       <div class="copy">© 2026 Rougether · TripleS</div>
     </div>
