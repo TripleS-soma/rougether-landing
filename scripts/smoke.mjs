@@ -24,6 +24,11 @@ check(faq && faq.mainEntity.length === (index.match(/<details>/g) || []).length,
 check(index.includes('data-cta="hero"') && index.includes('data-cta="closing"'), '스토어 배지 계측 placement');
 check(index.includes('data-web-cta="hero"') && index.includes('data-web-cta="section"') && index.includes("'webapp_open'"), '웹앱 진입 계측 (webapp_open)');
 check(index.includes('href="https://app.rougether.com"'), '웹앱 링크');
+check(index.includes('hreflang="en" href="https://rougether.com/en.html"') && index.includes('<html lang="ko">'), 'ko 페이지 hreflang·lang');
+const en = readFileSync('dist/en.html', 'utf8');
+check(en.includes('<html lang="en">') && en.includes('rel="canonical" href="https://rougether.com/en.html"'), '/en.html lang·canonical');
+check(en.includes('Keep your routines') && !en.includes('루틴을 지키면'), '/en.html 영어 문구');
+check(en.includes('data-cta="hero"') && en.includes("'appstore_tap'"), '/en.html 스토어 배지 계측');
 check(!index.includes('rel="stylesheet"'), 'CSS 인라인 (외부 스타일시트 없음)');
 
 for (const p of ['invite.html', 'join.html']) {
