@@ -78,11 +78,6 @@ header {
 a.badge:hover { background: #463C35; }
 .badge svg { display: block; flex-shrink: 0; }
 .badge .soon { font-size: 11px; font-weight: 600; color: #F5D9A8; background: rgba(255, 255, 255, .13); padding: 2px 8px; border-radius: 999px; }
-.hero .facts {
-  margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px 0;
-  font-size: 15px; color: var(--text-muted);
-}
-.hero .facts span + span::before { content: "·"; margin: 0 10px; }
 .hero .phone { flex: 0 0 auto; margin: 0 auto; }
 /* 스크롤 유도 — 히어로 하단 중앙, 마우스 휠이 굴러 내려간다. */
 .scroll-hint {
@@ -102,10 +97,7 @@ a.badge:hover { background: #463C35; }
   .hero p.lead { margin-left: auto; margin-right: auto; }
   .hero .badges { justify-content: center; }
   /* 모바일: 점 구분자 대신 칩 — 줄바꿈 시 줄 머리에 "·"가 남지 않게. */
-  .hero .facts { justify-content: center; gap: 8px 8px; }
-  .hero .facts span { background: rgba(255, 255, 255, .55); padding: 4px 12px; border-radius: 999px; font-size: 14px; }
-  .hero .facts span + span::before { content: none; margin: 0; }
-}
+      }
 
 /* 튜토리얼 슬라이드 2~5 — 이미지·텍스트 좌우 교차 섹션 */
 section.tour { padding: 48px 0 40px; }
@@ -180,8 +172,7 @@ section.closing .badges { margin-top: 34px; display: flex; gap: 12px; justify-co
   .hero h1 { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .05s forwards; }
   .hero p.lead { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .18s forwards; }
   .hero .badges { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .32s forwards; }
-  .hero .facts { opacity: 0; animation: rise .7s cubic-bezier(.22, .9, .3, 1) .42s forwards; }
-  @keyframes wheel-roll {
+    @keyframes wheel-roll {
     0% { transform: translateY(0); opacity: 1; }
     60% { transform: translateY(9px); opacity: 0; }
     61% { transform: translateY(-4px); opacity: 0; }
