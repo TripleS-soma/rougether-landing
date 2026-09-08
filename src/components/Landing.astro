@@ -1,0 +1,138 @@
+---
+// 랜딩 본문 — /(ko)와 /en.html(en)이 같은 마크업을 쓰고 문구만 사전(t)에서 받는다.
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import StoreBadges from './StoreBadges.astro';
+import TourRow from './TourRow.astro';
+import Faq from './Faq.astro';
+import Footer from './Footer.astro';
+import EasterCats from './EasterCats.astro';
+import '../styles/landing.css';
+import { SITE, APP_STORE, INSTAGRAM, GITHUB, WEB_APP, CONTACT_EMAIL } from '../lib/links';
+import { t, LOCALE_PATH, type Locale } from '../i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const d = t(locale);
+const path = LOCALE_PATH[locale];
+const faqItems = d.faq.items(INSTAGRAM, CONTACT_EMAIL);
+const TOUR_IMGS = ['tour-routines', 'tour-decor', 'tour-house', 'tour-calendar'];
+
+const appLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: '루게더',
+  alternateName: 'Rougether',
+  description: d.desc,
+  url: `${SITE}${path}`,
+  image: `${SITE}/assets/og-cover.jpg`,
+  operatingSystem: 'iOS',
+  applicationCategory: 'LifestyleApplication',
+  installUrl: APP_STORE,
+  sameAs: [INSTAGRAM],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+  author: { '@type': 'Organization', name: 'TripleS', url: GITHUB },
+};
+
+// FAQ 구조화 데이터는 화면 FAQ 목록에서 그대로 생성 — 내용 불일치가 구조적으로 불가능하다.
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<Base title={d.title} ogTitle={d.ogTitle} description={d.desc} path={path} lang={d.htmlLang} canonical alternates>
+  <Fragment slot="head">
+    {locale === 'ko' && <meta name="naver-site-verification" content="8e47021569ff94eaf80482a41245d3082f676959" />}
+    <script is:inline>document.documentElement.className += ' js';</script>
+    <script type="application/ld+json" set:html={JSON.stringify(appLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+
+  <Header locale={locale} />
+
+  <!-- 카피·캡처는 App Store 스크린샷(2026-09)과 동일 — 스토어에서 본 앱을 랜딩에서 그대로 만나게 -->
+  <section class="hero">
+    <div class="wrap cols">
+      <div class="copy">
+        <h1>{d.hero.title[0]}<br /><span class="accent">{d.hero.title[1]}</span></h1>
+        <p class="lead">{d.hero.lead}</p>
+        <div class="badges" id="download">
+          <StoreBadges placement="hero" locale={locale} />
+        </div>
+        <p class="web-link"><a href={WEB_APP} data-web-cta="hero">{d.hero.webLink}</a></p>
+      </div>
+      <div class="phone">
+        <img src="/assets/screens/hero-room.jpg" alt={d.hero.heroAlt} />
+      </div>
+    </div>
+    <a class="scroll-hint" href="#tour" aria-label={d.hero.scrollHint}>
+      <span>{d.hero.scrollHint}</span>
+      <svg width="26" height="40" viewBox="0 0 26 40" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="23" height="37" rx="11.5" fill="none" stroke="currentColor" stroke-width="3" />
+        <rect class="wheel" x="11" y="9" width="4" height="8" rx="2" fill="currentColor" />
+      </svg>
+    </a>
+  </section>
+
+  <section class="tour" id="tour">
+    <div class="wrap">
+      {d.tour.map((row, i) => (
+        <TourRow img={`/assets/screens/${TOUR_IMGS[i]}.jpg`} alt={row.alt} num={i + 1} desc={row.desc}>
+          {row.title[0]}<br /><span class="accent">{row.title[1]}</span>
+        </TourRow>
+      ))}
+    </div>
+  </section>
+
+  <!-- 웹앱(PWA) 진입 — 데스크톱·앱 미설치 이용자용. 설치(홈 화면 추가)는 app.rougether.com 자체 도메인에서만 가능하므로 여기선 안내만. -->
+  <section class="web" id="web">
+    <div class="wrap reveal">
+      <p class="eyebrow">{d.web.eyebrow}</p>
+      <h2>{d.web.title[0]}<br /><span class="accent">{d.web.title[1]}</span></h2>
+      <a class="web-btn" href={WEB_APP} data-web-cta="section">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2.5"/><path d="M8 21h8M12 18v3"/></svg>
+        {d.web.button}
+      </a>
+      <p class="web-url">app.rougether.com</p>
+      <ul class="steps" aria-label={d.web.stepsLabel}>
+        {d.web.steps.map((s) => (
+          <li><b>{s.where}</b><span set:html={s.how} /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Faq heading={d.faq.heading} items={faqItems} reward={d.faq.reward} />
+
+  <section class="closing">
+    <div class="wrap reveal">
+      <h2>{d.closing.title}</h2>
+      <p>{d.closing.body}</p>
+      <div class="badges">
+        <StoreBadges placement="closing" locale={locale} />
+      </div>
+    </div>
+  </section>
+
+  <Footer locale={locale} />
+
+  <EasterCats />
+
+  <script is:inline>
+    // 스크롤 리빌 — 뷰포트 진입 시 1회 노출. reduced-motion에선 CSS가 무효라 no-op.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</Base>

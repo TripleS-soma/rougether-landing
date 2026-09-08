@@ -11,13 +11,18 @@ interface Props {
   path: string; // 예: "/", "/invite.html"
   noindex?: boolean;
   canonical?: boolean;
+  /** html lang — 기본 ko. /en.html 페이지가 en을 넘긴다. */
+  lang?: string;
+  /** 한/영 짝이 있는 페이지면 hreflang alternate 링크를 낸다 (랜딩만). */
+  alternates?: boolean;
 }
-const { title, description, ogTitle = title, path, noindex = false, canonical = false } = Astro.props;
+const { title, description, ogTitle = title, path, noindex = false, canonical = false, lang = 'ko', alternates = false } = Astro.props;
 const url = new URL(path, Astro.site).href;
+const alt = { ko: new URL('/', Astro.site).href, en: new URL('/en.html', Astro.site).href };
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang={lang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,12 +32,16 @@ const url = new URL(path, Astro.site).href;
   <meta property="og:title" content={ogTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ko_KR'} />
   <meta property="og:url" content={url} />
   <meta property="og:image" content="https://rougether.com/assets/og-cover.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="628" />
   <meta name="twitter:card" content="summary_large_image" />
   {canonical && <link rel="canonical" href={url} />}
+  {alternates && <link rel="alternate" hreflang="ko" href={alt.ko} />}
+  {alternates && <link rel="alternate" hreflang="en" href={alt.en} />}
+  {alternates && <link rel="alternate" hreflang="x-default" href={alt.ko} />}
   <!-- 구글 검색결과 로고용 고해상도 파비콘 — 48px 배수의 정사각형이어야 인식된다. -->
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />

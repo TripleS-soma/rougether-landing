@@ -8,7 +8,7 @@
 - 외부 링크·GA ID는 `src/lib/links.ts` 한 곳, 색상 토큰은 `src/styles/tokens.css` 한 곳에서만 관리.
 - **앱 스크린샷 교체**: `npm run screens -- raw <캡처.png> <이름>`(실기기 캡처, 상태바 제거) / `npm run screens -- store <합성본.png> <이름>`(App Store 합성본, 베젤 안쪽 자동 크롭) → `public/assets/screens/<이름>.jpg`.
 - 구조: `src/pages/`(index·invite·join — 기존 `.html` URL 유지: `build.format: 'file'`), `src/components/`(Header·Footer·StoreBadges·TourRow·Faq·InviteCard), `src/layouts/Base.astro`(메타·파비콘·GA 공통), `public/`(assets·robots·sitemap·CNAME·privacy/terms는 원본 그대로).
-- FAQ 문구와 FAQPage JSON-LD는 `Faq.astro`의 `FAQ_ITEMS` 한 곳에서 생성된다 — 문구 수정은 거기서만.
+- **문구는 `src/i18n/index.ts` 사전 한 곳**(ko 원본 · en). 랜딩 본문은 `src/components/Landing.astro`가 `locale`로 렌더하고 `index.astro`(`/`)·`en.astro`(`/en.html`)가 그걸 부른다. 헤더 언어 드롭다운(`details.lang`)으로 전환하며 hreflang·canonical·og:locale이 페이지별로 붙는다. FAQ 문구와 FAQPage JSON-LD도 같은 사전에서 생성 — 문구 수정은 사전에서만. invite/join은 한국어 고정.
 - 색상은 앱의 cozy 테마 토큰(`rougether-mobile` `src/constants/theme.ts`)을 CSS 변수로 옮긴 것 — 토큰이 바뀌면 `src/styles/tokens.css`만 갱신.
 - 앱이 공유하는 딥링크 경로(`/invite.html?code=`, `/join.html?code=`)는 절대 바꾸지 말 것.
 

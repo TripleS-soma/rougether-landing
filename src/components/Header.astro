@@ -1,17 +1,43 @@
 ---
 import { INSTAGRAM } from '../lib/links';
+import { t, LOCALES, LOCALE_LABEL, LOCALE_PATH, type Locale } from '../i18n';
+interface Props { locale?: Locale }
+const { locale = 'ko' } = Astro.props;
+const d = t(locale);
 ---
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="./">
+    <a class="brand" href={LOCALE_PATH[locale]}>
       <img src="/assets/icon.png" alt="" />
-      <span class="name">루게더</span>
+      <span class="name">{d.brand}</span>
     </a>
-    <nav class="links" aria-label="섹션 이동">
-      <a href="#tour">둘러보기</a>
-      <a href="#faq">FAQ</a>
-      <a href={INSTAGRAM} target="_blank" rel="noopener">Instagram</a>
+    <nav class="links" aria-label={d.nav.tour}>
+      <a href="#tour">{d.nav.tour}</a>
+      <a href="#faq">{d.nav.faq}</a>
+      <a href={INSTAGRAM} target="_blank" rel="noopener">{d.nav.instagram}</a>
     </nav>
+    <!-- 언어 전환 — details라 JS 없이도 열리고, 모바일에서 .links가 숨어도 남는다. 페이지는 /(ko)·/en.html(en) 정적 두 벌. -->
+    <details class="lang">
+      <summary aria-label={d.nav.language}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19"/></svg>
+        <span>{LOCALE_LABEL[locale]}</span>
+        <svg class="caret" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </summary>
+      <div class="menu" role="list">
+        {LOCALES.map((l) => (
+          <a href={LOCALE_PATH[l]} hreflang={l} lang={l} aria-current={l === locale ? 'page' : undefined}>{LOCALE_LABEL[l]}</a>
+        ))}
+      </div>
+    </details>
   </div>
 </header>
+
+<script is:inline>
+  // 드롭다운 바깥 클릭·Esc로 닫기 — details는 스스로 닫히지 않는다.
+  const lang = document.querySelector('details.lang');
+  if (lang) {
+    document.addEventListener('click', (e) => { if (!lang.contains(e.target)) lang.removeAttribute('open'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lang.removeAttribute('open'); });
+  }
+</script>

@@ -32,6 +32,25 @@ header {
   padding: 7px 12px; border-radius: 999px;
 }
 .nav .links a:hover { background: var(--surface-muted); color: var(--primary-text); }
+/* 언어 드롭다운 — 헤더 우측 끝. details라 무-JS에서도 열린다. */
+.lang { position: relative; margin-left: 4px; }
+.lang summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; font-size: 14px; color: var(--text); background: var(--surface);
+}
+.lang summary::-webkit-details-marker { display: none; }
+.lang summary:hover { border-color: var(--text-muted); }
+.lang[open] .caret { transform: rotate(180deg); }
+.lang .caret { transition: transform .15s ease; }
+.lang .menu {
+  position: absolute; right: 0; top: calc(100% + 6px); min-width: 140px; padding: 6px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 10px 30px rgba(74, 64, 58, .12); z-index: 20;
+  display: flex; flex-direction: column;
+}
+.lang .menu a { padding: 9px 12px; border-radius: 8px; font-size: 14px; color: var(--text); text-decoration: none; }
+.lang .menu a:hover { background: var(--surface-muted); }
+.lang .menu a[aria-current="page"] { color: var(--primary-text); font-weight: 700; }
+.lang .menu a[aria-current="page"]::after { content: "✓"; float: right; }
 @media (max-width: 640px) {
   .nav .links { display: none; }
 }
@@ -65,6 +84,8 @@ header {
 .hero .copy { flex: 1 1 380px; min-width: 0; }
 .hero h1 { font-size: clamp(34px, 6.4vw, 60px); line-height: 1.3; letter-spacing: -0.5px; }
 .hero h1 .accent { color: var(--primary-text); }
+/* 영어 헤드라인은 글자가 길어 한 단계 작게 — 두 줄 유지. */
+html[lang="en"] .hero h1 { font-size: clamp(32px, 5.2vw, 50px); }
 .hero p.lead { margin-top: 22px; max-width: 560px; font-size: clamp(17px, 2.7vw, 21px); color: var(--text-muted); }
 .hero .badges { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
 /* 스토어 배지 — 토스(toss.im)풍 다크 필 버튼: 로고 + 흰 텍스트.
