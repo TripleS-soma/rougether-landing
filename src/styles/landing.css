@@ -2,7 +2,7 @@
 /* 스크롤 스냅 — 한 번에 훅 지나가지 않고 섹션(투어는 장 단위)마다 멈춘다.
    mandatory 대신 proximity: 뷰포트보다 큰 섹션·FAQ 펼침에서도 갇히지 않게. */
 html { scroll-behavior: smooth; scroll-snap-type: y proximity; scroll-padding-top: 64px; }
-.hero, .tour-row, .faq, .closing { scroll-snap-align: start; }
+.hero, .tour-row, .web, .faq, .closing { scroll-snap-align: start; }
 footer { scroll-snap-align: end; }
 /* 앵커 스크롤 시 스티키 헤더에 목적지가 가리지 않게. */
 #tour, #download, #faq { scroll-margin-top: 84px; }
@@ -123,6 +123,31 @@ section.tour { padding: 48px 0 40px; }
 }
 
 /* FAQ — 코지 카드 아코디언 */
+/* 웹앱 진입 섹션 — 스토어 배지와 위계를 나누려 초록 버튼 대신 텍스트색 아웃라인. */
+.hero .web-link { margin-top: 14px; font-size: 15px; }
+.hero .web-link a { color: var(--primary-text); text-decoration: none; border-bottom: 1px solid var(--primary-soft); }
+.hero .web-link a:hover { border-bottom-color: var(--primary-text); }
+section.web { padding: 72px 0; background: var(--store-sage); text-align: center; }
+section.web .eyebrow { font-size: 14px; font-weight: 700; letter-spacing: .08em; color: var(--primary-text); }
+section.web h2 { margin-top: 10px; font-size: clamp(27px, 4.4vw, 38px); line-height: 1.35; letter-spacing: -0.3px; }
+section.web h2 .accent { color: var(--primary-text); }
+.web-btn {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; padding: 14px 24px;
+  border-radius: 999px; background: var(--text); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none;
+  transition: transform .15s ease, background .15s ease;
+}
+.web-btn:hover { background: #3A322C; transform: translateY(-2px); }
+section.web .web-url { margin-top: 10px; font-size: 14px; color: var(--text-muted); }
+section.web .steps {
+  list-style: none; padding: 0; margin: 36px auto 0; max-width: 720px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: left;
+}
+section.web .steps li { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+section.web .steps b { font-size: 14px; color: var(--text); }
+section.web .steps span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+section.web .steps em { font-style: normal; color: var(--text); font-weight: 700; }
+@media (max-width: 760px) { section.web { padding: 56px 0; } section.web .steps { grid-template-columns: 1fr; } }
+
 section.faq { padding: 24px 0 64px; }
 .faq h2 { text-align: center; font-size: clamp(27px, 4.4vw, 38px); letter-spacing: -0.3px; }
 .faq .list { margin: 32px auto 0; max-width: 680px; display: flex; flex-direction: column; gap: 12px; }

@@ -7,7 +7,7 @@ import Faq, { FAQ_ITEMS } from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 import EasterCats from '../components/EasterCats.astro';
 import '../styles/landing.css';
-import { SITE, APP_STORE, INSTAGRAM, GITHUB } from '../lib/links';
+import { SITE, APP_STORE, INSTAGRAM, GITHUB, WEB_APP } from '../lib/links';
 
 // 검색 타이틀은 토스처럼 브랜드 단독 — 설명은 meta description이 맡는다.
 // 카톡/SNS 공유 카드(og:title)는 맥락이 필요해 태그라인 버전을 유지.
@@ -62,6 +62,7 @@ const faqLd = {
         <div class="badges" id="download">
           <StoreBadges placement="hero" />
         </div>
+        <p class="web-link"><a href={WEB_APP} data-web-cta="hero">PC에서는 설치 없이 웹으로 시작하기 →</a></p>
       </div>
       <div class="phone">
         <img src="/assets/screens/hero-room.jpg" alt="루게더 내 방 화면 — 캐릭터가 쉬고 있는 노란 방과 오늘의 할 일" />
@@ -90,6 +91,24 @@ const faqLd = {
       <TourRow img="/assets/screens/tour-calendar.jpg" alt="달력 화면 — 완료한 날에 점이 찍힌 9월 달력과 그날의 할 일" num={4} desc="지킨 날마다 달력에 점이 찍히고, 주간 회고로 한 주를 돌아봐요">
         차곡차곡 쌓인 하루<br /><span class="accent">달력에서 한눈에</span>
       </TourRow>
+    </div>
+  </section>
+
+  <!-- 웹앱(PWA) 진입 — 데스크톱·앱 미설치 이용자용. 설치(홈 화면 추가)는 app.rougether.com 자체 도메인에서만 가능하므로 여기선 안내만. -->
+  <section class="web" id="web">
+    <div class="wrap reveal">
+      <p class="eyebrow">웹에서도</p>
+      <h2>PC에서도, 설치 없이<br /><span class="accent">브라우저에서 바로</span></h2>
+      <a class="web-btn" href={WEB_APP} data-web-cta="section">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2.5"/><path d="M8 21h8M12 18v3"/></svg>
+        웹에서 루게더 열기
+      </a>
+      <p class="web-url">app.rougether.com</p>
+      <ul class="steps" aria-label="앱처럼 설치하는 방법">
+        <li><b>Chrome · Edge</b><span>주소창 오른쪽 <em>설치</em> 아이콘</span></li>
+        <li><b>Mac Safari</b><span>파일 메뉴 → <em>Dock에 추가</em></span></li>
+        <li><b>휴대폰 브라우저</b><span>공유 → <em>홈 화면에 추가</em></span></li>
+      </ul>
     </div>
   </section>
 
