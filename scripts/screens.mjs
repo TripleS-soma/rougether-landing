@@ -2,6 +2,7 @@
 //
 //   node scripts/screens.mjs raw   <입력.png> <출력이름>   실기기 캡처: 상단 상태바만 제거
 //   node scripts/screens.mjs store <입력.png> <출력이름>   App Store 합성본: 흰 베젤 안쪽 화면만 자동 감지 크롭
+//   node scripts/screens.mjs full  <입력.png> <출력이름>   상태바 없는 캡처(Android 앱 캡처 등): 크롭 없이 리사이즈만
 //
 // 출력은 public/assets/screens/<출력이름>.jpg (640px 폭, 품질 84). 예:
 //   npm run screens -- raw ~/Desktop/room.png hero-room
@@ -14,8 +15,8 @@ const STATUS_BAR = 180;     // iPhone 상태바 높이(59pt @3x ≈ 177px) — 1
 const BASE_WIDTH = 1179;    // 실기기 캡처 기준 폭(iPhone 15/16) — 다른 폭은 비율로 환산
 
 const [mode, input, name] = process.argv.slice(2);
-if (!['raw', 'store'].includes(mode) || !input || !name) {
-  console.error('usage: node scripts/screens.mjs <raw|store> <input.png> <output-name>');
+if (!['raw', 'store', 'full'].includes(mode) || !input || !name) {
+  console.error('usage: node scripts/screens.mjs <raw|store|full> <input.png> <output-name>');
   process.exit(1);
 }
 
@@ -49,7 +50,9 @@ const img = sharp(input);
 const { width, height } = await img.metadata();
 let region;
 
-if (mode === 'raw') {
+if (mode === 'full') {
+  region = { left: 0, top: 0, width, height };
+} else if (mode === 'raw') {
   const status = Math.round((STATUS_BAR * width) / BASE_WIDTH);
   region = { left: 0, top: status, width, height: height - status };
 } else {

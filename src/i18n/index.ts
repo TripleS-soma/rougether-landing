@@ -36,15 +36,15 @@ const ko: Dict = {
     lead: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더.',
     webLink: 'PC에서 설치 없이 웹으로 시작하기 →',
     scrollHint: '스크롤해서 더 알아보기',
-    heroAlt: '루게더 내 방 화면 — 캐릭터가 쉬고 있는 노란 방과 오늘의 할 일',
+    heroAlt: '루게더 내 방 화면 — 구름 벽지 방에서 쉬는 고양이 캐릭터와 오늘의 할 일',
   },
   badges: { comingSoon: '출시 예정' },
   // 카피·캡처는 App Store 스크린샷(2026-09)과 동일 — 스토어에서 본 앱을 랜딩에서 그대로 만나게
   tour: [
-    { title: ['매일의 할 일을', '가볍게 체크'], desc: '모닝·건강·성장처럼 카테고리로 묶고, 알림 시간까지 딱 정해요', alt: '오늘의 할 일 화면 — 모닝·건강·성장 카테고리와 곰 체크' },
+    { title: ['매일의 할 일을', '가볍게 체크'], desc: '모닝·건강·성장처럼 카테고리로 묶고, 알림 시간까지 딱 정해요', alt: '오늘의 할 일 화면 — 할 일·학업·건강 카테고리와 곰 체크' },
     { title: ['가구부터 벽지까지', '내 취향대로'], desc: '체크로 모은 코인으로 가구·소품·벽지·바닥을 골라 내 방을 꾸며요', alt: '방 꾸미기 화면 — 가구·소품·벽지·바닥 탭과 적용하기' },
-    { title: ['친구들과 한 집에서', '함께 쌓는 루틴'], desc: '초대코드로 모인 친구들의 방이 한 집에 — 함께 지킨 루틴이 집 레벨을 올려요', alt: '집 화면 — 친구 넷의 방이 모인 구름 위의 집, 집 레벨과 구성원' },
-    { title: ['차곡차곡 쌓인 하루', '달력에서 한눈에'], desc: '지킨 날마다 달력에 점이 찍히고, 주간 회고로 한 주를 돌아봐요', alt: '달력 화면 — 완료한 날에 점이 찍힌 9월 달력과 그날의 할 일' },
+    { title: ['친구들과 한 집에서', '함께 쌓는 루틴'], desc: '초대코드로 모인 친구들의 방이 한 집에 — 함께 지킨 루틴이 집 레벨을 올려요', alt: '집 화면 — 구름 위 집에 모인 방들, 집 레벨·멤버와 목표·집 탐색·집 관리 버튼' },
+    { title: ['차곡차곡 쌓인 하루', '달력에서 한눈에'], desc: '지킨 날마다 달력에 점이 찍히고, 주간 회고로 한 주를 돌아봐요', alt: '달력 화면 — 완료한 날에 동그라미가 표시된 9월 달력과 그날의 할 일' },
   ],
   web: {
     eyebrow: '웹에서도',
@@ -95,14 +95,14 @@ const en: Dict = {
     lead: 'A routine and to-do app where you grow with your character and friends, all in one house.',
     webLink: 'On PC? Start on the web, no install →',
     scrollHint: 'Scroll to learn more',
-    heroAlt: 'Rougether room screen — a cat character resting in a yellow room above today’s to-dos',
+    heroAlt: 'Rougether room screen — a cat character resting in a cloud-wallpaper room above today’s to-dos',
   },
   badges: { comingSoon: 'Coming soon' },
   tour: [
-    { title: ['Check off the day’s to-dos', 'with a light touch'], desc: 'Group them by category — morning, health, growth — and set exact reminder times', alt: 'Today’s to-dos screen — morning, health and growth categories with bear check marks' },
+    { title: ['Check off the day’s to-dos', 'with a light touch'], desc: 'Group them by category — morning, health, growth — and set exact reminder times', alt: 'Today’s to-dos screen — to-do, study and health categories with bear check marks' },
     { title: ['From furniture to wallpaper,', 'your taste, your room'], desc: 'Spend the coins from your check-ins on furniture, décor, wallpaper and floors', alt: 'Room decorating screen — furniture, décor, wallpaper and floor tabs with an apply button' },
-    { title: ['One house with friends,', 'routines you build together'], desc: 'Friends join with an invite code — the routines you keep together level up the house', alt: 'House screen — four friends’ rooms in a house above the clouds, with house level and members' },
-    { title: ['Every day, stacked up,', 'at a glance on the calendar'], desc: 'Each day you keep a routine gets a dot, and a weekly review helps you look back', alt: 'Calendar screen — a September calendar with dots on completed days and that day’s to-dos' },
+    { title: ['One house with friends,', 'routines you build together'], desc: 'Friends join with an invite code — the routines you keep together level up the house', alt: 'House screen — rooms gathered in a house above the clouds, with house level, members and goal, explore and manage buttons' },
+    { title: ['Every day, stacked up,', 'at a glance on the calendar'], desc: 'Each day you keep a routine gets a dot, and a weekly review helps you look back', alt: 'Calendar screen — a September calendar with completed days circled and that day’s to-dos' },
   ],
   web: {
     eyebrow: 'ALSO ON THE WEB',
