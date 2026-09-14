@@ -26,7 +26,7 @@ const d = t(locale);
       </summary>
       <div class="menu" role="list">
         {LOCALES.map((l) => (
-          <a href={LOCALE_PATH[l]} hreflang={l} lang={l} aria-current={l === locale ? 'page' : undefined}>{LOCALE_LABEL[l]}</a>
+          <a href={`${LOCALE_PATH[l]}?lang=${l}`} hreflang={l} lang={l} aria-current={l === locale ? 'page' : undefined}>{LOCALE_LABEL[l]}</a>
         ))}
       </div>
     </details>
