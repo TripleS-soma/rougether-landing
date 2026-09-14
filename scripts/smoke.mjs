@@ -26,6 +26,8 @@ check(index.includes('data-web-cta="hero"') && index.includes('data-web-cta="sec
 check(index.includes('href="https://app.rougether.com"'), '웹앱 링크');
 check(index.includes('hreflang="en" href="https://rougether.com/en.html"') && index.includes('<html lang="ko">'), 'ko 페이지 hreflang·lang');
 const en = readFileSync('dist/en.html', 'utf8');
+check(index.includes("localStorage.getItem('rougether.lang')") && index.includes("/^ko/i"), '루트 언어 리다이렉트 스크립트');
+check(!en.includes("localStorage.getItem('rougether.lang')"), '/en.html 에는 리다이렉트 없음');
 check(en.includes('<html lang="en">') && en.includes('rel="canonical" href="https://rougether.com/en.html"'), '/en.html lang·canonical');
 check(en.includes('Keep your routines') && !en.includes('루틴을 지키면'), '/en.html 영어 문구');
 check(en.includes('data-cta="hero"') && en.includes("'appstore_tap'"), '/en.html 스토어 배지 계측');

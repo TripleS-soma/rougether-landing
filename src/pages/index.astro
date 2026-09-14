@@ -2,4 +2,21 @@
 import Landing from '../components/Landing.astro';
 ---
 
+<!-- 루트 언어 안내 (2026-09-14): 브라우저 언어가 한국어가 아니면 /en.html로 보낸다.
+     ?lang=ko 로 온 사람(드롭다운·공유 링크)과 한 번이라도 언어를 고른 사람(localStorage)은 그대로.
+     크롤러는 hreflang·x-default(ko)를 보므로 JS 리다이렉트가 색인을 흔들지 않는다. -->
+<script is:inline>
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      if (q === 'ko' || q === 'en') { localStorage.setItem('rougether.lang', q); }
+      var chosen = q || localStorage.getItem('rougether.lang');
+      if (chosen === 'ko') return;
+      if (chosen === 'en') { location.replace('/en.html' + location.search + location.hash); return; }
+      var langs = navigator.languages || [navigator.language || ''];
+      var prefersKo = langs.some(function (l) { return /^ko/i.test(l); });
+      if (!prefersKo) location.replace('/en.html' + location.search + location.hash);
+    } catch (e) {}
+  })();
+</script>
 <Landing locale="ko" />
