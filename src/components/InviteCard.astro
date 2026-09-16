@@ -1,48 +1,82 @@
 ---
 // 친구 초대(invite)·집 초대(join) 공용 카드 — 문구·딥링크 스킴만 다르다.
+// 문구는 ko로 렌더하고(og·크롤러 기준), 브라우저 언어가 한국어가 아니거나 ?lang=en이면
+// 아래 인라인 스크립트가 data-i18n 요소를 영어로 바꾼다 (rougether-mobile#1369).
+import type { InviteCopy } from '../i18n';
+import { APP_STORE } from '../lib/links';
+
 interface Props {
-  heading: string;
-  lead: string;
-  hint: string;
+  copy: Record<'ko' | 'en', InviteCopy>;
   scheme: string; // 딥링크 경로: 'invite' | 'join'
   placement: string; // GA appstore_tap placement
   visual: 'emoji' | 'mark';
 }
-const { heading, lead, hint, scheme, placement, visual } = Astro.props;
-import { APP_STORE } from '../lib/links';
+const { copy, scheme, placement, visual } = Astro.props;
+const ko = copy.ko;
 ---
 
 <main class="card">
   {visual === 'emoji' ? (
     <div class="emoji">🎁</div>
   ) : (
-    <img class="mark" src="/assets/icon.png" alt="루게더 앱 아이콘" />
+    <img class="mark" src="/assets/icon.png" alt={ko.iconAlt} data-i18n-alt="iconAlt" />
   )}
-  <h1>{heading}</h1>
-  <p class="lead">{lead}</p>
+  <h1 data-i18n="heading">{ko.heading}</h1>
+  <p class="lead" data-i18n="lead">{ko.lead}</p>
 
   <div id="with-code">
     <div class="code-box" id="code">········</div>
-    <div class="code-hint">{hint}</div>
-    <a class="btn" id="open-app" href="#">앱에서 초대 받기</a>
-    <button class="btn ghost" id="copy-code" type="button">초대코드 복사</button>
+    <div class="code-hint" data-i18n="hint">{ko.hint}</div>
+    <a class="btn" id="open-app" href="#" data-i18n="openApp">{ko.openApp}</a>
+    <button class="btn ghost" id="copy-code" type="button" data-i18n="copyCode">{ko.copyCode}</button>
   </div>
   <div id="no-code" class="no-code">
-    <p class="lead">초대코드가 링크에 없어요. 친구에게 링크를 다시 받아주세요.</p>
+    <p class="lead" data-i18n="noCode">{ko.noCode}</p>
   </div>
 
   <div class="install">
-    아직 루게더가 없다면 —
-    <a class="store-link" href={APP_STORE} target="_blank" rel="noopener" data-cta={placement}>App Store에서 받기</a> ·
+    <span data-i18n="installLead">{ko.installLead}</span>
+    <a class="store-link" href={APP_STORE} target="_blank" rel="noopener" data-cta={placement} data-i18n="appStore">{ko.appStore}</a> ·
     <span>Google Play<span class="soon">준비 중</span></span>
     <br />
-    <a class="home-link" href="/">루게더가 뭔가요? →</a>
+    <a class="home-link" href="/" id="home-link" data-i18n="whatIs">{ko.whatIs}</a>
   </div>
 </main>
 
-<script is:inline define:vars={{ scheme }}>
+<script is:inline define:vars={{ scheme, copy }}>
   // ?code=XXXX → rougether://<scheme>?code=XXXX 딥링크로 앱 열기. 미설치면
   // 아무 일도 일어나지 않으므로 코드·설치 안내가 그대로 남는다.
+  // 언어 결정 — 루트(index)와 같은 규칙: ?lang= → localStorage('rougether.lang') → 브라우저 언어.
+  var strings = copy.ko;
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      if (q === 'ko' || q === 'en') { localStorage.setItem('rougether.lang', q); }
+      var chosen = q || localStorage.getItem('rougether.lang');
+      var en = chosen === 'en';
+      if (!chosen) {
+        var langs = navigator.languages || [navigator.language || ''];
+        en = !langs.some(function (l) { return /^ko/i.test(l); });
+      }
+      if (!en) return;
+      strings = copy.en;
+      document.documentElement.lang = 'en';
+      document.title = strings.title;
+      var desc = document.querySelector('meta[name="description"]');
+      if (desc) desc.setAttribute('content', strings.description);
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var v = strings[el.getAttribute('data-i18n')];
+        if (v) el.textContent = v;
+      });
+      document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+        var v = strings[el.getAttribute('data-i18n-alt')];
+        if (v) el.setAttribute('alt', v);
+      });
+      // 영어 방문자는 영어 랜딩으로 (루트는 브라우저 언어로 다시 보내지만 명시가 빠르다).
+      var home = document.getElementById('home-link');
+      if (home) home.setAttribute('href', '/en.html');
+    } catch (e) {}
+  })();
   (function () {
     var code = new URLSearchParams(location.search).get('code');
     code = code ? code.trim().toUpperCase() : '';
@@ -58,8 +92,8 @@ import { APP_STORE } from '../lib/links';
     document.getElementById('copy-code').addEventListener('click', function () {
       var btn = this;
       navigator.clipboard.writeText(code).then(function () {
-        btn.textContent = '복사됐어요 ✓';
-        setTimeout(function () { btn.textContent = '초대코드 복사'; }, 1500);
+        btn.textContent = strings.copied;
+        setTimeout(function () { btn.textContent = strings.copyCode; }, 1500);
       });
     });
     // 모바일에서 열렸으면 한 번 자동 시도 — 실패해도 페이지가 그대로 안내한다.
