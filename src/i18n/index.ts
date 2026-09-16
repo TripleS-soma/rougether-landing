@@ -155,6 +155,7 @@ export interface InviteCopy {
   lead: string;
   hint: string;
   openApp: string;
+  openWeb: string;
   copyCode: string;
   copied: string;
   noCode: string;
@@ -165,6 +166,7 @@ export interface InviteCopy {
 }
 const inviteCommonKo = {
   openApp: '앱에서 초대 받기',
+  openWeb: '웹에서 초대 받기',
   copyCode: '초대코드 복사',
   copied: '복사됐어요 ✓',
   noCode: '초대코드가 링크에 없어요. 친구에게 링크를 다시 받아주세요.',
@@ -175,6 +177,7 @@ const inviteCommonKo = {
 };
 const inviteCommonEn = {
   openApp: 'Accept in the app',
+  openWeb: 'Accept on the web',
   copyCode: 'Copy invite code',
   copied: 'Copied ✓',
   noCode: 'There is no invite code in this link. Ask your friend to send it again.',
