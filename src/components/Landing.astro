@@ -17,6 +17,8 @@ const d = t(locale);
 const path = LOCALE_PATH[locale];
 const faqItems = d.faq.items(INSTAGRAM, CONTACT_EMAIL);
 const TOUR_IMGS = ['tour-routines', 'tour-decor', 'tour-house', 'tour-calendar'];
+// 영어 페이지는 영어 UI 캡처(public/assets/screens/en, rougether-mobile#1369) — 같은 이름으로 로케일 폴더만 다르다.
+const SCREENS_DIR = locale === 'en' ? '/assets/screens/en' : '/assets/screens';
 
 const appLd = {
   '@context': 'https://schema.org',
@@ -68,7 +70,7 @@ const faqLd = {
         <p class="web-link"><a href={WEB_APP} data-web-cta="hero">{d.hero.webLink}</a></p>
       </div>
       <div class="phone">
-        <img src="/assets/screens/hero-room.jpg" alt={d.hero.heroAlt} />
+        <img src={`${SCREENS_DIR}/hero-room.jpg`} alt={d.hero.heroAlt} />
       </div>
     </div>
     <a class="scroll-hint" href="#tour" aria-label={d.hero.scrollHint}>
@@ -83,7 +85,7 @@ const faqLd = {
   <section class="tour" id="tour">
     <div class="wrap">
       {d.tour.map((row, i) => (
-        <TourRow img={`/assets/screens/${TOUR_IMGS[i]}.jpg`} alt={row.alt} num={i + 1} desc={row.desc}>
+        <TourRow img={`${SCREENS_DIR}/${TOUR_IMGS[i]}.jpg`} alt={row.alt} num={i + 1} desc={row.desc}>
           {row.title[0]}<br /><span class="accent">{row.title[1]}</span>
         </TourRow>
       ))}
