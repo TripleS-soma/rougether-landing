@@ -1,5 +1,6 @@
 // 랜딩 문구 사전 — 한국어가 원본, 영어는 헤더 언어 드롭다운으로 전환되는 /en.html 페이지용.
-// 페이지·컴포넌트는 문구를 직접 쓰지 않고 t(locale)로 받는다. 딥링크 페이지(invite/join)는 한국어 고정.
+// 페이지·컴포넌트는 문구를 직접 쓰지 않고 t(locale)로 받는다. 딥링크 페이지(invite/join)는 단일 HTML이라
+// 한국어로 렌더한 뒤 브라우저 언어(또는 ?lang=)에 따라 클라이언트에서 영어로 바꾼다 — INVITE_COPY.
 export type Locale = 'ko' | 'en';
 export const LOCALES: Locale[] = ['ko', 'en'];
 export const LOCALE_LABEL: Record<Locale, string> = { ko: '한국어', en: 'English' };
@@ -145,3 +146,81 @@ const DICTS: Record<Locale, Dict> = { ko, en };
 export function t(locale: Locale): Dict {
   return DICTS[locale];
 }
+
+/** 초대 딥링크 페이지(invite/join) 문구 — 서버 렌더는 ko, en은 InviteCard 인라인 스크립트가 교체한다. */
+export interface InviteCopy {
+  title: string;
+  description: string;
+  heading: string;
+  lead: string;
+  hint: string;
+  openApp: string;
+  openWeb: string;
+  copyCode: string;
+  copied: string;
+  noCode: string;
+  installLead: string;
+  appStore: string;
+  whatIs: string;
+  iconAlt: string;
+}
+const inviteCommonKo = {
+  openApp: '앱에서 초대 받기',
+  openWeb: '웹에서 초대 받기',
+  copyCode: '초대코드 복사',
+  copied: '복사됐어요 ✓',
+  noCode: '초대코드가 링크에 없어요. 친구에게 링크를 다시 받아주세요.',
+  installLead: '아직 루게더가 없다면 —',
+  appStore: 'App Store에서 받기',
+  whatIs: '루게더가 뭔가요? →',
+  iconAlt: '루게더 앱 아이콘',
+};
+const inviteCommonEn = {
+  openApp: 'Accept in the app',
+  openWeb: 'Accept on the web',
+  copyCode: 'Copy invite code',
+  copied: 'Copied ✓',
+  noCode: 'There is no invite code in this link. Ask your friend to send it again.',
+  installLead: "Don't have Rougether yet? —",
+  appStore: 'Get it on the App Store',
+  whatIs: 'What is Rougether? →',
+  iconAlt: 'Rougether app icon',
+};
+export const INVITE_COPY: Record<'invite' | 'join', Record<Locale, InviteCopy>> = {
+  invite: {
+    ko: {
+      title: '루게더 친구 초대',
+      description: '친구가 루게더에 초대했어요. 초대코드로 가입하면 둘 다 코인을 받아요.',
+      heading: '루게더에 초대받았어요!',
+      lead: '초대코드를 쓰면 나도 친구도 코인을 받아요.',
+      hint: '앱이 안 열리면 이 코드를 복사해 설정 → 친구 초대에서 입력하세요.',
+      ...inviteCommonKo,
+    },
+    en: {
+      title: 'Rougether friend invite',
+      description: 'A friend invited you to Rougether. Sign up with the invite code and you both get coins.',
+      heading: "You're invited to Rougether!",
+      lead: 'Use the invite code and both you and your friend get coins.',
+      hint: "If the app doesn't open, copy this code and enter it under Settings → Invite friends.",
+      ...inviteCommonEn,
+    },
+  },
+  join: {
+    ko: {
+      title: '루게더 집에 초대받았어요',
+      description: '친구가 루게더 집에 초대했어요. 함께 루틴을 지키며 방과 집을 키워보세요.',
+      heading: '루게더 집에 초대받았어요!',
+      lead: '함께 루틴을 지키며 방과 집을 키워요.',
+      hint: '앱이 안 열리면 이 초대코드를 복사해 집 탐색에서 입력하세요.',
+      ...inviteCommonKo,
+    },
+    en: {
+      title: "You're invited to a Rougether house",
+      description: 'A friend invited you to their Rougether house. Keep routines together and grow your room and house.',
+      heading: "You're invited to a Rougether house!",
+      lead: 'Keep routines together and grow your room and house.',
+      hint: "If the app doesn't open, copy this invite code and enter it in Explore houses.",
+      ...inviteCommonEn,
+    },
+  },
+};
