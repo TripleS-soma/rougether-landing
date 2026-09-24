@@ -53,7 +53,10 @@ const alt = { ko: new URL('/', Astro.site).href, en: new URL('/en.html', Astro.s
   <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
   <script is:inline define:vars={{ GA_ID }}>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    // define:vars는 이 스크립트를 즉시실행함수로 감싼다 — `function gtag(){}` 선언은 그 안에
+    // 갇혀 전역이 되지 않았고, 아래 클릭 핸들러들이 ReferenceError로 죽어 appstore_tap이
+    // 2026-09-07~24 동안 통째로 유실됐다. 반드시 window에 단다 (smoke가 검사).
+    window.gtag = function () { dataLayer.push(arguments); };
     gtag('js', new Date());
     gtag('config', GA_ID);
   </script>
