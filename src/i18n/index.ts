@@ -18,7 +18,7 @@ export interface Dict {
   hero: { title: [string, string]; lead: string; webLink: string; scrollHint: string; heroAlt: string };
   tour: { title: [string, string]; desc: string; alt: string }[];
   web: { eyebrow: string; title: [string, string]; button: string; stepsLabel: string; steps: { where: string; how: string }[] };
-  faq: { heading: string; reward: string; items: (links: { instagram: string; email: string; playStore: string }) => FaqItem[] };
+  faq: { heading: string; reward: string; items: (links: { instagram: string; email: string; appStore: string; playStore: string }) => FaqItem[] };
   closing: { title: string; body: string };
   footer: { privacy: string; terms: string; github: string; web: string; instagramLabel: string };
 }
@@ -60,16 +60,16 @@ const ko: Dict = {
     heading: '자주 묻는 질문',
     reward: '전부 읽어주셨네요, 고마워요!',
     // 문구는 rougether-spec 근거. FAQPage JSON-LD는 이 목록에서 생성된다.
-    items: ({ instagram, email, playStore }) => [
-      { q: '루게더는 어떤 앱인가요?', a: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱이에요. 루틴을 지킬 때마다 보상을 받아 내 방을 꾸미고, 친구들과 모인 집을 함께 키워요.' },
+    items: ({ instagram, email, appStore, playStore }) => [
+      { q: '루게더는 어떤 앱인가요?', a: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱이에요. 루틴을 지킬 때마다 보상을 받아 내 방을 꾸미고, 친구들과 모인 집을 함께 키워요. iPhone·안드로이드·PC 웹에서 쓸 수 있어요.' },
       { q: '무료인가요?', a: '네, 무료로 시작할 수 있어요. 루틴을 지키면 받는 코인으로 방을 꾸밀 수 있어요.' },
       {
-        q: '안드로이드에서도 쓸 수 있나요?',
-        a: '네, Google Play에서 받을 수 있어요. iOS와 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요.',
-        html: `네, <a href="${playStore}" target="_blank" rel="noopener">Google Play</a>에서 받을 수 있어요. iOS와 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요.`,
+        q: '어디서 받을 수 있나요? 안드로이드도 되나요?',
+        a: '네, 둘 다 돼요. iPhone은 App Store, 안드로이드는 Google Play에서 받으세요. 같은 계정으로 로그인하면 기기를 바꿔도 내 방과 할 일이 그대로예요.',
+        html: `네, 둘 다 돼요. iPhone은 <a href="${appStore}" target="_blank" rel="noopener">App Store</a>, 안드로이드는 <a href="${playStore}" target="_blank" rel="noopener">Google Play</a>에서 받으세요. 같은 계정으로 로그인하면 기기를 바꿔도 내 방과 할 일이 그대로예요.`,
       },
       { q: 'PC에서도 쓸 수 있나요?', a: '네. 브라우저에서 app.rougether.com 을 열고 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요. 자주 쓰면 브라우저의 설치(홈 화면에 추가) 기능으로 앱처럼 둘 수 있어요.' },
-      { q: '친구랑 어떻게 같이 쓰나요?', a: '집을 만들고 초대코드를 공유하면 친구가 같은 집에 들어올 수 있어요. 방 구경, 응원 보내기, 공동 미션으로 집이 함께 자라요. 집은 여러 개에 참여할 수 있어요.' },
+      { q: '친구랑 어떻게 같이 쓰나요?', a: '집을 만들고 초대코드를 공유하면 친구가 같은 집에 들어올 수 있어요. iPhone 친구와 안드로이드 친구가 한 집에 모여도 돼요. 방 구경, 응원 보내기, 공동 미션으로 집이 함께 자라요. 집은 여러 개에 참여할 수 있어요.' },
       { q: '루틴을 지키면 뭐가 생기나요?', a: '완료할 때마다 코인과 스트릭이 쌓이고, 모은 보상으로 방을 꾸미거나 뽑기에서 캐릭터·가구를 얻을 수 있어요.' },
       {
         q: '문의나 버그 제보는 어디로 하나요?',
@@ -116,17 +116,17 @@ const en: Dict = {
   faq: {
     heading: 'FAQ',
     reward: 'You read them all — thank you!',
-    items: ({ instagram, email, playStore }) => [
-      { q: 'What is Rougether?', a: 'A to-do app where you grow together with your character and your friends in one house. Every routine you keep earns rewards to decorate your room, and the house you share with friends grows too.' },
+    items: ({ instagram, email, appStore, playStore }) => [
+      { q: 'What is Rougether?', a: 'A to-do app where you grow together with your character and your friends in one house. Every routine you keep earns rewards to decorate your room, and the house you share with friends grows too. Available on iPhone, Android and the web.' },
       { q: 'Is it free?', a: 'Yes, it’s free to start. Coins you earn by keeping routines let you decorate your room.' },
       { q: 'Is the app available in English?', a: 'The app itself is currently available in Korean only. This page is in English so you can see what Rougether is.' },
       {
-        q: 'Is it on Android?',
-        a: 'Yes — it’s on Google Play. Sign in with the same account as on iOS and your room and to-dos carry over.',
-        html: `Yes — it’s on <a href="${playStore}" target="_blank" rel="noopener">Google Play</a>. Sign in with the same account as on iOS and your room and to-dos carry over.`,
+        q: 'Where do I get it? Is it on Android?',
+        a: 'Yes, both. iPhone users get it on the App Store, Android users on Google Play. Sign in with the same account and your room and to-dos carry over between devices.',
+        html: `Yes, both. iPhone users get it on the <a href="${appStore}" target="_blank" rel="noopener">App Store</a>, Android users on <a href="${playStore}" target="_blank" rel="noopener">Google Play</a>. Sign in with the same account and your room and to-dos carry over between devices.`,
       },
       { q: 'Can I use it on a PC?', a: 'Yes. Open app.rougether.com in your browser and sign in with the same account — your room and to-dos are right there. If you use it often, your browser’s install (Add to Home Screen) feature keeps it like an app.' },
-      { q: 'How do I use it with friends?', a: 'Create a house and share its invite code, and friends can join the same house. Visiting rooms, sending cheers and shared missions help the house grow together. You can be in more than one house.' },
+      { q: 'How do I use it with friends?', a: 'Create a house and share its invite code, and friends can join the same house — iPhone and Android friends can share one house. Visiting rooms, sending cheers and shared missions help the house grow together. You can be in more than one house.' },
       { q: 'What do I get for keeping routines?', a: 'Every completion adds coins and streaks. Spend the rewards to decorate your room, or draw characters and furniture from the gacha.' },
       {
         q: 'Where do I send questions or bug reports?',
