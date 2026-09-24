@@ -1,6 +1,7 @@
 // 빌드 산출물 스모크 테스트 — 배포 전에 깨지면 안 되는 것들만 검사한다.
 // 지금까지 손으로 grep 하던 검증을 코드로: GA 태그, 구조화 데이터, 딥링크, noindex, 사이트맵.
 import { readFileSync, existsSync } from 'node:fs';
+import vm from 'node:vm';
 
 let failed = 0;
 const check = (ok, msg) => { console.log(`${ok ? '✓' : '✗'} ${msg}`); if (!ok) failed++; };
@@ -13,6 +14,17 @@ for (const p of ['index.html', 'invite.html', 'join.html', 'privacy.html', 'term
 const index = read('index.html');
 check(/googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+/.test(index), 'GA4 태그 로드');
 check(index.includes("'appstore_tap'") && index.includes("transport_type: 'beacon'"), 'appstore_tap 계측 (beacon)');
+// gtag가 전역인지 실제로 실행해 본다 — define:vars가 스크립트를 IIFE로 감싸 `function gtag(){}`가
+// 갇혔던 회귀(2026-09-07~24, appstore_tap 전량 유실)를 다시는 놓치지 않기 위해.
+{
+  const m = index.match(/<script>([^<]*dataLayer\.push\(arguments\)[^<]*)<\/script>/);
+  check(!!m, 'GA 초기화 스크립트 존재');
+  const ctx = { Date };
+  ctx.window = ctx;
+  try { vm.runInNewContext(m?.[1] ?? '', ctx); } catch (e) { check(false, `GA 초기화 실행 오류: ${e.message}`); }
+  check(typeof ctx.gtag === 'function', 'gtag가 전역(window.gtag)이다');
+  check(Array.isArray(ctx.dataLayer) && ctx.dataLayer.some((a) => a[0] === 'config'), 'gtag config 호출됨');
+}
 check(index.includes('<title>루게더</title>'), '검색 타이틀 브랜드 단독');
 check(index.includes('rel="canonical" href="https://rougether.com/"'), 'canonical');
 check(index.includes('naver-site-verification'), '네이버 소유확인 태그');
