@@ -3,7 +3,7 @@
 // 문구는 ko로 렌더하고(og·크롤러 기준), 브라우저 언어가 한국어가 아니거나 ?lang=en이면
 // 아래 인라인 스크립트가 data-i18n 요소를 영어로 바꾼다 (rougether-mobile#1369).
 import type { InviteCopy } from '../i18n';
-import { APP_STORE, WEB_APP } from '../lib/links';
+import { APP_STORE, PLAY_STORE, WEB_APP } from '../lib/links';
 
 interface Props {
   copy: Record<'ko' | 'en', InviteCopy>;
@@ -40,7 +40,7 @@ const ko = copy.ko;
   <div class="install">
     <span data-i18n="installLead">{ko.installLead}</span>
     <a class="store-link" href={APP_STORE} target="_blank" rel="noopener" data-cta={placement} data-i18n="appStore">{ko.appStore}</a> ·
-    <span>Google Play<span class="soon">준비 중</span></span>
+    <a class="store-link" href={PLAY_STORE} target="_blank" rel="noopener" data-cta={`${placement}-play`} data-i18n="playStore">{ko.playStore}</a>
     <br />
     <a class="home-link" href="/" id="home-link" data-i18n="whatIs">{ko.whatIs}</a>
   </div>
@@ -158,11 +158,6 @@ const ko = copy.ko;
   .install {
     margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border);
     font-size: 14px; color: var(--text-muted);
-  }
-  .install .soon {
-    display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 600;
-    color: var(--warning-text); background: color-mix(in srgb, var(--warning) 20%, transparent);
-    padding: 1px 8px; border-radius: 999px;
   }
   .home-link { display: inline-block; margin-top: 14px; font-size: 14px; color: var(--primary-text); }
   .store-link { color: var(--primary-text); font-weight: 700; }

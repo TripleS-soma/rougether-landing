@@ -22,6 +22,8 @@ check(lds.some((d) => d['@type'] === 'MobileApplication'), 'JSON-LD MobileApplic
 const faq = lds.find((d) => d['@type'] === 'FAQPage');
 check(faq && faq.mainEntity.length === (index.match(/<details>/g) || []).length, 'FAQPage 항목 수 = 화면 FAQ 수');
 check(index.includes('data-cta="hero"') && index.includes('data-cta="closing"'), '스토어 배지 계측 placement');
+check(index.includes('data-cta="hero-play"') && index.includes('data-cta="closing-play"') && !index.includes('aria-disabled'), 'Google Play 실링크 배지');
+check(index.includes('play.google.com/store/apps/details?id=com.triples.rougether'), 'Play 스토어 URL');
 check(index.includes('data-web-cta="hero"') && index.includes('data-web-cta="section"') && index.includes("'webapp_open'"), '웹앱 진입 계측 (webapp_open)');
 check(index.includes('href="https://app.rougether.com"'), '웹앱 링크');
 check(index.includes('hreflang="en" href="https://rougether.com/en.html"') && index.includes('<html lang="ko">'), 'ko 페이지 hreflang·lang');
@@ -38,6 +40,7 @@ for (const p of ['invite.html', 'join.html']) {
   check(html.includes('<meta name="robots" content="noindex">'), `${p} noindex`);
   check(html.includes("'rougether://' + scheme"), `${p} 딥링크 스크립트`);
   check(html.includes(`data-cta="${p.replace('.html', '')}"`), `${p} 스토어 링크 계측`);
+  check(html.includes(`data-cta="${p.replace('.html', '')}-play"`) && !html.includes('준비 중'), `${p} Play 링크`);
 }
 
 const sitemap = read('sitemap.xml');

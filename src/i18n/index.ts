@@ -16,10 +16,9 @@ export interface Dict {
   desc: string;
   nav: { tour: string; faq: string; instagram: string; language: string };
   hero: { title: [string, string]; lead: string; webLink: string; scrollHint: string; heroAlt: string };
-  badges: { comingSoon: string };
   tour: { title: [string, string]; desc: string; alt: string }[];
   web: { eyebrow: string; title: [string, string]; button: string; stepsLabel: string; steps: { where: string; how: string }[] };
-  faq: { heading: string; reward: string; items: (instagram: string, email: string) => FaqItem[] };
+  faq: { heading: string; reward: string; items: (links: { instagram: string; email: string; playStore: string }) => FaqItem[] };
   closing: { title: string; body: string };
   footer: { privacy: string; terms: string; github: string; web: string; instagramLabel: string };
 }
@@ -39,7 +38,6 @@ const ko: Dict = {
     scrollHint: '스크롤해서 더 알아보기',
     heroAlt: '루게더 내 방 화면 — 구름 벽지 방에서 쉬는 고양이 캐릭터와 오늘의 할 일',
   },
-  badges: { comingSoon: '출시 예정' },
   // 카피·캡처는 App Store 스크린샷(2026-09)과 동일 — 스토어에서 본 앱을 랜딩에서 그대로 만나게
   tour: [
     { title: ['매일의 할 일을', '가볍게 체크'], desc: '학업·건강처럼 카테고리로 묶고, 오늘 몇 개 해냈는지 한눈에 봐요', alt: '오늘의 할 일 화면 — 할 일·학업·건강 카테고리와 곰 체크' },
@@ -62,13 +60,13 @@ const ko: Dict = {
     heading: '자주 묻는 질문',
     reward: '전부 읽어주셨네요, 고마워요!',
     // 문구는 rougether-spec 근거. FAQPage JSON-LD는 이 목록에서 생성된다.
-    items: (instagram, email) => [
+    items: ({ instagram, email, playStore }) => [
       { q: '루게더는 어떤 앱인가요?', a: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱이에요. 루틴을 지킬 때마다 보상을 받아 내 방을 꾸미고, 친구들과 모인 집을 함께 키워요.' },
       { q: '무료인가요?', a: '네, 무료로 시작할 수 있어요. 루틴을 지키면 받는 코인으로 방을 꾸밀 수 있어요.' },
       {
-        q: '안드로이드 버전은 언제 나오나요?',
-        a: 'Google Play 출시를 준비하고 있어요. 소식은 인스타그램에서 가장 먼저 알려드려요.',
-        html: `Google Play 출시를 준비하고 있어요. 소식은 <a href="${instagram}" target="_blank" rel="noopener">인스타그램</a>에서 가장 먼저 알려드려요.`,
+        q: '안드로이드에서도 쓸 수 있나요?',
+        a: '네, Google Play에서 받을 수 있어요. iOS와 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요.',
+        html: `네, <a href="${playStore}" target="_blank" rel="noopener">Google Play</a>에서 받을 수 있어요. iOS와 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요.`,
       },
       { q: 'PC에서도 쓸 수 있나요?', a: '네. 브라우저에서 app.rougether.com 을 열고 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요. 자주 쓰면 브라우저의 설치(홈 화면에 추가) 기능으로 앱처럼 둘 수 있어요.' },
       { q: '친구랑 어떻게 같이 쓰나요?', a: '집을 만들고 초대코드를 공유하면 친구가 같은 집에 들어올 수 있어요. 방 구경, 응원 보내기, 공동 미션으로 집이 함께 자라요. 집은 여러 개에 참여할 수 있어요.' },
@@ -98,7 +96,6 @@ const en: Dict = {
     scrollHint: 'Scroll to learn more',
     heroAlt: 'Rougether room screen — a cat character resting in a cloud-wallpaper room above today’s to-dos',
   },
-  badges: { comingSoon: 'Coming soon' },
   tour: [
     { title: ['Check off the day’s to-dos', 'with a light touch'], desc: 'Group them by category, like study or health, and see how many you’ve done today at a glance', alt: 'Today’s to-dos screen — to-do, study and health categories with bear check marks' },
     { title: ['From furniture to wallpaper,', 'your taste, your room'], desc: 'Spend the coins from your check-ins on furniture, décor, wallpaper and floors', alt: 'Room decorating screen — furniture, décor, wallpaper and floor tabs with an apply button' },
@@ -119,14 +116,14 @@ const en: Dict = {
   faq: {
     heading: 'FAQ',
     reward: 'You read them all — thank you!',
-    items: (instagram, email) => [
+    items: ({ instagram, email, playStore }) => [
       { q: 'What is Rougether?', a: 'A to-do app where you grow together with your character and your friends in one house. Every routine you keep earns rewards to decorate your room, and the house you share with friends grows too.' },
       { q: 'Is it free?', a: 'Yes, it’s free to start. Coins you earn by keeping routines let you decorate your room.' },
       { q: 'Is the app available in English?', a: 'The app itself is currently available in Korean only. This page is in English so you can see what Rougether is.' },
       {
-        q: 'When is the Android version coming?',
-        a: 'We’re preparing the Google Play release. News lands on Instagram first.',
-        html: `We’re preparing the Google Play release. News lands on <a href="${instagram}" target="_blank" rel="noopener">Instagram</a> first.`,
+        q: 'Is it on Android?',
+        a: 'Yes — it’s on Google Play. Sign in with the same account as on iOS and your room and to-dos carry over.',
+        html: `Yes — it’s on <a href="${playStore}" target="_blank" rel="noopener">Google Play</a>. Sign in with the same account as on iOS and your room and to-dos carry over.`,
       },
       { q: 'Can I use it on a PC?', a: 'Yes. Open app.rougether.com in your browser and sign in with the same account — your room and to-dos are right there. If you use it often, your browser’s install (Add to Home Screen) feature keeps it like an app.' },
       { q: 'How do I use it with friends?', a: 'Create a house and share its invite code, and friends can join the same house. Visiting rooms, sending cheers and shared missions help the house grow together. You can be in more than one house.' },
@@ -161,6 +158,7 @@ export interface InviteCopy {
   noCode: string;
   installLead: string;
   appStore: string;
+  playStore: string;
   whatIs: string;
   iconAlt: string;
 }
@@ -171,7 +169,8 @@ const inviteCommonKo = {
   copied: '복사됐어요 ✓',
   noCode: '초대코드가 링크에 없어요. 친구에게 링크를 다시 받아주세요.',
   installLead: '아직 루게더가 없다면 —',
-  appStore: 'App Store에서 받기',
+  appStore: 'App Store',
+  playStore: 'Google Play',
   whatIs: '루게더가 뭔가요? →',
   iconAlt: '루게더 앱 아이콘',
 };
@@ -182,7 +181,8 @@ const inviteCommonEn = {
   copied: 'Copied ✓',
   noCode: 'There is no invite code in this link. Ask your friend to send it again.',
   installLead: "Don't have Rougether yet? —",
-  appStore: 'Get it on the App Store',
+  appStore: 'App Store',
+  playStore: 'Google Play',
   whatIs: 'What is Rougether? →',
   iconAlt: 'Rougether app icon',
 };

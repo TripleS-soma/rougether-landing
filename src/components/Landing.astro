@@ -8,14 +8,14 @@ import Faq from './Faq.astro';
 import Footer from './Footer.astro';
 import EasterCats from './EasterCats.astro';
 import '../styles/landing.css';
-import { SITE, APP_STORE, INSTAGRAM, GITHUB, WEB_APP, CONTACT_EMAIL } from '../lib/links';
+import { SITE, APP_STORE, PLAY_STORE, INSTAGRAM, GITHUB, WEB_APP, CONTACT_EMAIL } from '../lib/links';
 import { t, LOCALE_PATH, type Locale } from '../i18n';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const d = t(locale);
 const path = LOCALE_PATH[locale];
-const faqItems = d.faq.items(INSTAGRAM, CONTACT_EMAIL);
+const faqItems = d.faq.items({ instagram: INSTAGRAM, email: CONTACT_EMAIL, playStore: PLAY_STORE });
 const TOUR_IMGS = ['tour-routines', 'tour-decor', 'tour-house', 'tour-calendar'];
 // 영어 페이지는 영어 UI 캡처(public/assets/screens/en, rougether-mobile#1369) — 같은 이름으로 로케일 폴더만 다르다.
 const SCREENS_DIR = locale === 'en' ? '/assets/screens/en' : '/assets/screens';
@@ -28,7 +28,7 @@ const appLd = {
   description: d.desc,
   url: `${SITE}${path}`,
   image: `${SITE}/assets/og-cover.jpg`,
-  operatingSystem: 'iOS',
+  operatingSystem: 'iOS, Android',
   applicationCategory: 'LifestyleApplication',
   installUrl: APP_STORE,
   sameAs: [INSTAGRAM],
