@@ -15,7 +15,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const d = t(locale);
 const path = LOCALE_PATH[locale];
-const faqItems = d.faq.items({ instagram: INSTAGRAM, email: CONTACT_EMAIL, playStore: PLAY_STORE });
+const faqItems = d.faq.items({ instagram: INSTAGRAM, email: CONTACT_EMAIL, appStore: APP_STORE, playStore: PLAY_STORE });
 const TOUR_IMGS = ['tour-routines', 'tour-decor', 'tour-house', 'tour-calendar'];
 // 영어 페이지는 영어 UI 캡처(public/assets/screens/en, rougether-mobile#1369) — 같은 이름으로 로케일 폴더만 다르다.
 const SCREENS_DIR = locale === 'en' ? '/assets/screens/en' : '/assets/screens';
