@@ -86,7 +86,7 @@ header {
 .hero h1 .accent { color: var(--primary-text); }
 /* 영어 헤드라인은 글자가 길어 한 단계 작게 — 두 줄 유지. */
 html[lang="en"] .hero h1 { font-size: clamp(32px, 5.2vw, 50px); }
-.hero p.lead { margin-top: 22px; max-width: 560px; font-size: clamp(17px, 2.7vw, 21px); color: var(--text-muted); }
+.hero p.lead { margin-top: 22px; max-width: 560px; font-size: clamp(17px, 2.7vw, 21px); color: var(--text-muted); word-break: keep-all; }
 .hero .badges { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
 /* 스토어 배지 — 토스(toss.im)풍 다크 필 버튼: 로고 + 흰 텍스트.
    다크 톤은 테마 onPrimary(#2D2623) 계열로 코지 팔레트에 맞춘다. */
@@ -259,3 +259,9 @@ footer { background: var(--app-shell); padding: 40px 0 48px; }
   transition: transform .25s ease, background .2s ease;
 }
 .foot .sns a:hover { background: #463C35; transform: translateY(-2px); }
+
+/* 한국어가 아닌 브라우저용 영어 안내 배너 (Landing.astro, ko 페이지만) */
+.lang-suggest { background: var(--primary-soft); border-bottom: 1px solid var(--border); font-size: 14px; }
+.lang-suggest .wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; }
+.lang-suggest a { color: var(--primary-text); font-weight: 700; }
+.lang-suggest button { margin-left: auto; background: none; border: 0; font-size: 20px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 8px; }

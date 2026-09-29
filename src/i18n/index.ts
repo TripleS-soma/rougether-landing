@@ -26,14 +26,15 @@ export interface Dict {
 const ko: Dict = {
   htmlLang: 'ko',
   brand: '루게더',
-  // 검색 타이틀은 토스처럼 브랜드 단독 — 설명은 meta description이 맡는다.
-  title: '루게더',
-  ogTitle: '루게더 — 내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱',
-  desc: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더. 루틴을 지키면 방이 자라요.',
+  // 검색 타이틀 = 브랜드 + 카테고리 키워드. 브랜드 단독은 이미 브랜드로 검색되는 서비스에만 통한다 —
+  // 신규 앱은 '루틴 앱'·'습관 앱' 검색에 걸리려면 타이틀에 그 단어가 있어야 한다(검색엔진 최상위 신호).
+  title: '루게더 - 친구와 함께 키우는 루틴·습관 관리 앱',
+  ogTitle: '루게더 — 내 캐릭터와, 친구들과 한 집에서 함께 크는 루틴·할 일 관리 앱',
+  desc: '루틴을 지키면 내 방이 자라는 루틴 앱, 루게더. 매일의 할 일과 습관을 체크하고, 모은 코인으로 방을 꾸미고, 친구들과 한 집에서 함께 루틴을 쌓아요. iPhone·안드로이드·PC에서 무료로 시작하세요.',
   nav: { tour: '둘러보기', faq: 'FAQ', instagram: 'Instagram', language: '언어' },
   hero: {
     title: ['루틴을 지키면', '내 방이 자라요'],
-    lead: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱, 루게더.',
+    lead: '내 캐릭터와, 친구들과 한 집에서 함께 크는 루틴·할 일 관리 앱, 루게더.',
     webLink: 'PC에서 설치 없이 웹으로 시작하기 →',
     scrollHint: '스크롤해서 더 알아보기',
     heroAlt: '루게더 내 방 화면 — 구름 벽지 방에서 쉬는 고양이 캐릭터와 오늘의 할 일',
@@ -61,7 +62,7 @@ const ko: Dict = {
     reward: '전부 읽어주셨네요, 고마워요!',
     // 문구는 rougether-spec 근거. FAQPage JSON-LD는 이 목록에서 생성된다.
     items: ({ instagram, email, appStore, playStore }) => [
-      { q: '루게더는 어떤 앱인가요?', a: '내 캐릭터와, 친구들과 한 집에서 함께 크는 할 일 관리 앱이에요. 루틴을 지킬 때마다 보상을 받아 내 방을 꾸미고, 친구들과 모인 집을 함께 키워요. iPhone·안드로이드·PC 웹에서 쓸 수 있어요.' },
+      { q: '루게더는 어떤 앱인가요?', a: '내 캐릭터와, 친구들과 한 집에서 함께 크는 루틴·습관 관리 앱이에요. 매일의 루틴과 할 일을 지킬 때마다 보상을 받아 내 방을 꾸미고, 친구들과 모인 집을 함께 키워요. iPhone·안드로이드·PC 웹에서 쓸 수 있어요.' },
       { q: '무료인가요?', a: '네, 무료로 시작할 수 있어요. 루틴을 지키면 받는 코인으로 방을 꾸밀 수 있어요.' },
       {
         q: '어디서 받을 수 있나요? 안드로이드도 되나요?',
@@ -70,6 +71,7 @@ const ko: Dict = {
       },
       { q: 'PC에서도 쓸 수 있나요?', a: '네. 브라우저에서 app.rougether.com 을 열고 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요. 자주 쓰면 브라우저의 설치(홈 화면에 추가) 기능으로 앱처럼 둘 수 있어요.' },
       { q: '친구랑 어떻게 같이 쓰나요?', a: '집을 만들고 초대코드를 공유하면 친구가 같은 집에 들어올 수 있어요. iPhone 친구와 안드로이드 친구가 한 집에 모여도 돼요. 방 구경, 응원 보내기, 공동 미션으로 집이 함께 자라요. 집은 여러 개에 참여할 수 있어요.' },
+      { q: '습관 만들기에 어떻게 도움이 되나요?', a: '작심삼일이 되지 않게 매일 체크한 기록이 스트릭으로 이어지고, 해낸 날엔 달력에 동그라미가 그려져요. 친구들과 한 집에 모이면 서로 방을 구경하고 응원을 보내며 공동 미션을 함께 채워서, 혼자보다 오래 가는 습관을 만들 수 있어요.' },
       { q: '루틴을 지키면 뭐가 생기나요?', a: '완료할 때마다 코인과 스트릭이 쌓이고, 모은 보상으로 방을 꾸미거나 뽑기에서 캐릭터·가구를 얻을 수 있어요.' },
       {
         q: '문의나 버그 제보는 어디로 하나요?',
@@ -85,9 +87,9 @@ const ko: Dict = {
 const en: Dict = {
   htmlLang: 'en',
   brand: 'Rougether',
-  title: 'Rougether',
+  title: 'Rougether - Routine & Habit Tracker with Friends',
   ogTitle: 'Rougether — a to-do app where you grow with your character and friends in one house',
-  desc: 'Rougether is a routine and to-do app where your character, your friends and your shared house grow as you keep your routines.',
+  desc: 'Rougether is a routine and habit tracker where your character, your friends and your shared house grow as you keep your routines. Check off daily to-dos, decorate your room with coins, and build habits together. Free on iPhone, Android and the web.',
   nav: { tour: 'Tour', faq: 'FAQ', instagram: 'Instagram', language: 'Language' },
   hero: {
     title: ['Keep your routines,', 'and your room grows'],
@@ -117,7 +119,7 @@ const en: Dict = {
     heading: 'FAQ',
     reward: 'You read them all — thank you!',
     items: ({ instagram, email, appStore, playStore }) => [
-      { q: 'What is Rougether?', a: 'A to-do app where you grow together with your character and your friends in one house. Every routine you keep earns rewards to decorate your room, and the house you share with friends grows too. Available on iPhone, Android and the web.' },
+      { q: 'What is Rougether?', a: 'A routine and habit tracker where you grow together with your character and your friends in one house. Every routine you keep earns rewards to decorate your room, and the house you share with friends grows too. Available on iPhone, Android and the web.' },
       { q: 'Is it free?', a: 'Yes, it’s free to start. Coins you earn by keeping routines let you decorate your room.' },
       { q: 'Is the app available in English?', a: 'The app itself is currently available in Korean only. This page is in English so you can see what Rougether is.' },
       {

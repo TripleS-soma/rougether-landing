@@ -25,7 +25,12 @@ check(index.includes("'appstore_tap'") && index.includes("transport_type: 'beaco
   check(typeof ctx.gtag === 'function', 'gtag가 전역(window.gtag)이다');
   check(Array.isArray(ctx.dataLayer) && ctx.dataLayer.some((a) => a[0] === 'config'), 'gtag config 호출됨');
 }
-check(index.includes('<title>루게더</title>'), '검색 타이틀 브랜드 단독');
+{
+  const title = index.match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
+  check(title.startsWith('루게더') && title.includes('루틴') && title.includes('습관'), '검색 타이틀 = 브랜드 + 루틴·습관 키워드');
+  const desc = index.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';
+  check(desc.includes('루틴 앱') && desc.includes('습관'), 'meta description에 루틴 앱·습관 키워드');
+}
 check(index.includes('rel="canonical" href="https://rougether.com/"'), 'canonical');
 check(index.includes('naver-site-verification'), '네이버 소유확인 태그');
 
@@ -40,8 +45,16 @@ check(index.includes('data-web-cta="hero"') && index.includes('data-web-cta="sec
 check(index.includes('href="https://app.rougether.com"'), '웹앱 링크');
 check(index.includes('hreflang="en" href="https://rougether.com/en.html"') && index.includes('<html lang="ko">'), 'ko 페이지 hreflang·lang');
 const en = readFileSync('dist/en.html', 'utf8');
-check(index.includes("localStorage.getItem('rougether.lang')") && index.includes("/^ko/i"), '루트 언어 리다이렉트 스크립트');
-check(!en.includes("localStorage.getItem('rougether.lang')"), '/en.html 에는 리다이렉트 없음');
+check(index.includes("localStorage.getItem('rougether.lang')"), '루트 언어 선택(?lang·저장값) 스크립트');
+// 브라우저 언어로 자동 리다이렉트하면 영어 로케일로 렌더링하는 구글봇이 한국어 루트를 /en.html 로 넘기는
+// 페이지로 본다 — location.replace 는 명시적 선택(chosen === 'en') 분기에만 있어야 한다.
+{
+  const replaces = [...index.matchAll(/location\.replace\(/g)].length;
+  const guarded = /if \(chosen === 'en'\) \{ location\.replace\(/.test(index);
+  check(replaces === 1 && guarded, '브라우저 언어 기반 자동 리다이렉트 없음 (명시적 선택만 이동)');
+  check(/id="lang-suggest"[^>]*hidden/.test(index) && index.includes('/en.html?lang=en'), '비한국어 브라우저용 영어 안내 배너 (기본 hidden)');
+}
+check(!en.includes("localStorage.getItem('rougether.lang')") && !en.includes('id="lang-suggest"'), '/en.html 에는 리다이렉트·안내 배너 없음');
 check(en.includes('<html lang="en">') && en.includes('rel="canonical" href="https://rougether.com/en.html"'), '/en.html lang·canonical');
 check(en.includes('Keep your routines') && !en.includes('루틴을 지키면'), '/en.html 영어 문구');
 check(en.includes('data-cta="hero"') && en.includes("'appstore_tap'"), '/en.html 스토어 배지 계측');
