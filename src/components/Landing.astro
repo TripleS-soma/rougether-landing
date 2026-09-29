@@ -58,6 +58,36 @@ const faqLd = {
 
   <Header locale={locale} />
 
+  {locale === 'ko' && (
+    <Fragment>
+      <!-- 한국어가 아닌 브라우저용 영어 안내 — 자동 리다이렉트 대신(index.astro 주석 참고).
+           기본 hidden 이라 크롤러·JS 미실행 환경엔 보이지 않는다. 문구는 받는 사람 기준이라 영어 고정. -->
+      <div class="lang-suggest" id="lang-suggest" lang="en" hidden>
+        <div class="wrap">
+          <span>This page is in Korean.</span>
+          <a href="/en.html?lang=en" hreflang="en">View in English →</a>
+          <button type="button" aria-label="Dismiss">×</button>
+        </div>
+      </div>
+      <script is:inline>
+        (function () {
+          var el = document.getElementById('lang-suggest');
+          try {
+            if (localStorage.getItem('rougether.lang')) return;
+            var langs = navigator.languages || [navigator.language || ''];
+            if (langs.some(function (l) { return /^ko/i.test(l); })) return;
+            el.hidden = false;
+            // 닫으면 한국어를 고른 것으로 기억 — 다음 방문에 다시 묻지 않는다.
+            el.querySelector('button').addEventListener('click', function () {
+              el.hidden = true;
+              try { localStorage.setItem('rougether.lang', 'ko'); } catch (e) {}
+            });
+          } catch (e) {}
+        })();
+      </script>
+    </Fragment>
+  )}
+
   <!-- 카피·캡처는 App Store 스크린샷(2026-09)과 동일 — 스토어에서 본 앱을 랜딩에서 그대로 만나게 -->
   <section class="hero">
     <div class="wrap cols">
