@@ -27,6 +27,7 @@
     th, td { border: 1px solid #E2D9CB; padding: 8px 10px; text-align: left; vertical-align: top; background: transparent; }
     th { background: #F1EAE0; }
     .todo { background: #F1E8D8; color: #7A6A4F; border-radius: 4px; padding: 0 4px; font-weight: 600; }
+    .notice { border: 1px solid #E2C98F; background: #FBF3E2; border-radius: 8px; padding: 10px 12px; margin: 12px 0; }
     .meta { color: #8B7E74; font-size: 13px; }
     .notice { border: 1px solid #E2D9CB; border-radius: 6px; padding: 10px 12px; font-size: 13px; color: #7A6A4F; background: #F1EAE0; }
     ol, ul { padding-left: 1.3em; }
@@ -37,6 +38,7 @@
       th, td { border-color: #47413A; }
       th { background: #2E2A26; }
       .todo { background: #3A3630; color: #E8C57A; }
+      .notice { border-color: #6B5A35; background: #2E2820; }
       .meta { color: #9C948A; }
       .notice { border-color: #47413A; background: #2E2A26; color: #C9BFB2; }
     }
@@ -44,7 +46,16 @@
 </head>
 <body>
   <h1>Rougether Privacy Policy</h1>
-  <p class="meta">Effective: October 4, 2026 · Version 2.0 · <a href="/privacy.html" hreflang="ko" lang="ko">한국어</a></p>
+  <p class="meta">Effective: October 21, 2026 · Version 2.1 (announced October 14, 2026) · <a href="/privacy.html" hreflang="ko" lang="ko">한국어</a></p>
+
+  <div class="notice">
+    <strong>Upcoming change — effective October 21, 2026.</strong>
+    With the introduction of an ad measurement tool (Airbridge), we are adding (1) automatically collected items such as
+    advertising identifiers and their purpose, (2) provision to advertising platforms, (3) outsourcing to AB180 Inc., and
+    (4) how to refuse the collection and provision of advertising identifiers.
+    Until the effective date, <a href="/en/privacy-2.0.html">Version 2.0</a> applies.
+  </div>
+
   <p class="notice">
     This English version is provided for convenience. The service is operated under the laws of the
     Republic of Korea, and in case of any discrepancy the
@@ -130,7 +141,16 @@
         events — collected via analytics tools), error and crash reports</td>
       <td>Generated and collected automatically while you use the Service</td>
     </tr>
-  </table>
+      <tr>
+      <td>Ad measurement (collected automatically, from the app version that includes this tool)</td>
+      <td>Advertising identifiers (iOS IDFA — only if you choose "Allow App to Request to Track"; Android advertising ID —
+        unless you have deleted it in your device settings), app-install identifiers (such as iOS IDFV), IP address, device
+        information (model, OS version, language, time zone), app install, first-open and open records, information on the ad
+        or link that led to the install or open (platform, campaign, click time), and the occurrence and time of key in-app
+        events such as sign-up</td>
+      <td>Collected automatically by the Airbridge SDK included in the app and sent to the processor</td>
+    </tr>
+</table>
   <p>
     Photo library access is used only to attach a screenshot to a bug report and to choose photos to post in the
     feed, and the "add photos" permission only
@@ -188,7 +208,13 @@
     delete your account.
   </p>
 
-  <h2>2. Purposes of collection and use</h2>
+    <p>
+    <strong>We do not send your nickname, email, social account identifiers, or the content of your routines, to-dos,
+    chats, or feed to the ad measurement tool.</strong> On iOS, advertising identifiers are collected only if you allow
+    tracking, and declining does not limit your use of the service.
+  </p>
+
+<h2>2. Purposes of collection and use</h2>
   <ul>
     <li>Member management: identifying you, confirming your intent to sign up, signing you in</li>
     <li>Providing and operating the Service: routine and to-do tracking, room decoration, houses (groups), and other features</li>
@@ -211,7 +237,8 @@
     <li>Reproducing and investigating reported bugs (when diagnostics are attached)</li>
     <li>Analyzing usage statistics and improving service quality</li>
     <li>(With your optional consent) sending marketing information such as events and offers</li>
-  </ul>
+      <li>Analyzing acquisition channels of advertising and marketing campaigns and measuring ad performance</li>
+</ul>
 
   <h2>3. Retention and use period</h2>
   <p>
@@ -243,7 +270,16 @@
     and comments from members you have blocked are hidden from you.
   </p>
 
-  <h2>5. Outsourcing of processing</h2>
+    <p>
+    <strong>Provision to advertising platforms (from October 21, 2026)</strong>: If you install or open the app after seeing
+    an ad, we provide the platform that showed the ad (such as Meta, Google, or TikTok, where the Team runs ads) with your
+    advertising identifier (if collected) and the occurrence and time of the install, open, and key in-app events, to measure
+    ad performance. Recipients use this to measure and optimize ad performance and retain it according to their own policies.
+    You can ask us at the contact address for the list of platforms we currently advertise on. You can refuse the provision
+    of advertising identifiers as described in Section 7.
+  </p>
+
+<h2>5. Outsourcing of processing</h2>
   <table>
     <tr><th>Processor</th><th>Outsourced task</th></tr>
     <tr>
@@ -266,7 +302,12 @@
         United States when you use the feature, to provide that feature. Under OpenAI's API policy, the data sent is
         not used to train its models</td>
     </tr>
-  </table>
+      <tr>
+      <td>AB180 Inc. (Airbridge)</td>
+      <td>Analyzing app install and open acquisition channels, measuring ad performance, and relaying performance data to
+        advertising platforms (from October 21, 2026)</td>
+    </tr>
+</table>
 
   <h2>6. Destruction procedure and method</h2>
   <p>
@@ -279,7 +320,10 @@
     <li>You may request access to, correction or deletion of, or suspension of processing of your personal information at any time.</li>
     <li>You can delete your account in the app's settings or by contacting us at the address below.</li>
     <li>Requests can be made in writing or by email to the privacy officer below, and the Team will act without delay.</li>
-  </ul>
+      <li>Refusing advertising identifiers: on iOS, turn off tracking for Rougether in Settings → Privacy &amp; Security →
+      Tracking; on Android, delete your advertising ID in your device's ad settings (Google → Ads, or Privacy → Ads). We will
+      no longer collect or provide it after that.</li>
+</ul>
 
   <h2>8. Security measures</h2>
   <ul>
@@ -352,6 +396,11 @@
       choose on Proof board posts; and the use of photo library access to choose feed photos. The feed is a
       pre-release feature not yet available to general users, with no affected users, so this takes effect
       immediately.</li>
+    <li>Version 2.1 — effective October 21, 2026 (announced October 14, 2026): with the introduction of an ad measurement
+      tool (Airbridge), added automatically collected items (such as advertising identifiers) and their purpose, provision to
+      advertising platforms, outsourcing to AB180 Inc., and how to refuse advertising identifiers. This applies from the app
+      version that includes the tool. No app released at the time of the announcement includes it, so no users are affected
+      and it takes effect after a 7-day notice.</li>
   </ul>
 </body>
 </html>
