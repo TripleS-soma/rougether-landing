@@ -35,21 +35,27 @@ index·invite·join에 GA4 태그(측정 ID `G-3B36GQQB4R`, 속성 "루게더 Ro
 
 ## 앱 버전 게이트 (`public/app-version.json`)
 
-앱이 실행할 때 이 파일을 읽어, 설치된 바이너리가 너무 오래됐으면 스토어로 안내한다 (`rougether-mobile` #1572). **이 파일만 고쳐 `main`에 푸시하면 앱 배포 없이 즉시 적용된다** — 그게 이 파일이 서버가 아니라 여기 있는 이유다.
+앱이 실행할 때 이 파일을 읽어, 오래된 설치본에 스토어 업데이트를 안내한다 (`rougether-mobile` #1572). **이 파일만 고쳐 `main`에 푸시하면 앱 배포 없이 즉시 적용된다** — 그게 이 파일이 서버가 아니라 여기 있는 이유다.
 
-- `minimumBuild` — 이 번호보다 낮은 설치본은 앱을 **막는다**. 서버 계약이 실제로 깨진 버전에만 올릴 것.
-- `recommendedBuild` — 이 번호보다 낮으면 **닫을 수 있는 안내**만 띄운다. 평소에 쓰는 값.
-- `latestVersion` — 안내 문구에 보여 줄 사람이 읽는 버전(`1.5.4`). 판정에는 쓰지 않는다.
-- `0`은 게이트 끔. 처음 올릴 때는 둘 다 `0`이다.
+- `staleRuntimes` — 이 런타임 지문의 설치본에 **닫을 수 있는 안내**를 띄운다. 평소에 쓰는 값.
+- `blockedRuntimes` — 앱을 **막는다**. 서버 계약이 실제로 깨진 바이너리에만.
+- `latestVersion` — 문구에 보여 줄 버전(`1.5.4`)이면서 **'나중에'의 단위**다. 이 값이 바뀌면 미뤘던 사람에게 다시 안내한다.
+- 목록이 비어 있으면 게이트는 아무것도 하지 않는다. 처음 올릴 때가 그 상태다.
 
-비교 기준은 **빌드 번호**(iOS `CFBundleVersion` · Android `versionCode`)다. 버전 문자열(`1.5.4`)은 OTA로 바뀔 수 있어서 설치본을 가리키지 못한다 — 빌드 번호는 바이너리에 박혀 있어 안 바뀐다. 실제 번호는 모바일 레포에서 확인한다.
+### 왜 버전 번호가 아니라 런타임 지문인가
+
+설치된 **바이너리**를 가리키는 값이어야 한다. 버전 문자열(`1.5.4`)은 OTA로 JS 번들이 바뀌면 같이 바뀌므로 못 쓴다. iOS 빌드 번호는 쓸 수 있지만 **Android는 `expo-constants`가 `versionCode`를 주지 않는다**(SDK 55에서 빈 객체). 런타임 지문은 바이너리마다 박혀 있고 두 플랫폼에서 똑같이 동작한다. 지문은 모바일 레포에서 확인한다.
 
 ```sh
-eas build:list --platform ios --build-profile production --limit 1
-eas build:list --platform android --build-profile production --limit 1
+eas build:list --platform ios --build-profile production --limit 3
+eas build:list --platform android --build-profile production --limit 3
 ```
 
-주의: 앱은 이 파일을 캐시 없이 받지만(`cache: 'no-store'`), **두 플랫폼의 빌드 번호 체계는 서로 다르다**. iOS 번호를 android에 적지 말 것. `npm test`의 스모크가 스키마와 `recommendedBuild >= minimumBuild`를 검사한다.
+### 왜 오래된 쪽을 나열하나
+
+"최신 지문만 적고 그 밖은 전부 구버전"으로 뒤집으면, 새 빌드의 지문을 적는 걸 잊은 순간 **최신 사용자에게 업데이트하라고 조른다.** 나열 방식은 잊었을 때 아무 일도 일어나지 않는다. 안전한 쪽으로 틀리게 둔다.
+
+대신 **새 네이티브 릴리스마다 직전 지문을 `staleRuntimes`에 추가**하는 게 운영 절차다. `npm test`의 스모크가 지문 꼴과 두 목록의 겹침을 검사한다.
 
 ## TODO
 

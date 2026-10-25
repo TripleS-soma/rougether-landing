@@ -69,7 +69,7 @@ for (const p of ['invite.html', 'join.html']) {
 }
 
 // 앱 버전 게이트가 읽는 파일 (rougether-mobile #1572) — 형식이 깨지면 앱이 조용히 통과하거나,
-// 더 나쁘게는 멀쩡한 설치본을 막는다. 스키마와 recommended ≥ minimum을 여기서 잠근다.
+// 더 나쁘게는 멀쩡한 설치본을 막는다. 스키마와 지문 꼴, 두 목록이 겹치지 않는 것을 잠근다.
 {
   const exists = existsSync('dist/app-version.json');
   check(exists, 'dist/app-version.json 존재');
@@ -78,18 +78,18 @@ for (const p of ['invite.html', 'join.html']) {
     try { gate = JSON.parse(read('app-version.json')); }
     catch (e) { check(false, `app-version.json 파싱 오류: ${e.message}`); }
   }
-  for (const os of ['ios', 'android']) {
-    const v = gate?.[os];
-    const ok =
-      !!v &&
-      Number.isInteger(v.minimumBuild) &&
-      Number.isInteger(v.recommendedBuild) &&
-      v.minimumBuild >= 0 &&
-      v.recommendedBuild >= v.minimumBuild &&
-      typeof v.latestVersion === 'string' &&
-      /^\d+\.\d+\.\d+$/.test(v.latestVersion);
-    check(ok, `app-version.json ${os} — 정수 빌드 번호 · recommended ≥ minimum · latestVersion semver`);
+  const isRuntime = (v) => typeof v === 'string' && /^[0-9a-f]{40}$/.test(v);
+  for (const field of ['staleRuntimes', 'blockedRuntimes']) {
+    const list = gate?.[field];
+    check(Array.isArray(list) && list.every(isRuntime), `app-version.json ${field} — 40자리 hex 지문 배열`);
   }
+  check(
+    typeof gate?.latestVersion === 'string' && /^\d+\.\d+\.\d+$/.test(gate.latestVersion),
+    'app-version.json latestVersion — semver',
+  );
+  // 같은 지문이 양쪽에 있으면 안내인지 차단인지 모호하다 — 차단이 이기지만 의도가 아니기 쉽다.
+  const both = (gate?.staleRuntimes ?? []).filter((v) => (gate?.blockedRuntimes ?? []).includes(v));
+  check(both.length === 0, `app-version.json — 두 목록이 겹치지 않는다${both.length ? ` (겹침: ${both.join(', ')})` : ''}`);
 }
 
 const sitemap = read('sitemap.xml');
