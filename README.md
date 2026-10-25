@@ -33,6 +33,24 @@ index·invite·join에 GA4 태그(측정 ID `G-3B36GQQB4R`, 속성 "루게더 Ro
   2. [네이버 서치어드바이저](https://searchadvisor.naver.com) → 사이트 등록 → 소유 확인(HTML 태그를 주면 index.html `<head>`에 추가) → 요청 > 사이트맵 제출. 타겟(대학생·취준생)의 네이버 검색 비중이 커서 구글만큼 중요하다.
 - 소유 확인용 메타 태그·HTML 파일이 발급되면 이 레포에 커밋하면 된다.
 
+## 앱 버전 게이트 (`public/app-version.json`)
+
+앱이 실행할 때 이 파일을 읽어, 설치된 바이너리가 너무 오래됐으면 스토어로 안내한다 (`rougether-mobile` #1572). **이 파일만 고쳐 `main`에 푸시하면 앱 배포 없이 즉시 적용된다** — 그게 이 파일이 서버가 아니라 여기 있는 이유다.
+
+- `minimumBuild` — 이 번호보다 낮은 설치본은 앱을 **막는다**. 서버 계약이 실제로 깨진 버전에만 올릴 것.
+- `recommendedBuild` — 이 번호보다 낮으면 **닫을 수 있는 안내**만 띄운다. 평소에 쓰는 값.
+- `latestVersion` — 안내 문구에 보여 줄 사람이 읽는 버전(`1.5.4`). 판정에는 쓰지 않는다.
+- `0`은 게이트 끔. 처음 올릴 때는 둘 다 `0`이다.
+
+비교 기준은 **빌드 번호**(iOS `CFBundleVersion` · Android `versionCode`)다. 버전 문자열(`1.5.4`)은 OTA로 바뀔 수 있어서 설치본을 가리키지 못한다 — 빌드 번호는 바이너리에 박혀 있어 안 바뀐다. 실제 번호는 모바일 레포에서 확인한다.
+
+```sh
+eas build:list --platform ios --build-profile production --limit 1
+eas build:list --platform android --build-profile production --limit 1
+```
+
+주의: 앱은 이 파일을 캐시 없이 받지만(`cache: 'no-store'`), **두 플랫폼의 빌드 번호 체계는 서로 다르다**. iOS 번호를 android에 적지 말 것. `npm test`의 스모크가 스키마와 `recommendedBuild >= minimumBuild`를 검사한다.
+
 ## TODO
 
 - 초대 전용 OG 카드 이미지(현재 invite/join은 공용 `og-cover.jpg` 사용).

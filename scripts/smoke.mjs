@@ -68,6 +68,30 @@ for (const p of ['invite.html', 'join.html']) {
   check(html.includes(`data-cta="${p.replace('.html', '')}-play"`) && !html.includes('준비 중'), `${p} Play 링크`);
 }
 
+// 앱 버전 게이트가 읽는 파일 (rougether-mobile #1572) — 형식이 깨지면 앱이 조용히 통과하거나,
+// 더 나쁘게는 멀쩡한 설치본을 막는다. 스키마와 recommended ≥ minimum을 여기서 잠근다.
+{
+  const exists = existsSync('dist/app-version.json');
+  check(exists, 'dist/app-version.json 존재');
+  let gate = null;
+  if (exists) {
+    try { gate = JSON.parse(read('app-version.json')); }
+    catch (e) { check(false, `app-version.json 파싱 오류: ${e.message}`); }
+  }
+  for (const os of ['ios', 'android']) {
+    const v = gate?.[os];
+    const ok =
+      !!v &&
+      Number.isInteger(v.minimumBuild) &&
+      Number.isInteger(v.recommendedBuild) &&
+      v.minimumBuild >= 0 &&
+      v.recommendedBuild >= v.minimumBuild &&
+      typeof v.latestVersion === 'string' &&
+      /^\d+\.\d+\.\d+$/.test(v.latestVersion);
+    check(ok, `app-version.json ${os} — 정수 빌드 번호 · recommended ≥ minimum · latestVersion semver`);
+  }
+}
+
 const sitemap = read('sitemap.xml');
 check(!sitemap.includes('invite') && !sitemap.includes('join'), 'sitemap에 초대 페이지 미포함');
 
