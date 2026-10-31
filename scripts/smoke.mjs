@@ -56,7 +56,7 @@ check(index.includes("localStorage.getItem('rougether.lang')"), '루트 언어 �
 }
 check(!en.includes("localStorage.getItem('rougether.lang')") && !en.includes('id="lang-suggest"'), '/en.html 에는 리다이렉트·안내 배너 없음');
 check(en.includes('<html lang="en">') && en.includes('rel="canonical" href="https://rougether.com/en.html"'), '/en.html lang·canonical');
-check(en.includes('Keep your routines') && !en.includes('루틴을 지키면'), '/en.html 영어 문구');
+check(en.includes('Move in with friends') && !en.includes('친구들과 한 집에서'), '/en.html 영어 문구');
 check(en.includes('data-cta="hero"') && en.includes("'appstore_tap'"), '/en.html 스토어 배지 계측');
 check(!index.includes('rel="stylesheet"'), 'CSS 인라인 (외부 스타일시트 없음)');
 
