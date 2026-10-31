@@ -16,7 +16,8 @@ const { locale } = Astro.props;
 const d = t(locale);
 const path = LOCALE_PATH[locale];
 const faqItems = d.faq.items({ instagram: INSTAGRAM, email: CONTACT_EMAIL, appStore: APP_STORE, playStore: PLAY_STORE });
-const TOUR_IMGS = ['tour-routines', 'tour-decor', 'tour-house', 'tour-calendar'];
+// 친구들과 한 집(커뮤니티)을 맨 앞에 — d.tour 순서와 같아야 한다.
+const TOUR_IMGS = ['tour-house', 'tour-decor', 'tour-routines', 'tour-calendar'];
 // 영어 페이지는 영어 UI 캡처(public/assets/screens/en, rougether-mobile#1369) — 같은 이름으로 로케일 폴더만 다르다.
 const SCREENS_DIR = locale === 'en' ? '/assets/screens/en' : '/assets/screens';
 
