@@ -20,7 +20,11 @@ export interface Dict {
   web: { eyebrow: string; title: [string, string]; button: string; stepsLabel: string; steps: { where: string; how: string }[] };
   faq: { heading: string; reward: string; items: (links: { instagram: string; email: string; appStore: string; playStore: string }) => FaqItem[] };
   closing: { title: string; body: string };
-  footer: { privacy: string; terms: string; github: string; web: string; instagramLabel: string };
+  footer: {
+    privacy: string; terms: string; github: string; web: string; instagramLabel: string;
+    /** 사업자 정보 — 메타 비즈니스 인증이 사이트에서 법적 상호(노왁스)를 찾는다. 사업자등록증과 같은 표기. */
+    business: { name: string; owner: string; regNo: string; address: string };
+  };
 }
 
 const ko: Dict = {
@@ -81,7 +85,15 @@ const ko: Dict = {
     ],
   },
   closing: { title: '루게더에 오신 걸 환영해요', body: '혼자면 작심삼일, 같이 하면 계속돼요 — 친구들과 한 집에서 함께 시작해보세요.' },
-  footer: { privacy: '개인정보처리방침', terms: '이용약관', github: 'GitHub', web: '웹에서 열기', instagramLabel: '루게더 인스타그램' },
+  footer: {
+    privacy: '개인정보처리방침', terms: '이용약관', github: 'GitHub', web: '웹에서 열기', instagramLabel: '루게더 인스타그램',
+    business: {
+      name: '상호 노왁스',
+      owner: '대표 장진형',
+      regNo: '사업자등록번호 709-28-01982',
+      address: '인천광역시 부평구 열우물로 90, 127동 4303호 (십정동, 더샵부평센트럴시티)',
+    },
+  },
 };
 
 const en: Dict = {
@@ -138,7 +150,15 @@ const en: Dict = {
     ],
   },
   closing: { title: 'Welcome to Rougether', body: 'Habits that fizzle alone keep going together — start with friends in one house.' },
-  footer: { privacy: 'Privacy Policy', terms: 'Terms of Service', github: 'GitHub', web: 'Open on the web', instagramLabel: 'Rougether on Instagram' },
+  footer: {
+    privacy: 'Privacy Policy', terms: 'Terms of Service', github: 'GitHub', web: 'Open on the web', instagramLabel: 'Rougether on Instagram',
+    business: {
+      name: 'Business: 노왁스 (Nowax)',
+      owner: 'Owner: Jinhyeong Jang',
+      regNo: 'Business registration no. 709-28-01982',
+      address: 'Unit 4303, Bldg 127, 90 Yeolumul-ro, Bupyeong-gu, Incheon, Republic of Korea',
+    },
+  },
 };
 
 const DICTS: Record<Locale, Dict> = { ko, en };
