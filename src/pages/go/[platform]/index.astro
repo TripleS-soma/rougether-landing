@@ -1,7 +1,9 @@
 ---
 // 광고 도착 전용 리다이렉트. 랜딩을 거치지 않고 스토어로 바로 보내면서 캠페인 식별자(c)를
-// Play referrer(utm_campaign)·Apple ct 로 넘겨 설치 귀속을 살린다. 메타 트래픽 캠페인은 스토어 URL 을
-// 광고에 직접 넣을 수 없어(#1487810) 이 경로를 도착 URL 로 쓴다. 예: /go/android/?c=<광고ID>
+// Play referrer(utm_campaign)·Apple ct 로 넘겨 설치 귀속을 살린다. 예: /go/android/?c=<광고ID>
+// 주의: 메타 광고 심사 크롤러는 meta refresh 를 따라가 스토어 도착을 감지하고 "App Url은 앱 설치 목표 전용"(#1487810)으로
+// 광고를 거부한다(2026-11-04 실측). 그래서 서버측·meta refresh 리다이렉트는 두지 않고, 모바일 기기의 JS 에서만 이동한다.
+// 데스크톱·크롤러는 스토어 링크가 있는 안내 페이지만 본다.
 import { PLAY_STORE } from '../../../lib/links';
 
 export function getStaticPaths() {
@@ -11,7 +13,6 @@ export function getStaticPaths() {
 const { platform } = Astro.params;
 const APPLE_CAMPAIGN_STORE = 'https://apps.apple.com/app/apple-store/id6793513720';
 const APPLE_PROVIDER_TOKEN = '128831841';
-// JS 가 꺼진 환경을 위한 meta refresh 폴백 — 캠페인 파라미터 없이 스토어만 연다.
 const fallback = platform === 'ios'
   ? `${APPLE_CAMPAIGN_STORE}?pt=${APPLE_PROVIDER_TOKEN}&mt=8`
   : PLAY_STORE;
@@ -23,8 +24,7 @@ const fallback = platform === 'ios'
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="referrer" content="no-referrer" />
-  <title>루게더 앱으로 이동 중</title>
-  <meta http-equiv="refresh" content={`2;url=${fallback}`} />
+  <title>루게더 앱 다운로드</title>
   <style>
     body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1f2430; background: #f5f6fb; text-align: center; }
     p { margin: 0 0 12px; font-size: 15px; }
@@ -33,8 +33,8 @@ const fallback = platform === 'ios'
 </head>
 <body>
   <main>
-    <p>루게더 앱 스토어로 이동 중입니다…</p>
-    <a id="store-link" href={fallback}>바로 열기</a>
+    <p>루게더 앱은 스토어에서 받을 수 있어요.</p>
+    <a id="store-link" href={fallback}>스토어 열기</a>
   </main>
   <script is:inline define:vars={{ platform, playStore: PLAY_STORE, appleStore: APPLE_CAMPAIGN_STORE, appleToken: APPLE_PROVIDER_TOKEN }}>
     (function () {
@@ -52,7 +52,8 @@ const fallback = platform === 'ios'
         ? appleStore + '?pt=' + appleToken + '&ct=' + encodeURIComponent(campaign) + '&mt=8'
         : playStore + '&referrer=' + encodeURIComponent('utm_source=meta&utm_medium=paid&utm_campaign=' + campaign);
       document.getElementById('store-link').href = url;
-      location.replace(url);
+      // 모바일 기기에서만 자동 이동. 데스크톱·크롤러는 링크만 보여 광고 심사에서 스토어 리다이렉트로 잡히지 않게 한다.
+      if (isIOS || isAndroid) location.replace(url);
     })();
   </script>
 </body>
