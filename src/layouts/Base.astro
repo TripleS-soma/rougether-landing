@@ -38,6 +38,8 @@ const alt = { ko: new URL('/', Astro.site).href, en: new URL('/en.html', Astro.s
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="628" />
   <meta name="twitter:card" content="summary_large_image" />
+  <!-- 메타 비즈니스 도메인 인증 (Business Suite → Settings → Domains → rougether.com) -->
+  <meta name="facebook-domain-verification" content="h86nsl43g2uvrlhz12r7d0fxxywgyg" />
   {canonical && <link rel="canonical" href={url} />}
   {alternates && <link rel="alternate" hreflang="ko" href={alt.ko} />}
   {alternates && <link rel="alternate" hreflang="en" href={alt.en} />}
