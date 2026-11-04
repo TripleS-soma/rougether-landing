@@ -2,7 +2,14 @@
 // 모든 페이지가 공유하는 문서 골격 — 메타·파비콘·폰트·GA. 페이지별 태그는 head 슬롯으로.
 import '../styles/tokens.css';
 import '../styles/fonts.css';
-import { GA_ID } from '../lib/links';
+import { GA_ID, PLAY_STORE } from '../lib/links';
+
+// 메타 광고 도착(utm_source=meta) 전용 스토어 직행. 트래픽 캠페인은 스토어 URL을 광고에 못 넣어(#1487810)
+// 랜딩으로 보내는데, 첫날 실측에서 사람 방문의 약 11%만 스토어 배지를 눌렀다. 모바일 기기면 랜딩을 그리지 않고
+// utm_campaign(광고 ID)을 Play referrer·Apple ct 로 넘겨 바로 스토어를 연다(/go/ 페이지와 같은 규칙).
+// 데스크톱·크롤러(메타 심사 봇 포함)는 그대로 랜딩을 본다.
+const APPLE_CAMPAIGN_STORE = 'https://apps.apple.com/app/apple-store/id6793513720';
+const APPLE_PROVIDER_TOKEN = '128831841';
 
 interface Props {
   title: string;
@@ -26,6 +33,26 @@ const alt = { ko: new URL('/', Astro.site).href, en: new URL('/en.html', Astro.s
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script is:inline define:vars={{ playStore: PLAY_STORE, appleStore: APPLE_CAMPAIGN_STORE, appleToken: APPLE_PROVIDER_TOKEN }}>
+    // 메타 광고 유입(utm_source=meta)의 모바일 기기는 랜딩 대신 스토어로 직행 — 가장 먼저 실행돼야 하므로 head 최상단.
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search);
+        if (q.get('utm_source') !== 'meta') return;
+        var ua = navigator.userAgent || '';
+        var ios = /iPhone|iPad|iPod/i.test(ua);
+        var android = /Android/i.test(ua);
+        if (!ios && !android) return;
+        var campaign = (q.get('utm_campaign') || 'meta').replace(/[^\w.-]/g, '').slice(0, 40);
+        var url = ios
+          ? appleStore + '?pt=' + appleToken + '&ct=' + encodeURIComponent(campaign) + '&mt=8'
+          : playStore + '&referrer=' + encodeURIComponent('utm_source=meta&utm_medium=paid&utm_campaign=' + campaign);
+        location.replace(url);
+      } catch (e) {
+        // 파싱 실패 시 랜딩을 그대로 보여준다.
+      }
+    })();
+  </script>
   {noindex && <meta name="robots" content="noindex" />}
   <title>{title}</title>
   <meta name="description" content={description} />
