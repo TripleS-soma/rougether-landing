@@ -10,6 +10,9 @@ import { GA_ID, PLAY_STORE } from '../lib/links';
 // 데스크톱·크롤러(메타 심사 봇 포함)는 그대로 랜딩을 본다.
 const APPLE_CAMPAIGN_STORE = 'https://apps.apple.com/app/apple-store/id6793513720';
 const APPLE_PROVIDER_TOKEN = '128831841';
+// 맞춤형 제품 페이지(App Store Connect 'meta-ads-2026-11', 2026-11-04 심사 제출) — 광고 유입만 새 스크린샷 6장짜리
+// 페이지로 보낸다. 승인 전·비활성 상태에선 App Store 가 ppid 를 무시하고 기본 제품 페이지를 연다.
+const APPLE_PRODUCT_PAGE = 'd3bcf254-39dc-4e35-94cb-25c69d03ba63';
 
 interface Props {
   title: string;
@@ -33,7 +36,7 @@ const alt = { ko: new URL('/', Astro.site).href, en: new URL('/en.html', Astro.s
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script is:inline define:vars={{ playStore: PLAY_STORE, appleStore: APPLE_CAMPAIGN_STORE, appleToken: APPLE_PROVIDER_TOKEN }}>
+  <script is:inline define:vars={{ playStore: PLAY_STORE, appleStore: APPLE_CAMPAIGN_STORE, appleToken: APPLE_PROVIDER_TOKEN, applePpid: APPLE_PRODUCT_PAGE }}>
     // 메타 광고 유입(utm_source=meta)의 모바일 기기는 랜딩 대신 스토어로 직행 — 가장 먼저 실행돼야 하므로 head 최상단.
     (function () {
       try {
@@ -45,7 +48,7 @@ const alt = { ko: new URL('/', Astro.site).href, en: new URL('/en.html', Astro.s
         if (!ios && !android) return;
         var campaign = (q.get('utm_campaign') || 'meta').replace(/[^\w.-]/g, '').slice(0, 40);
         var url = ios
-          ? appleStore + '?pt=' + appleToken + '&ct=' + encodeURIComponent(campaign) + '&mt=8'
+          ? appleStore + '?pt=' + appleToken + '&ct=' + encodeURIComponent(campaign) + '&mt=8' + (applePpid ? '&ppid=' + applePpid : '')
           : playStore + '&referrer=' + encodeURIComponent('utm_source=meta&utm_medium=paid&utm_campaign=' + campaign);
         location.replace(url);
       } catch (e) {
