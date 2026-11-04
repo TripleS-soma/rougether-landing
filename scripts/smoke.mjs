@@ -49,9 +49,13 @@ check(index.includes("localStorage.getItem('rougether.lang')"), '루트 언어 �
 // 브라우저 언어로 자동 리다이렉트하면 영어 로케일로 렌더링하는 구글봇이 한국어 루트를 /en.html 로 넘기는
 // 페이지로 본다 — location.replace 는 명시적 선택(chosen === 'en') 분기에만 있어야 한다.
 {
+  // 메타 광고 유입(utm_source=meta) 스토어 직행 스크립트(PR #69)의 location.replace 는 utm_source 가드 뒤에만 있어야 하고,
+  // 그 하나를 뺀 나머지는 언어 선택 분기 하나뿐이어야 한다.
+  const metaRedirect = /q\.get\('utm_source'\) !== 'meta'\) return;[\s\S]{0,1200}?location\.replace\(url\);/.test(index);
   const replaces = [...index.matchAll(/location\.replace\(/g)].length;
   const guarded = /if \(chosen === 'en'\) \{ location\.replace\(/.test(index);
-  check(replaces === 1 && guarded, '브라우저 언어 기반 자동 리다이렉트 없음 (명시적 선택만 이동)');
+  check(replaces === (metaRedirect ? 2 : 1) && guarded, '브라우저 언어 기반 자동 리다이렉트 없음 (명시적 선택만 이동)');
+  check(metaRedirect && index.includes("'&ppid=' + applePpid"), '메타 유입 iOS 스토어 직행에 맞춤형 제품 페이지 ppid');
   check(/id="lang-suggest"[^>]*hidden/.test(index) && index.includes('/en.html?lang=en'), '비한국어 브라우저용 영어 안내 배너 (기본 hidden)');
 }
 check(!en.includes("localStorage.getItem('rougether.lang')") && !en.includes('id="lang-suggest"'), '/en.html 에는 리다이렉트·안내 배너 없음');
