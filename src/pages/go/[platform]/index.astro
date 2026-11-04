@@ -1,0 +1,59 @@
+---
+// 광고 도착 전용 리다이렉트. 랜딩을 거치지 않고 스토어로 바로 보내면서 캠페인 식별자(c)를
+// Play referrer(utm_campaign)·Apple ct 로 넘겨 설치 귀속을 살린다. 메타 트래픽 캠페인은 스토어 URL 을
+// 광고에 직접 넣을 수 없어(#1487810) 이 경로를 도착 URL 로 쓴다. 예: /go/android/?c=<광고ID>
+import { PLAY_STORE } from '../../../lib/links';
+
+export function getStaticPaths() {
+  return [{ params: { platform: 'android' } }, { params: { platform: 'ios' } }];
+}
+
+const { platform } = Astro.params;
+const APPLE_CAMPAIGN_STORE = 'https://apps.apple.com/app/apple-store/id6793513720';
+const APPLE_PROVIDER_TOKEN = '128831841';
+// JS 가 꺼진 환경을 위한 meta refresh 폴백 — 캠페인 파라미터 없이 스토어만 연다.
+const fallback = platform === 'ios'
+  ? `${APPLE_CAMPAIGN_STORE}?pt=${APPLE_PROVIDER_TOKEN}&mt=8`
+  : PLAY_STORE;
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>루게더 앱으로 이동 중</title>
+  <meta http-equiv="refresh" content={`2;url=${fallback}`} />
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1f2430; background: #f5f6fb; text-align: center; }
+    p { margin: 0 0 12px; font-size: 15px; }
+    a { color: #4f46e5; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <p>루게더 앱 스토어로 이동 중입니다…</p>
+    <a id="store-link" href={fallback}>바로 열기</a>
+  </main>
+  <script is:inline define:vars={{ platform, playStore: PLAY_STORE, appleStore: APPLE_CAMPAIGN_STORE, appleToken: APPLE_PROVIDER_TOKEN }}>
+    (function () {
+      var campaign = (new URLSearchParams(location.search).get('c') || 'meta')
+        .replace(/[^\w.-]/g, '')
+        .slice(0, 40);
+      var ua = navigator.userAgent || '';
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid = /Android/i.test(ua);
+      // 광고 세트는 OS 별로 나뉘지만, 기기가 분명히 다른 OS 면 그 스토어로 보낸다.
+      var target = platform;
+      if (target === 'android' && isIOS && !isAndroid) target = 'ios';
+      if (target === 'ios' && isAndroid && !isIOS) target = 'android';
+      var url = target === 'ios'
+        ? appleStore + '?pt=' + appleToken + '&ct=' + encodeURIComponent(campaign) + '&mt=8'
+        : playStore + '&referrer=' + encodeURIComponent('utm_source=meta&utm_medium=paid&utm_campaign=' + campaign);
+      document.getElementById('store-link').href = url;
+      location.replace(url);
+    })();
+  </script>
+</body>
+</html>
