@@ -1,5 +1,5 @@
 ---
-import { INSTAGRAM, GITHUB, WEB_APP } from '../lib/links';
+import { INSTAGRAM, GITHUB, WEB_APP, CONTACT_EMAIL } from '../lib/links';
 import { t, type Locale } from '../i18n';
 interface Props { locale?: Locale }
 const { locale = 'ko' } = Astro.props;
@@ -17,6 +17,14 @@ const d = t(locale);
         <a href={WEB_APP}>{d.footer.web}</a>
       </div>
       <div class="copy">© 2026 Rougether · TripleS</div>
+      <!-- 사업자 정보. 메타 비즈니스 인증이 사이트에서 법적 상호를 확인하므로 사업자등록증 표기 그대로 둔다. -->
+      <div class="biz">
+        <span>{d.footer.business.name}</span>
+        <span>{d.footer.business.owner}</span>
+        <span>{d.footer.business.regNo}</span>
+        <span>{d.footer.business.address}</span>
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      </div>
     </div>
     <div class="sns">
       <a href={INSTAGRAM} target="_blank" rel="noopener" aria-label={d.footer.instagramLabel}>
