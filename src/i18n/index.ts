@@ -41,14 +41,14 @@ const ko: Dict = {
     lead: '서로의 방에 놀러 가고, 응원하고, 같이 미션을 채우는 루틴·할 일 앱, 루게더.',
     webLink: 'PC에서 설치 없이 웹으로 시작하기 →',
     scrollHint: '스크롤해서 더 알아보기',
-    heroAlt: '루게더 내 방 화면 — 구름 벽지 방에서 쉬는 고양이 캐릭터와 오늘의 할 일',
+    heroAlt: '루게더 내 방 화면 — 레코드플레이어와 기타가 놓인 방에서 쉬는 고양이 캐릭터와 오늘의 할 일',
   },
   // 카피·캡처는 App Store 스크린샷(2026-09)과 동일 — 스토어에서 본 앱을 랜딩에서 그대로 만나게
   tour: [
-    { title: ['친구들과 한 집에서', '함께 쌓는 루틴'], desc: '초대코드로 모인 친구들의 방이 한 집에 — 채팅으로 이야기하고, 응원을 보내고, 같이 지킨 루틴이 집 레벨을 올려요', alt: '집 화면 — 구름 위 집에 모인 방들, 집 레벨·멤버와 목표·집 탐색·집 관리 버튼' },
-    { title: ['친구가 놀러 오는', '내 취향의 방'], desc: '루틴으로 모은 코인으로 가구·소품·벽지·바닥을 골라 꾸미면, 친구들이 놀러 와 구경하고 방명록을 남겨요', alt: '방 꾸미기 화면 — 가구·소품·벽지·바닥 탭과 적용하기' },
-    { title: ['매일의 할 일은', '가볍게 체크'], desc: '학업·건강처럼 카테고리로 묶고, 오늘 몇 개 해냈는지 한눈에 봐요', alt: '오늘의 할 일 화면 — 할 일·학업·건강 카테고리와 곰 체크' },
-    { title: ['차곡차곡 쌓인 하루', '달력에서 한눈에'], desc: '해낸 날엔 달력에 동그라미가 그려지고, 루틴·할 일별로 골라 볼 수 있어요', alt: '달력 화면 — 완료한 날에 동그라미가 표시된 9월 달력과 그날의 할 일' },
+    { title: ['친구들과 한 집에서', '함께 쌓는 루틴'], desc: '초대코드로 모인 친구들의 방이 한 집에 — 채팅으로 이야기하고, 응원을 보내고, 같이 지킨 루틴이 집 레벨을 올려요', alt: '집 화면 — 벽돌집에 모인 네 친구의 방, 집 레벨·목표·멤버와 채팅·집 탐색 버튼' },
+    { title: ['친구가 놀러 오는', '내 취향의 방'], desc: '루틴으로 모은 코인으로 가구·소품·벽지·바닥을 골라 꾸미면, 친구들이 놀러 와 구경하고 방명록을 남겨요', alt: '방 꾸미기 화면 — 가구·소품·벽지·바닥·AI 가구 탭과 적용하기' },
+    { title: ['매일의 할 일은', '가볍게 체크'], desc: '학업·건강처럼 카테고리로 묶고, 오늘 몇 개 해냈는지 한눈에 봐요', alt: '오늘의 할 일 화면 — 할 일·학업·건강과 집 카테고리, 곰 체크' },
+    { title: ['차곡차곡 쌓인 하루', '달력에서 한눈에'], desc: '날짜를 누르면 그날의 루틴·할 일이 펼쳐지고, 루틴·할 일별로 골라 볼 수 있어요', alt: '달력 화면 — 11월 달력과 오늘의 루틴·할 일' },
   ],
   web: {
     eyebrow: '웹에서도',
@@ -75,7 +75,7 @@ const ko: Dict = {
       },
       { q: 'PC에서도 쓸 수 있나요?', a: '네. 브라우저에서 app.rougether.com 을 열고 같은 계정으로 로그인하면 내 방과 할 일이 그대로예요. 자주 쓰면 브라우저의 설치(홈 화면에 추가) 기능으로 앱처럼 둘 수 있어요.' },
       { q: '친구랑 어떻게 같이 쓰나요?', a: '집을 만들고 초대코드를 공유하면 친구가 같은 집에 들어올 수 있어요. iPhone 친구와 안드로이드 친구가 한 집에 모여도 돼요. 집 채팅, 방 구경, 방명록, 응원 보내기, 공동 미션으로 집이 함께 자라요. 집은 여러 개에 참여할 수 있어요.' },
-      { q: '습관 만들기에 어떻게 도움이 되나요?', a: '작심삼일이 되지 않게 매일 체크한 기록이 스트릭으로 이어지고, 해낸 날엔 달력에 동그라미가 그려져요. 친구들과 한 집에 모이면 서로 방을 구경하고 응원을 보내며 공동 미션을 함께 채워서, 혼자보다 오래 가는 습관을 만들 수 있어요.' },
+      { q: '습관 만들기에 어떻게 도움이 되나요?', a: '작심삼일이 되지 않게 매일 체크한 기록이 스트릭으로 이어지고, 지난 날의 기록도 달력에서 다시 볼 수 있어요. 친구들과 한 집에 모이면 서로 방을 구경하고 응원을 보내며 공동 미션을 함께 채워서, 혼자보다 오래 가는 습관을 만들 수 있어요.' },
       { q: '루틴을 지키면 뭐가 생기나요?', a: '완료할 때마다 코인과 스트릭이 쌓이고, 모은 보상으로 방을 꾸미거나 뽑기에서 캐릭터·가구를 얻을 수 있어요.' },
       {
         q: '문의나 버그 제보는 어디로 하나요?',
@@ -114,7 +114,7 @@ const en: Dict = {
     { title: ['One house with friends,', 'routines you build together'], desc: 'Friends join with an invite code — chat, send cheers, and the routines you keep together level up the house', alt: 'House screen — rooms gathered in a house above the clouds, with house level, members and goal, explore and manage buttons' },
     { title: ['A room in your taste,', 'for friends to visit'], desc: 'Spend the coins from your routines on furniture, décor, wallpaper and floors — friends drop by and leave a note in your guestbook', alt: 'Room decorating screen — furniture, décor, wallpaper and floor tabs with an apply button' },
     { title: ['Check off the day’s to-dos', 'with a light touch'], desc: 'Group them by category, like study or health, and see how many you’ve done today at a glance', alt: 'Today’s to-dos screen — to-do, study and health categories with bear check marks' },
-    { title: ['Every day, stacked up,', 'at a glance on the calendar'], desc: 'Days you get things done are circled on the calendar, and you can filter by routines or to-dos', alt: 'Calendar screen — a September calendar with completed days circled and that day’s to-dos' },
+    { title: ['Every day, stacked up,', 'at a glance on the calendar'], desc: 'Tap a day to see its routines and to-dos, and filter by routines or to-dos', alt: 'Calendar screen — a September calendar and that day’s to-dos' },
   ],
   web: {
     eyebrow: 'ALSO ON THE WEB',

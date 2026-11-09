@@ -7,10 +7,10 @@
   --surface-muted: #F5F1E8;
   --border: #E8DCC8;
   --text: #4A403A;
-  --text-muted: #8B7E74;
+  --text-muted: #6A5D54; /* 크림·연두·베이지 배경 모두 4.5:1 이상(본문 대비 기준) */
   --primary: #7FA87F;
   --primary-active: #6D926D;
-  --primary-text: #517751;
+  --primary-text: #4A6E4A; /* 연두 배경(#E1E8D2)에서도 4.5:1 이상 */
   --primary-soft: #7FA87F22;
   --warning: #E8A24A;
   --warning-text: #9D6014;
