@@ -16,10 +16,15 @@ const { locale } = Astro.props;
 const d = t(locale);
 const path = LOCALE_PATH[locale];
 const faqItems = d.faq.items({ instagram: INSTAGRAM, email: CONTACT_EMAIL, appStore: APP_STORE, playStore: PLAY_STORE });
-// 친구들과 한 집(커뮤니티)을 맨 앞에 — d.tour 순서와 같아야 한다.
-const TOUR_IMGS = ['tour-house', 'tour-decor', 'tour-routines', 'tour-calendar'];
-// 영어 페이지는 영어 UI 캡처(public/assets/screens/en, rougether-mobile#1369) — 같은 이름으로 로케일 폴더만 다르다.
+// 영어 페이지는 영어 UI 캡처(public/assets/screens/en, rougether-mobile#1369) — 로케일 폴더가 다르다.
 const SCREENS_DIR = locale === 'en' ? '/assets/screens/en' : '/assets/screens';
+// 히어로는 헤드라인("친구들과 한 집에서")에 맞춰 집 화면, 기능 소개 1번은 내 방(한국어).
+// 영어는 아직 옛 배치(히어로 = 방, 1번 = 집) 캡처라 이름이 다르다. d.tour 순서와 같아야 한다.
+const HERO_IMG = locale === 'en' ? 'hero-room' : 'hero-house';
+const TOUR_IMGS =
+  locale === 'en'
+    ? ['tour-house', 'tour-decor', 'tour-routines', 'tour-calendar']
+    : ['tour-room', 'tour-decor', 'tour-routines', 'tour-calendar'];
 
 const appLd = {
   '@context': 'https://schema.org',
@@ -101,7 +106,7 @@ const faqLd = {
         <p class="web-link"><a href={WEB_APP} data-web-cta="hero">{d.hero.webLink}</a></p>
       </div>
       <div class="phone">
-        <img src={`${SCREENS_DIR}/hero-room.jpg`} alt={d.hero.heroAlt} />
+        <img src={`${SCREENS_DIR}/${HERO_IMG}.jpg`} alt={d.hero.heroAlt} />
       </div>
     </div>
     <a class="scroll-hint" href="#tour" aria-label={d.hero.scrollHint}>
